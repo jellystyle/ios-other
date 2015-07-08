@@ -457,7 +457,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "status=$(git status --porcelain)\nif [[ \"${#status}\" > 0 ]] && [[ $status != *\"M ${INFOPLIST_FILE}\"* ]]; then\n    echo $(agvtool next-version -all)\nelif [[ \"$status\" == *\"M ${INFOPLIST_FILE}\"* ]] && [[ ${CONFIGURATION} == \"Debug\" ]]; then\n    version=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" \"${INFOPLIST_FILE}\")\n    echo $(agvtool new-marketing-version \"$version\")\nfi\n";
+			shellScript = "git=$(`sh /etc/profile; which git)\nstatus=$(\"$git\" status --porcelain)\nif [[ ${#status} != 0 ]] && [[ $status != *\"M ${INFOPLIST_FILE}\"* ]]; then\n\n    buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\n    buildNumber=$(($buildNumber + 1))\n    buildNumber=$(printf \"%d\" $buildNumber)\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/Send to Melissa/Info.plist\"\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/MelissaTests/Info.plist\"\n\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -619,7 +619,7 @@
 				CODE_SIGN_ENTITLEMENTS = Melissa/Melissa.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				INFOPLIST_FILE = Melissa/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -637,7 +637,7 @@
 				CODE_SIGN_ENTITLEMENTS = Melissa/Melissa.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				INFOPLIST_FILE = Melissa/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
