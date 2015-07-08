@@ -1,0 +1,765 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1767B0A1B450E86008C9F83 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */; };
+		A1767B0C1B450EFC008C9F83 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1767B0B1B450EFC008C9F83 /* MobileCoreServices.framework */; };
+		A1767B0F1B452F33008C9F83 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1767B0E1B452F33008C9F83 /* Images.xcassets */; };
+		A1767B101B452F33008C9F83 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1767B0E1B452F33008C9F83 /* Images.xcassets */; };
+		A17FBA241B44DF8200564F82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBA231B44DF8200564F82 /* AppDelegate.swift */; };
+		A17FBA261B44DF8200564F82 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBA251B44DF8200564F82 /* MainViewController.swift */; };
+		A17FBA291B44DF8200564F82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17FBA271B44DF8200564F82 /* Main.storyboard */; };
+		A17FBA2B1B44DF8200564F82 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A17FBA2A1B44DF8200564F82 /* Images.xcassets */; };
+		A17FBA2E1B44DF8200564F82 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A17FBA2C1B44DF8200564F82 /* LaunchScreen.xib */; };
+		A17FBA3A1B44DF8200564F82 /* MelissaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBA391B44DF8200564F82 /* MelissaTests.swift */; };
+		A17FBA4C1B44DFF300564F82 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBA4B1B44DFF300564F82 /* ShareViewController.swift */; };
+		A17FBA4E1B44DFF300564F82 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17FBA4D1B44DFF300564F82 /* MainInterface.storyboard */; };
+		A17FBA511B44DFF300564F82 /* Send to Melissa.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A17FBA471B44DFF300564F82 /* Send to Melissa.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A18D9C2E1B44EEA900F43BF5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */; };
+		A18D9C301B44EF1800F43BF5 /* StaticTables.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C291B44E92D00F43BF5 /* StaticTables.framework */; };
+		A18D9C311B44EF3500F43BF5 /* StaticTables.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C291B44E92D00F43BF5 /* StaticTables.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A1B7F2951B4D2A5D00485CC0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */; };
+		A1B7F2A81B4D33AA00485CC0 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7F2A71B4D33AA00485CC0 /* NavigationController.swift */; };
+		A1B7F2AC1B4D470E00485CC0 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1B7F2AB1B4D470E00485CC0 /* AddressBookUI.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A1767B171B454AC0008C9F83 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A17FBA561B44E10D00564F82 /* StaticTables.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A18D9BEF1B44E64F00F43BF5;
+			remoteInfo = StaticTables;
+		};
+		A17FBA341B44DF8200564F82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A17FBA161B44DF8200564F82 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A17FBA1D1B44DF8200564F82;
+			remoteInfo = Melissa;
+		};
+		A17FBA4F1B44DFF300564F82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A17FBA161B44DF8200564F82 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A17FBA461B44DFF300564F82;
+			remoteInfo = "Send to Melissa";
+		};
+		A18D9B741B44E1B900F43BF5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A17FBA561B44E10D00564F82 /* StaticTables.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1713505185007F800E56C4D;
+			remoteInfo = StaticTables;
+		};
+		A18D9BDC1B44E61700F43BF5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A17FBA561B44E10D00564F82 /* StaticTables.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1E0B40D1AE5141D00C7E308;
+			remoteInfo = StaticTablesTests;
+		};
+		A18D9C281B44E92D00F43BF5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A17FBA561B44E10D00564F82 /* StaticTables.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A18D9BF01B44E64F00F43BF5;
+			remoteInfo = StaticTables;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A17FBA551B44DFF300564F82 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A17FBA511B44DFF300564F82 /* Send to Melissa.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A18D9BDF1B44E61700F43BF5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A18D9C311B44EF3500F43BF5 /* StaticTables.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A1767B0B1B450EFC008C9F83 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		A1767B0E1B452F33008C9F83 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A17FBA1E1B44DF8200564F82 /* Melissa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Melissa.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A17FBA221B44DF8200564F82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A17FBA231B44DF8200564F82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A17FBA251B44DF8200564F82 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		A17FBA281B44DF8200564F82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A17FBA2A1B44DF8200564F82 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A17FBA2D1B44DF8200564F82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		A17FBA331B44DF8200564F82 /* MelissaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MelissaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A17FBA381B44DF8200564F82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A17FBA391B44DF8200564F82 /* MelissaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MelissaTests.swift; sourceTree = "<group>"; };
+		A17FBA471B44DFF300564F82 /* Send to Melissa.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Send to Melissa.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A17FBA4A1B44DFF300564F82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A17FBA4B1B44DFF300564F82 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		A17FBA4D1B44DFF300564F82 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		A17FBA561B44E10D00564F82 /* StaticTables.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = StaticTables.xcodeproj; path = StaticTables/StaticTables.xcodeproj; sourceTree = "<group>"; };
+		A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		A1B7F2A71B4D33AA00485CC0 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		A1B7F2A91B4D38C700485CC0 /* Melissa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Melissa.entitlements; sourceTree = "<group>"; };
+		A1B7F2AA1B4D38E700485CC0 /* Send to Melissa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Send to Melissa.entitlements"; sourceTree = "<group>"; };
+		A1B7F2AB1B4D470E00485CC0 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A17FBA1B1B44DF8200564F82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1B7F2AC1B4D470E00485CC0 /* AddressBookUI.framework in Frameworks */,
+				A18D9C301B44EF1800F43BF5 /* StaticTables.framework in Frameworks */,
+				A18D9C2E1B44EEA900F43BF5 /* MessageUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A17FBA301B44DF8200564F82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A17FBA441B44DFF300564F82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1767B0C1B450EFC008C9F83 /* MobileCoreServices.framework in Frameworks */,
+				A1767B0A1B450E86008C9F83 /* MessageUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A1767B0D1B452F1C008C9F83 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				A1767B0E1B452F33008C9F83 /* Images.xcassets */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		A17FBA151B44DF8200564F82 = {
+			isa = PBXGroup;
+			children = (
+				A1767B0D1B452F1C008C9F83 /* Shared */,
+				A17FBA201B44DF8200564F82 /* Melissa */,
+				A17FBA481B44DFF300564F82 /* Send to Melissa */,
+				A17FBA361B44DF8200564F82 /* MelissaTests */,
+				A17FBA5D1B44E11400564F82 /* Vendor */,
+				A18D9C2F1B44EEAD00F43BF5 /* Frameworks */,
+				A17FBA1F1B44DF8200564F82 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A17FBA1F1B44DF8200564F82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A17FBA1E1B44DF8200564F82 /* Melissa.app */,
+				A17FBA331B44DF8200564F82 /* MelissaTests.xctest */,
+				A17FBA471B44DFF300564F82 /* Send to Melissa.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A17FBA201B44DF8200564F82 /* Melissa */ = {
+			isa = PBXGroup;
+			children = (
+				A1B7F2A91B4D38C700485CC0 /* Melissa.entitlements */,
+				A17FBA231B44DF8200564F82 /* AppDelegate.swift */,
+				A17FBA251B44DF8200564F82 /* MainViewController.swift */,
+				A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */,
+				A1B7F2A71B4D33AA00485CC0 /* NavigationController.swift */,
+				A17FBA271B44DF8200564F82 /* Main.storyboard */,
+				A17FBA2A1B44DF8200564F82 /* Images.xcassets */,
+				A17FBA2C1B44DF8200564F82 /* LaunchScreen.xib */,
+				A17FBA211B44DF8200564F82 /* Supporting Files */,
+			);
+			path = Melissa;
+			sourceTree = "<group>";
+		};
+		A17FBA211B44DF8200564F82 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A17FBA221B44DF8200564F82 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A17FBA361B44DF8200564F82 /* MelissaTests */ = {
+			isa = PBXGroup;
+			children = (
+				A17FBA391B44DF8200564F82 /* MelissaTests.swift */,
+				A17FBA371B44DF8200564F82 /* Supporting Files */,
+			);
+			path = MelissaTests;
+			sourceTree = "<group>";
+		};
+		A17FBA371B44DF8200564F82 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A17FBA381B44DF8200564F82 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A17FBA481B44DFF300564F82 /* Send to Melissa */ = {
+			isa = PBXGroup;
+			children = (
+				A1B7F2AA1B4D38E700485CC0 /* Send to Melissa.entitlements */,
+				A17FBA4B1B44DFF300564F82 /* ShareViewController.swift */,
+				A17FBA4D1B44DFF300564F82 /* MainInterface.storyboard */,
+				A17FBA491B44DFF300564F82 /* Supporting Files */,
+			);
+			path = "Send to Melissa";
+			sourceTree = "<group>";
+		};
+		A17FBA491B44DFF300564F82 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A17FBA4A1B44DFF300564F82 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A17FBA5D1B44E11400564F82 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				A17FBA561B44E10D00564F82 /* StaticTables.xcodeproj */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		A18D9B701B44E1B800F43BF5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A18D9B751B44E1B900F43BF5 /* libStaticTables.a */,
+				A18D9C291B44E92D00F43BF5 /* StaticTables.framework */,
+				A18D9BDD1B44E61700F43BF5 /* StaticTablesTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A18D9C2F1B44EEAD00F43BF5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A1B7F2AB1B4D470E00485CC0 /* AddressBookUI.framework */,
+				A1767B0B1B450EFC008C9F83 /* MobileCoreServices.framework */,
+				A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A17FBA1D1B44DF8200564F82 /* Melissa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A17FBA3D1B44DF8200564F82 /* Build configuration list for PBXNativeTarget "Melissa" */;
+			buildPhases = (
+				A1B7F2831B4D22DD00485CC0 /* Run Script */,
+				A17FBA1A1B44DF8200564F82 /* Sources */,
+				A17FBA1B1B44DF8200564F82 /* Frameworks */,
+				A17FBA1C1B44DF8200564F82 /* Resources */,
+				A17FBA551B44DFF300564F82 /* Embed App Extensions */,
+				A18D9BDF1B44E61700F43BF5 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1767B181B454AC0008C9F83 /* PBXTargetDependency */,
+				A17FBA501B44DFF300564F82 /* PBXTargetDependency */,
+			);
+			name = Melissa;
+			productName = Melissa;
+			productReference = A17FBA1E1B44DF8200564F82 /* Melissa.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A17FBA321B44DF8200564F82 /* MelissaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A17FBA401B44DF8200564F82 /* Build configuration list for PBXNativeTarget "MelissaTests" */;
+			buildPhases = (
+				A17FBA2F1B44DF8200564F82 /* Sources */,
+				A17FBA301B44DF8200564F82 /* Frameworks */,
+				A17FBA311B44DF8200564F82 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A17FBA351B44DF8200564F82 /* PBXTargetDependency */,
+			);
+			name = MelissaTests;
+			productName = MelissaTests;
+			productReference = A17FBA331B44DF8200564F82 /* MelissaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A17FBA461B44DFF300564F82 /* Send to Melissa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A17FBA521B44DFF300564F82 /* Build configuration list for PBXNativeTarget "Send to Melissa" */;
+			buildPhases = (
+				A17FBA431B44DFF300564F82 /* Sources */,
+				A17FBA441B44DFF300564F82 /* Frameworks */,
+				A17FBA451B44DFF300564F82 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Send to Melissa";
+			productName = "Send to Melissa";
+			productReference = A17FBA471B44DFF300564F82 /* Send to Melissa.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A17FBA161B44DF8200564F82 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = "Daniel Farrelly";
+				TargetAttributes = {
+					A17FBA1D1B44DF8200564F82 = {
+						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = SGWXH8G2WP;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					A17FBA321B44DF8200564F82 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = A17FBA1D1B44DF8200564F82;
+					};
+					A17FBA461B44DFF300564F82 = {
+						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = SGWXH8G2WP;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = A17FBA191B44DF8200564F82 /* Build configuration list for PBXProject "Melissa" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A17FBA151B44DF8200564F82;
+			productRefGroup = A17FBA1F1B44DF8200564F82 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A18D9B701B44E1B800F43BF5 /* Products */;
+					ProjectRef = A17FBA561B44E10D00564F82 /* StaticTables.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				A17FBA1D1B44DF8200564F82 /* Melissa */,
+				A17FBA461B44DFF300564F82 /* Send to Melissa */,
+				A17FBA321B44DF8200564F82 /* MelissaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		A18D9B751B44E1B900F43BF5 /* libStaticTables.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libStaticTables.a;
+			remoteRef = A18D9B741B44E1B900F43BF5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A18D9BDD1B44E61700F43BF5 /* StaticTablesTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = StaticTablesTests.xctest;
+			remoteRef = A18D9BDC1B44E61700F43BF5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A18D9C291B44E92D00F43BF5 /* StaticTables.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = StaticTables.framework;
+			remoteRef = A18D9C281B44E92D00F43BF5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A17FBA1C1B44DF8200564F82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A17FBA291B44DF8200564F82 /* Main.storyboard in Resources */,
+				A17FBA2E1B44DF8200564F82 /* LaunchScreen.xib in Resources */,
+				A1767B0F1B452F33008C9F83 /* Images.xcassets in Resources */,
+				A17FBA2B1B44DF8200564F82 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A17FBA311B44DF8200564F82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A17FBA451B44DFF300564F82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A17FBA4E1B44DFF300564F82 /* MainInterface.storyboard in Resources */,
+				A1767B101B452F33008C9F83 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A1B7F2831B4D22DD00485CC0 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "#status=$(git status --porcelain)\n#if [[ ${#status} != 0 ]] && [[ $status != *\"Info.plist\"* ]]; then\n#    warning \"HELLO\"\n#    agvtool next-version -all\n#fi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A17FBA1A1B44DF8200564F82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A17FBA261B44DF8200564F82 /* MainViewController.swift in Sources */,
+				A1B7F2A81B4D33AA00485CC0 /* NavigationController.swift in Sources */,
+				A17FBA241B44DF8200564F82 /* AppDelegate.swift in Sources */,
+				A1B7F2951B4D2A5D00485CC0 /* SettingsViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A17FBA2F1B44DF8200564F82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A17FBA3A1B44DF8200564F82 /* MelissaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A17FBA431B44DFF300564F82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A17FBA4C1B44DFF300564F82 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A1767B181B454AC0008C9F83 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = StaticTables;
+			targetProxy = A1767B171B454AC0008C9F83 /* PBXContainerItemProxy */;
+		};
+		A17FBA351B44DF8200564F82 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A17FBA1D1B44DF8200564F82 /* Melissa */;
+			targetProxy = A17FBA341B44DF8200564F82 /* PBXContainerItemProxy */;
+		};
+		A17FBA501B44DFF300564F82 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A17FBA461B44DFF300564F82 /* Send to Melissa */;
+			targetProxy = A17FBA4F1B44DFF300564F82 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A17FBA271B44DF8200564F82 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A17FBA281B44DF8200564F82 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		A17FBA2C1B44DF8200564F82 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A17FBA2D1B44DF8200564F82 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A17FBA3B1B44DF8200564F82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		A17FBA3C1B44DF8200564F82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A17FBA3E1B44DF8200564F82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Melissa/Melissa.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Melissa/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		A17FBA3F1B44DF8200564F82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Melissa/Melissa.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = Melissa/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		A17FBA411B44DF8200564F82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MelissaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Melissa.app/Melissa";
+			};
+			name = Debug;
+		};
+		A17FBA421B44DF8200564F82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MelissaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Melissa.app/Melissa";
+			};
+			name = Release;
+		};
+		A17FBA531B44DFF300564F82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Send to Melissa/Send to Melissa.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Send to Melissa/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Vendor/StaticTables/\"";
+			};
+			name = Debug;
+		};
+		A17FBA541B44DFF300564F82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Send to Melissa/Send to Melissa.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "Send to Melissa/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Vendor/StaticTables/\"";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A17FBA191B44DF8200564F82 /* Build configuration list for PBXProject "Melissa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A17FBA3B1B44DF8200564F82 /* Debug */,
+				A17FBA3C1B44DF8200564F82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A17FBA3D1B44DF8200564F82 /* Build configuration list for PBXNativeTarget "Melissa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A17FBA3E1B44DF8200564F82 /* Debug */,
+				A17FBA3F1B44DF8200564F82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A17FBA401B44DF8200564F82 /* Build configuration list for PBXNativeTarget "MelissaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A17FBA411B44DF8200564F82 /* Debug */,
+				A17FBA421B44DF8200564F82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A17FBA521B44DFF300564F82 /* Build configuration list for PBXNativeTarget "Send to Melissa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A17FBA531B44DFF300564F82 /* Debug */,
+				A17FBA541B44DFF300564F82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A17FBA161B44DF8200564F82 /* Project object */;
+}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="475" height="642"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="rNG-6c-ff2">
+                    <rect key="frame" x="0.0" y="0.0" width="475" height="642"/>
+                </imageView>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="melissa" translatesAutoresizingMaskIntoConstraints="NO" id="GV1-iR-zqQ">
+                    <rect key="frame" x="56" y="128" width="363" height="514"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="GV1-iR-zqQ" secondAttribute="height" multiplier="771:1090" id="gCH-XN-jYe"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Melissa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15q-uh-WVv">
+                    <rect key="frame" x="190" y="66" width="96" height="36"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.058823529411764705" green="0.46274509803921571" blue="0.83921568627450982" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="rNG-6c-ff2" secondAttribute="bottom" id="0tf-YQ-VPe"/>
+                <constraint firstAttribute="bottom" secondItem="GV1-iR-zqQ" secondAttribute="bottom" id="5SE-Py-6x4"/>
+                <constraint firstItem="rNG-6c-ff2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="AiT-Se-gfi"/>
+                <constraint firstAttribute="trailing" secondItem="rNG-6c-ff2" secondAttribute="trailing" id="Bzn-Va-2cB"/>
+                <constraint firstAttribute="centerY" secondItem="15q-uh-WVv" secondAttribute="centerY" multiplier="3.8" constant="0.80000000000000004" id="CUb-af-ZAO"/>
+                <constraint firstAttribute="centerX" secondItem="GV1-iR-zqQ" secondAttribute="centerX" id="UUr-H2-U2W"/>
+                <constraint firstItem="rNG-6c-ff2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="o8m-4y-McO"/>
+                <constraint firstAttribute="centerX" secondItem="15q-uh-WVv" secondAttribute="centerX" id="oaY-81-o4S"/>
+                <constraint firstItem="GV1-iR-zqQ" firstAttribute="height" relation="lessThanOrEqual" secondItem="rNG-6c-ff2" secondAttribute="height" multiplier="0.8" id="sdl-85-StA"/>
+                <constraint firstItem="GV1-iR-zqQ" firstAttribute="width" relation="greaterThanOrEqual" secondItem="rNG-6c-ff2" secondAttribute="width" multiplier="0.8" priority="750" id="tQD-zT-HDj"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="545.5" y="536"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="gradient" width="300" height="300"/>
+        <image name="melissa" width="771" height="1090"/>
+    </resources>
+</document>

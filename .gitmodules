@@ -1,0 +1,3 @@
+[submodule "Vendor/StaticTables"]
+	path = Vendor/StaticTables
+	url = git@github.com:jellybeansoup/ios-statictables.git
