@@ -25,7 +25,6 @@
 		A18D9C311B44EF3500F43BF5 /* StaticTables.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C291B44E92D00F43BF5 /* StaticTables.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A1B7F2951B4D2A5D00485CC0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */; };
 		A1B7F2A81B4D33AA00485CC0 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7F2A71B4D33AA00485CC0 /* NavigationController.swift */; };
-		A1B7F2AC1B4D470E00485CC0 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1B7F2AB1B4D470E00485CC0 /* AddressBookUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,7 +128,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1B7F2AC1B4D470E00485CC0 /* AddressBookUI.framework in Frameworks */,
 				A18D9C301B44EF1800F43BF5 /* StaticTables.framework in Frameworks */,
 				A18D9C2E1B44EEA900F43BF5 /* MessageUI.framework in Frameworks */,
 			);
