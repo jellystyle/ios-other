@@ -280,7 +280,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A17FBA3D1B44DF8200564F82 /* Build configuration list for PBXNativeTarget "Melissa" */;
 			buildPhases = (
-				A1B7F2831B4D22DD00485CC0 /* Increment Version Number */,
+				A1B7F2D51B4D677B00485CC0 /* Increment Version Numbers */,
 				A17FBA1A1B44DF8200564F82 /* Sources */,
 				A17FBA1B1B44DF8200564F82 /* Frameworks */,
 				A17FBA1C1B44DF8200564F82 /* Resources */,
@@ -447,19 +447,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A1B7F2831B4D22DD00485CC0 /* Increment Version Number */ = {
+		A1B7F2D51B4D677B00485CC0 /* Increment Version Numbers */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Increment Version Number";
+			name = "Increment Version Numbers";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "status=$(git status --porcelain)\nif [[ ${#status} != 0 ]] && [[ $status != *\"${INFOPLIST_FILE}\"* ]]; then\n    agvtool next-version -all\nfi\n";
+			shellScript = "status=$(git status --porcelain)\nif [[ \"${#status}\" > 0 ]] && [[ $status != *\"M ${INFOPLIST_FILE}\"* ]]; then\n    echo $(agvtool next-version -all)\nelif [[ \"$status\" == *\"M ${INFOPLIST_FILE}\"* ]] && [[ ${CONFIGURATION} == \"Debug\" ]]; then\n    version=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" \"${INFOPLIST_FILE}\")\n    echo $(agvtool new-marketing-version \"$version\")\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -621,7 +621,7 @@
 				CODE_SIGN_ENTITLEMENTS = Melissa/Melissa.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				INFOPLIST_FILE = Melissa/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -639,7 +639,7 @@
 				CODE_SIGN_ENTITLEMENTS = Melissa/Melissa.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				INFOPLIST_FILE = Melissa/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
