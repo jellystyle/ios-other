@@ -36,26 +36,31 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
         if let sharedDefaults = NSUserDefaults(suiteName: "group.com.jellystyle.Melissa") {
             self.callRecipient = sharedDefaults.stringForKey("call")
             self.messageRecipient = sharedDefaults.stringForKey("message")
+            self.messages = sharedDefaults.arrayForKey("messages") as? [String]
         }
 
         self.section.removeAllRows()
 
         if self.callRecipient != nil && count( self.callRecipient! ) > 0 {
 
-            self.addRow( "Call", key: "call" )
+            self.addRow( "Call", key: "__call" )
 
         }
 
         if self.messageRecipient != nil && count( self.messageRecipient! ) > 0 {
 
-            self.addRow( "Message", key: "message" )
+            self.addRow( "Message", key: "__message" )
 
-            self.addRow( "🚗💨", key: "farting-car", fontSize: 44.0 )
+            if let messages = self.messages {
 
-            self.addRow( "🚙🚓🚛🚗🚕🚑🚚", key: "traffic", fontSize: 44.0 )
+                for message in messages {
 
-            self.addRow( "👋🏼", key: "wave", fontSize: 44.0 )
-            
+                    self.addRow( message, key: message, fontSize: 44.0 )
+
+                }
+
+            }
+
         }
 
         self.tableView.reloadData()
@@ -83,7 +88,7 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let row = self.dataSource.rowAtIndexPath( indexPath )
 
-        if row.key as? String == "call", let callRecipient = self.callRecipient {
+        if row.key as? String == "__call", let callRecipient = self.callRecipient {
             let telURL = NSURL(string: "tel:" + callRecipient )
             UIApplication.sharedApplication().openURL( telURL! )
         }
@@ -96,7 +101,7 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
             messageController.recipients = [ messageRecipient ]
 
             // Set the message's content
-            if row.key as? String != "message" {
+            if row.key as? String != "__message" {
                 messageController.body = row.text
             }
 
