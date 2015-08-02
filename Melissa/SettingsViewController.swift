@@ -30,8 +30,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
         let callRow = JSMStaticTextPreference.transientPreferenceWithKey("call")
         callRow.value = self.sharedDefaults!.stringForKey("call")
-        callRow.textField.keyboardType = UIKeyboardType.PhonePad
-        callRow.textField.placeholder = "+61000000000"
+        callRow.textField?.keyboardType = UIKeyboardType.PhonePad
+        callRow.textField?.placeholder = "+61000000000"
         callRow.fitControlToCell = true
         callRow.addObserver(self)
         callSection.addRow(callRow)
@@ -44,8 +44,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
         let messageRow = JSMStaticTextPreference.transientPreferenceWithKey("message")
         messageRow.value = self.sharedDefaults!.stringForKey("message")
-        messageRow.textField.keyboardType = UIKeyboardType.EmailAddress
-        messageRow.textField.placeholder = "example@example.com"
+        messageRow.textField?.keyboardType = UIKeyboardType.EmailAddress
+        messageRow.textField?.placeholder = "example@example.com"
         messageRow.fitControlToCell = true
         messageRow.addObserver(self)
         messageSection.addRow(messageRow)

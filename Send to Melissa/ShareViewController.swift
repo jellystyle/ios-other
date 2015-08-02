@@ -65,11 +65,11 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
     }
 
     func attemptToHandle( itemProvider: NSItemProvider!, typeIdentifier: CFString! ) -> Bool {
-        if !itemProvider.hasItemConformingToTypeIdentifier(typeIdentifier as! String) {
+        if !itemProvider.hasItemConformingToTypeIdentifier(typeIdentifier as String) {
             return false
         }
 
-        itemProvider.loadItemForTypeIdentifier(typeIdentifier as! String, options: nil, completionHandler: { (item, error) -> Void in
+        itemProvider.loadItemForTypeIdentifier(typeIdentifier as String, options: nil, completionHandler: { (item, error) -> Void in
 
             if let messageController = self.messageController, url = item as? NSURL {
 
@@ -77,9 +77,9 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
                     messageController.addAttachmentURL( url, withAlternateFilename: nil )
                 }
 
-                else if let urlString = url.absoluteString {
-                    var body = messageController.body != nil ? messageController.body : ""
-                    body = body + " " + urlString
+                else {
+                    var body: String = messageController.body != nil ? messageController.body! : ""
+                    body = body + " " + url.absoluteString
                     body = body.stringByTrimmingCharactersInSet( NSCharacterSet.whitespaceAndNewlineCharacterSet() )
                     messageController.body = body
                 }
@@ -103,7 +103,7 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 
     // MARK: Message compose view delegate
 
-    func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
         controller.dismissViewControllerAnimated( true ) {
             if let extensionContext = self.extensionContext {
                 extensionContext.completeRequestReturningItems( [], completionHandler:nil )

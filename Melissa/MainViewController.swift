@@ -41,13 +41,13 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 
         self.section.removeAllRows()
 
-        if self.callRecipient != nil && count( self.callRecipient! ) > 0 {
+        if self.callRecipient != nil && self.callRecipient!.characters.count > 0 {
 
             self.addRow( "Call", key: "__call" )
 
         }
 
-        if self.messageRecipient != nil && count( self.messageRecipient! ) > 0 {
+        if self.messageRecipient != nil && self.messageRecipient!.characters.count > 0 {
 
             self.addRow( "Message", key: "__message" )
 
@@ -55,7 +55,7 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 
                 for message in messages {
 
-                    self.addRow( message, key: message, fontSize: 44.0 )
+                    self.addRow( message, key: message )
 
                 }
 
@@ -115,7 +115,7 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 
     // MARK: Message compose view delegate
 
-    func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
         controller.dismissViewControllerAnimated( true, completion: nil )
     }
 
