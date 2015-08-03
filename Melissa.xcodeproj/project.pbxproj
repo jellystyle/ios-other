@@ -466,7 +466,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "git=$(sh /etc/profile; which git)\nstatus=$(\"$git\" status --porcelain)\nif [[ ${#status} != 0 ]] && [[ $status != *\"M ${INFOPLIST_FILE}\"* ]]; then\n\n    buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\n    buildNumber=$(($buildNumber + 1))\n    buildNumber=$(printf \"%d\" $buildNumber)\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/Send to Melissa/Info.plist\"\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/MelissaTests/Info.plist\"\n\nfi\n";
+			shellScript = "sh \"${PROJECT_DIR}/update-version.sh\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
