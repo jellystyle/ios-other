@@ -127,7 +127,6 @@
 		A1B7F2A71B4D33AA00485CC0 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		A1B7F2A91B4D38C700485CC0 /* Melissa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Melissa.entitlements; sourceTree = "<group>"; };
 		A1B7F2AA1B4D38E700485CC0 /* Send to Melissa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Send to Melissa.entitlements"; sourceTree = "<group>"; };
-		A1B7F2AB1B4D470E00485CC0 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,7 +270,6 @@
 		A18D9C2F1B44EEAD00F43BF5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A1B7F2AB1B4D470E00485CC0 /* AddressBookUI.framework */,
 				A1767B0B1B450EFC008C9F83 /* MobileCoreServices.framework */,
 				A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */,
 			);
