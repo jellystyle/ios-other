@@ -12,6 +12,7 @@ DerivedData
 *.perspectivev3
 !default.perspectivev3
 xcuserdata
+*.swp
 
 ## Other
 *.xccheckout
@@ -22,3 +23,8 @@ xcuserdata
 ## Obj-C/Swift specific
 *.hmap
 *.ipa
+
+## AppCode specific
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/*.iws
