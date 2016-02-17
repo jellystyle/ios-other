@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A13A2B381C1E636B007EEEA4 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13A2B371C1E636B007EEEA4 /* ContactsUI.framework */; };
+		A13A2B3A1C1E6F11007EEEA4 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */; };
+		A13A2B3B1C1E6F11007EEEA4 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */; };
 		A1767B0A1B450E86008C9F83 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */; };
 		A1767B0C1B450EFC008C9F83 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1767B0B1B450EFC008C9F83 /* MobileCoreServices.framework */; };
 		A1767B0F1B452F33008C9F83 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1767B0E1B452F33008C9F83 /* Images.xcassets */; };
@@ -105,6 +108,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A13A2B371C1E636B007EEEA4 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
+		A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesManager.swift; sourceTree = "<group>"; };
 		A1767B0B1B450EFC008C9F83 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		A1767B0E1B452F33008C9F83 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A17FBA1E1B44DF8200564F82 /* Melissa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Melissa.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A13A2B381C1E636B007EEEA4 /* ContactsUI.framework in Frameworks */,
 				A18D9C301B44EF1800F43BF5 /* StaticTables.framework in Frameworks */,
 				A18D9C2E1B44EEA900F43BF5 /* MessageUI.framework in Frameworks */,
 			);
@@ -162,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				A1767B0E1B452F33008C9F83 /* Images.xcassets */,
+				A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -270,6 +277,7 @@
 		A18D9C2F1B44EEAD00F43BF5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A13A2B371C1E636B007EEEA4 /* ContactsUI.framework */,
 				A1767B0B1B450EFC008C9F83 /* MobileCoreServices.framework */,
 				A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */,
 			);
@@ -473,6 +481,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A13A2B3A1C1E6F11007EEEA4 /* PreferencesManager.swift in Sources */,
 				A17FBA261B44DF8200564F82 /* MainViewController.swift in Sources */,
 				A1B7F2A81B4D33AA00485CC0 /* NavigationController.swift in Sources */,
 				A17FBA241B44DF8200564F82 /* AppDelegate.swift in Sources */,
@@ -492,6 +501,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A13A2B3B1C1E6F11007EEEA4 /* PreferencesManager.swift in Sources */,
 				A17FBA4C1B44DFF300564F82 /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -634,7 +644,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 3;
 				INFOPLIST_FILE = Melissa/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -653,7 +663,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 3;
 				INFOPLIST_FILE = Melissa/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -705,6 +715,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Send to Melissa/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.Melissa.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -722,6 +733,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Send to Melissa/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.Melissa.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -4,112 +4,105 @@ import MessageUI
 
 class MainViewController: JSMStaticTableViewController, MFMessageComposeViewControllerDelegate {
 
-    let sharedDefaults = NSUserDefaults(suiteName: "group.com.jellystyle.Melissa")
+	let preferences = PreferencesManager(suiteName: "group.com.jellystyle.Melissa")
 
-    let section = JSMStaticSection()
+	let section = JSMStaticSection()
 
-    var callRecipient : String?
+	var callRecipient: String?
 
-    var messageRecipient : String?
+	var messageRecipient: String?
 
-    var messages : [String]?
+	var messages: [String]?
 
-    // MARK: View life cycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	// MARK: View life cycle
 
+	override func viewDidLoad() {
+		super.viewDidLoad()
 
-        self.dataSource.addSection( self.section );
+		self.dataSource.addSection(self.section);
+	}
 
-    }
+	override func viewWillAppear(animated: Bool) {
+		self.section.removeAllRows()
 
-    override func viewWillAppear(animated: Bool) {
+		guard let preferences = self.preferences else {
+			return
+		}
 
-        if let sharedDefaults = NSUserDefaults(suiteName: "group.com.jellystyle.Melissa") {
-            self.callRecipient = sharedDefaults.stringForKey("call")
-            self.messageRecipient = sharedDefaults.stringForKey("message")
-            self.messages = sharedDefaults.arrayForKey("messages") as? [String]
-        }
+		if let recipient = preferences.callRecipient where recipient.characters.count > 0 {
 
-        self.section.removeAllRows()
+			let row = self._row("Call", key: "__call")
+			self.section.addRow(row)
 
-        if self.callRecipient != nil && self.callRecipient!.characters.count > 0 {
+		}
 
-            self.addRow( "Call", key: "__call" )
+		if let recipient = preferences.messageRecipient where recipient.characters.count > 0 {
 
-        }
+			let row = self._row("Message", key: "__message")
+			self.section.addRow(row)
 
-        if self.messageRecipient != nil && self.messageRecipient!.characters.count > 0 {
+			for message in preferences.messages {
+				let row = self._row(message, key: message)
+				self.section.addRow( row )
+			}
 
-            self.addRow( "Message", key: "__message" )
+		}
 
-            if let messages = self.messages {
+		self.tableView.reloadData()
+	}
 
-                for message in messages {
+	private func _row(text: String, key: String, fontSize: CGFloat = 30) -> JSMStaticRow {
+		let row = JSMStaticRow(key: key)
+		row.style = .Default
+		row.text = text
+		row.configurationForCell {
+			row, cell in
+			cell.textLabel?.font = UIFont.systemFontOfSize(fontSize);
+			cell.textLabel?.textAlignment = .Center
+		}
+		return row
+	}
 
-                    self.addRow( message, key: message )
+	// MARK: Table view delegate
 
-                }
+	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+		let numberOfRows: CGFloat = CGFloat(self.section.numberOfRows)
+		return ((tableView.frame.size.height - tableView.contentInset.top - tableView.contentInset.bottom) / numberOfRows)
+	}
 
-            }
+	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let row = self.dataSource.rowAtIndexPath(indexPath)
+		let preferences = PreferencesManager(suiteName: "group.com.jellystyle.Melissa")
 
-        }
+		if let callRecipient = preferences!.callRecipient where row.key as? String == "__call" {
+			let telURL = NSURL(string: "tel:" + callRecipient)
+			UIApplication.sharedApplication().openURL(telURL!)
+		}
 
-        self.tableView.reloadData()
+		else if let messageRecipient = preferences!.messageRecipient {
+			let messageController = MFMessageComposeViewController()
+			messageController.messageComposeDelegate = self
 
-    }
+			// Who does this go to?
+			messageController.recipients = [messageRecipient]
 
-    func addRow( text: String, key: String, fontSize: CGFloat = 30 ) {
-        let row = JSMStaticRow(key: key)
-        row.style = .Default
-        row.text = text
-        row.configurationForCell { row, cell in
-            cell.textLabel?.font = UIFont.systemFontOfSize( fontSize );
-            cell.textLabel?.textAlignment = .Center
-        }
-        self.dataSource.sectionAtIndex(0).addRow( row )
-    }
+			// Set the messageRecipient's content
+			if row.key as? String != "__message" {
+				messageController.body = row.text
+			}
 
-    // MARK: Table view delegate
+			// Show messageRecipient view
+			self.navigationController?.presentViewController(messageController, animated: true, completion: nil)
+		}
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let numberOfRows : CGFloat = CGFloat( self.section.numberOfRows )
-        return ( ( tableView.frame.size.height - tableView.contentInset.top - tableView.contentInset.bottom ) / numberOfRows )
-    }
+		// Clear the selection
+		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+	}
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let row = self.dataSource.rowAtIndexPath( indexPath )
+	// MARK: Message compose view delegate
 
-        if row.key as? String == "__call", let callRecipient = self.callRecipient {
-            let telURL = NSURL(string: "tel:" + callRecipient )
-            UIApplication.sharedApplication().openURL( telURL! )
-        }
-
-        else if let messageRecipient = self.messageRecipient {
-            let messageController = MFMessageComposeViewController()
-            messageController.messageComposeDelegate = self
-
-            // Who does this go to?
-            messageController.recipients = [ messageRecipient ]
-
-            // Set the message's content
-            if row.key as? String != "__message" {
-                messageController.body = row.text
-            }
-
-            // Show message view
-            self.navigationController?.presentViewController( messageController, animated: true, completion: nil)
-        }
-
-        // Clear the selection
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-
-    // MARK: Message compose view delegate
-
-    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
-        controller.dismissViewControllerAnimated( true, completion: nil )
-    }
+	func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+		controller.dismissViewControllerAnimated(true, completion: nil)
+	}
 
 }

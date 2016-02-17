@@ -4,111 +4,145 @@ import MobileCoreServices
 
 class ShareViewController: UIViewController, MFMessageComposeViewControllerDelegate {
 
-    let sharedDefaults = NSUserDefaults(suiteName: "group.com.jellystyle.Melissa")
+	let preferences = PreferencesManager(suiteName: "group.com.jellystyle.Melissa")
 
-    // MARK: Handling extension requests
+	// MARK: Handling extension requests
 
-    var messageController: MFMessageComposeViewController?
+	var messageController: MFMessageComposeViewController?
 
-    override func beginRequestWithExtensionContext(context: NSExtensionContext) {
-        super.beginRequestWithExtensionContext(context)
+	override func beginRequestWithExtensionContext(context: NSExtensionContext) {
+		super.beginRequestWithExtensionContext(context)
 
-        // Create our message controller
-        self.messageController = MFMessageComposeViewController()
-        self.messageController!.messageComposeDelegate = self
+		guard let preferences = self.preferences else {
+			return
+		}
 
-        // Add our recipient
-        if let sharedDefaults = NSUserDefaults(suiteName: "group.com.jellystyle.Melissa"), let messageRecipient = sharedDefaults.stringForKey("message") {
-            self.messageController!.recipients = [ messageRecipient ];
-        }
+		guard let messageRecipient = preferences.messageRecipient else {
+			return
+		}
 
-        // We'll handle as many items as we can
-        var items = 0
-        for item in context.inputItems as! [NSExtensionItem] {
-            for itemProvider in item.attachments as! [NSItemProvider] {
+		let messageController = MFMessageComposeViewController()
+		messageController.messageComposeDelegate = self
+		messageController.recipients = [messageRecipient]
 
-                if self.attemptToHandle( itemProvider, typeIdentifier: kUTTypeFileURL ) {
-                    items++;
-                }
+		var items = 0
+		for item in context.inputItems as! [NSExtensionItem] {
+			for itemProvider in item.attachments as! [NSItemProvider] {
 
-                else if self.attemptToHandle( itemProvider, typeIdentifier: kUTTypeURL ) {
-                    items++;
-                }
+				if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypeFileURL) {
+					items += 1
+				}
+				else if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypeURL) {
+					items += 1
+				}
+				else if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypeImage) {
+					items += 1
+				}
+				else if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypeAudiovisualContent) {
+					items += 1
+				}
+				else if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypeText) {
+					items += 1
+				}
+				else if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypePDF) {
+					items += 1
+				}
+				else if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypeVCard) {
+					items += 1
+				}
 
-                else if self.attemptToHandle( itemProvider, typeIdentifier: kUTTypeImage ) {
-                    items++;
-                }
+			}
+		}
 
-                else if self.attemptToHandle( itemProvider, typeIdentifier: kUTTypeAudiovisualContent ) {
-                    items++;
-                }
+		if items == 0 {
+			return
+		}
 
-                else if self.attemptToHandle( itemProvider, typeIdentifier: kUTTypeText ) {
-                    items++;
-                }
+		self.messageController = messageController
+	}
 
-                else if self.attemptToHandle( itemProvider, typeIdentifier: kUTTypePDF ) {
-                    items++;
-                }
+	func attemptToHandle(itemProvider: NSItemProvider!, typeIdentifier: CFString!) -> Bool {
+		if !itemProvider.hasItemConformingToTypeIdentifier(typeIdentifier as String) {
+			return false
+		}
 
-                else if self.attemptToHandle( itemProvider, typeIdentifier: kUTTypeVCard ) {
-                    items++;
-                }
-                
-            }
-        }
+		itemProvider.loadItemForTypeIdentifier(typeIdentifier as String, options: nil, completionHandler: {
+			(item, error) -> Void in
+			guard let messageController = self.messageController, url = item as? NSURL else {
+				return
+			}
 
-        // If we don't have any items, we can just complete
-        if items == 0 {
-            context.completeRequestReturningItems( [], completionHandler:nil )
-        }
-    }
+			if url.fileURL {
+				messageController.addAttachmentURL(url, withAlternateFilename: nil)
+			}
+			else {
+				var body: String = messageController.body != nil ? messageController.body! : ""
+				body = body + " " + url.absoluteString
+				body = body.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+				messageController.body = body
+			}
+		})
 
-    func attemptToHandle( itemProvider: NSItemProvider!, typeIdentifier: CFString! ) -> Bool {
-        if !itemProvider.hasItemConformingToTypeIdentifier(typeIdentifier as String) {
-            return false
-        }
+		return true
+	}
 
-        itemProvider.loadItemForTypeIdentifier(typeIdentifier as String, options: nil, completionHandler: { (item, error) -> Void in
+	// MARK: View life cycle
 
-            if let messageController = self.messageController, url = item as? NSURL {
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
 
-                if url.fileURL {
-                    messageController.addAttachmentURL( url, withAlternateFilename: nil )
-                }
+		guard let context = self.extensionContext else {
+			return
+		}
 
-                else {
-                    var body: String = messageController.body != nil ? messageController.body! : ""
-                    body = body + " " + url.absoluteString
-                    body = body.stringByTrimmingCharactersInSet( NSCharacterSet.whitespaceAndNewlineCharacterSet() )
-                    messageController.body = body
-                }
+		// We have to handle our "error" states here so we have a view to show our alerts on.
 
-            }
+		guard let preferences = self.preferences else {
+			self._showMessage("Something went wrong while loading your preferences. Have another go in a minute or two.", handler: {
+				(action) in
+				context.completeRequestReturningItems([], completionHandler: nil)
+			})
+			return
+		}
 
-        })
-        
-        return true
-    }
+		guard let _ = preferences.messageRecipient else {
+			self._showMessage("There's no recipient selected in your preferences. You need to set it up in the app before using this extension.", handler: {
+				(action) in
+				context.completeRequestReturningItems([], completionHandler: nil)
+			})
+			return
+		}
 
-    // MARK: View life cycle
+		guard let messageController = self.messageController else {
+			self._showMessage("Either no items were available to share, or they're not supported. Sorry!", handler: {
+				(action) in
+				context.completeRequestReturningItems([], completionHandler: nil)
+			})
+			return
+		}
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+		// If we got to here, we can go ahead and present the message controller
 
-        if let messageController = self.messageController {
-            self.presentViewController( messageController, animated: true, completion: nil)
-        }
-    }
+		self.presentViewController(messageController, animated: true, completion: nil)
+	}
 
-    // MARK: Message compose view delegate
+	// MARK: Message compose view delegate
 
-    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
-        controller.dismissViewControllerAnimated( true ) {
-            if let extensionContext = self.extensionContext {
-                extensionContext.completeRequestReturningItems( [], completionHandler:nil )
-            }
-        }
+	func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+		controller.dismissViewControllerAnimated(true) {
+			if let extensionContext = self.extensionContext {
+				extensionContext.completeRequestReturningItems([], completionHandler: nil)
+			}
+		}
+	}
+
+	// MARK: Utilities
+
+    private func _showMessage(message: String, handler: ((UIAlertAction) -> Void)? = nil) {
+		let title = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as! String
+		let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+		alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: handler))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
 }
