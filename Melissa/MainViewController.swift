@@ -30,22 +30,18 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 		}
 
 		if let recipient = preferences.callRecipient where recipient.characters.count > 0 {
-
 			let row = self._row("Call", key: "__call")
 			self.section.addRow(row)
-
 		}
 
 		if let recipient = preferences.messageRecipient where recipient.characters.count > 0 {
-
 			let row = self._row("Message", key: "__message")
 			self.section.addRow(row)
 
 			for message in preferences.messages {
 				let row = self._row(message, key: message)
-				self.section.addRow( row )
+				self.section.addRow(row)
 			}
-
 		}
 
 		self.tableView.reloadData()

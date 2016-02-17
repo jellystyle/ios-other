@@ -138,11 +138,11 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 
 	// MARK: Utilities
 
-    private func _showMessage(message: String, handler: ((UIAlertAction) -> Void)? = nil) {
+	private func _showMessage(message: String, handler: ((UIAlertAction) -> Void)? = nil) {
 		let title = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as! String
 		let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
 		alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: handler))
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
+		self.presentViewController(alert, animated: true, completion: nil)
+	}
 
 }
