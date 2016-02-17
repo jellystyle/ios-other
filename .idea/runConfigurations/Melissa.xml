@@ -2,7 +2,7 @@
   <configuration default="false" name="Melissa" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Melissa" TARGET_NAME="Melissa" CONFIG_NAME="Debug" SCHEME_NAME="Melissa" RUN_TARGET_PROJECT_NAME="Melissa" RUN_TARGET_NAME="Melissa" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
     <envs />
     <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
-      <REVEAL_SETTINGS autoInject="false" autoInstall="true" askToEnableAutoInstall="true" />
+      <REVEAL_SETTINGS autoInject="true" autoInstall="true" askToEnableAutoInstall="true" />
     </EXTENSION>
     <method />
   </configuration>
