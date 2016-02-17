@@ -14,14 +14,6 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
         self.tableView.editing = true
         self.tableView.allowsSelectionDuringEditing = true
 
-        if let navigationController = self.navigationController {
-            let gradient = UIImage(named: "gradient")!.stretchableImageWithLeftCapWidth(0, topCapHeight: 0)
-            navigationController.navigationBar.setBackgroundImage( gradient, forBarMetrics: .Default )
-            navigationController.navigationBar.setBackgroundImage( gradient, forBarMetrics: .Compact )
-            navigationController.navigationBar.setBackgroundImage( gradient, forBarMetrics: .DefaultPrompt )
-            navigationController.navigationBar.setBackgroundImage( gradient, forBarMetrics: .CompactPrompt )
-        }
-
         // Call Recipient
 
         let callSection = JSMStaticSection(key: "call-recipient")

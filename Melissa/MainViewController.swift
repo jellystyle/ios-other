@@ -19,13 +19,6 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let navigationController = self.navigationController {
-            let gradient = UIImage(named: "gradient")!.stretchableImageWithLeftCapWidth(0, topCapHeight: 0)
-            navigationController.navigationBar.setBackgroundImage( gradient, forBarMetrics: .Default )
-            navigationController.navigationBar.setBackgroundImage( gradient, forBarMetrics: .Compact )
-            navigationController.navigationBar.setBackgroundImage( gradient, forBarMetrics: .DefaultPrompt )
-            navigationController.navigationBar.setBackgroundImage( gradient, forBarMetrics: .CompactPrompt )
-        }
 
         self.dataSource.addSection( self.section );
 
