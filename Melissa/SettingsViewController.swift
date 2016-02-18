@@ -22,6 +22,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 		let messagesSection = JSMStaticSection(key: "messages")
 		messagesSection.headerText = "Messages"
+        messagesSection.footerText = "Messages are shown as shortcut buttons within the app, providing a quick way to send messages you use regularly."
 		self.dataSource.addSection(messagesSection)
 
 		self._updateView()
@@ -175,6 +176,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
         // Remove sections
 
         guard let preferences = self.preferences, let contact = preferences.contact else {
+            section.footerText = nil
 
             if section.rowWithKey("select-contact") == nil {
                 let row = JSMStaticRow(key: "select-contact")
@@ -231,6 +233,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
                 imageView.layer.masksToBounds = true
             }
         }
+
+        section.footerText = "This is your selected contact. You can tap at any time to select a different person from your address book."
     }
 
     private func _updateRecipientSection() {
@@ -249,6 +253,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
         }
         else {
             section = JSMStaticSection(key: "recipients")
+            section.footerText = "Select the phone number (or email address) used for the call and message features. These are used when tapping a shortcut in the app, or when using the share extension to send images, links and other kinds of content."
             self.dataSource.insertSection(section, atIndex: 1)
         }
 
