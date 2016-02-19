@@ -1,5 +1,6 @@
 import UIKit
 import StaticTables
+import ContactsUI
 import MessageUI
 
 class MainViewController: JSMStaticTableViewController, MFMessageComposeViewControllerDelegate {
@@ -19,7 +20,7 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.dataSource.addSection(self.section);
+        self.dataSource.addSection(self.section);
 	}
 
 	override func viewWillAppear(animated: Bool) {
@@ -28,6 +29,8 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 		guard let preferences = self.preferences else {
 			return
 		}
+
+        self.navigationItem.rightBarButtonItem?.enabled = preferences.contact != nil
 
 		if let recipient = preferences.callRecipient where recipient.characters.count > 0 {
 			let row = self._row("Call", key: "__call")
@@ -58,6 +61,27 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 		}
 		return row
 	}
+
+    // MARK: IBActions
+
+    @IBAction func displayContact(sender: AnyObject) {
+        guard let contact = self.preferences?.contact else {
+            return
+        }
+
+        let fullContact: CNContact
+        do {
+            let store = CNContactStore()
+            fullContact = try store.unifiedContactWithIdentifier(contact.identifier, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
+        }
+        catch {
+            return
+        }
+
+        let viewController = CNContactViewController(forContact: fullContact)
+        viewController.allowsEditing = false
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
 
 	// MARK: Table view delegate
 

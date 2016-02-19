@@ -205,8 +205,8 @@
 				A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */,
 				A1B7F2A71B4D33AA00485CC0 /* NavigationController.swift */,
 				A17FBA271B44DF8200564F82 /* Main.storyboard */,
-				A17FBA2A1B44DF8200564F82 /* Images.xcassets */,
 				A17FBA2C1B44DF8200564F82 /* LaunchScreen.xib */,
+				A17FBA2A1B44DF8200564F82 /* Images.xcassets */,
 				A17FBA211B44DF8200564F82 /* Supporting Files */,
 			);
 			path = Melissa;

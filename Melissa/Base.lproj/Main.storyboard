@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1Ka-8R-9fe">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1Ka-8R-9fe">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--Melissa-->
+        <!--Shortcuts-->
         <scene sceneID="cTV-ZB-lka">
             <objects>
                 <tableViewController id="GIU-fH-7lw" customClass="MainViewController" customModule="Melissa" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,10 +17,15 @@
                             <outlet property="delegate" destination="GIU-fH-7lw" id="E87-8N-116"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Melissa" id="bCw-kk-Jzi">
-                        <barButtonItem key="rightBarButtonItem" image="settings" id="vbc-ay-8aU">
+                    <navigationItem key="navigationItem" title="Shortcuts" id="bCw-kk-Jzi">
+                        <barButtonItem key="leftBarButtonItem" image="settings" id="vbc-ay-8aU">
                             <connections>
                                 <segue destination="QyY-ku-6Kk" kind="presentation" id="8l3-Oc-3ns"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="contact" id="J5E-BM-05k">
+                            <connections>
+                                <action selector="displayContact:" destination="GIU-fH-7lw" id="tNe-Nm-ySn"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -98,6 +103,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="settings" width="19" height="19"/>
+        <image name="contact" width="25" height="25"/>
+        <image name="settings" width="23" height="23"/>
     </resources>
 </document>
