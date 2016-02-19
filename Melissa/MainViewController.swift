@@ -50,17 +50,15 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 		self.tableView.reloadData()
 	}
 
-	private func _row(text: String, key: String, fontSize: CGFloat = 30) -> JSMStaticRow {
-		let row = JSMStaticRow(key: key)
-		row.style = .Default
-		row.text = text
-		row.configurationForCell {
-			row, cell in
-			cell.textLabel?.font = UIFont.systemFontOfSize(fontSize);
-			cell.textLabel?.textAlignment = .Center
-		}
-		return row
-	}
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        coordinator.animateAlongsideTransition({
+            (context) in
+            // Reload the data here so the cells update their height correctly, otherwise the
+            // contentInsets we use (in `tableView:heightForRowAtIndexPath:`) are incorrect.
+            self.tableView.reloadData()
+        }, completion: nil)
+    }
 
 	// MARK: IBActions
 
@@ -101,16 +99,12 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 		else if let messageRecipient = preferences!.messageRecipient {
 			let messageController = MFMessageComposeViewController()
 			messageController.messageComposeDelegate = self
-
-			// Who does this go to?
 			messageController.recipients = [messageRecipient]
 
-			// Set the messageRecipient's content
 			if row.key as? String != "__message" {
 				messageController.body = row.text
 			}
 
-			// Show messageRecipient view
 			self.navigationController?.presentViewController(messageController, animated: true, completion: nil)
 		}
 
@@ -123,5 +117,19 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 	func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
 		controller.dismissViewControllerAnimated(true, completion: nil)
 	}
+
+    // MARK: Utilities
+
+    private func _row(text: String, key: String, fontSize: CGFloat = 30) -> JSMStaticRow {
+        let row = JSMStaticRow(key: key)
+        row.style = .Default
+        row.text = text
+        row.configurationForCell {
+            row, cell in
+            cell.textLabel?.font = UIFont.systemFontOfSize(fontSize);
+            cell.textLabel?.textAlignment = .Center
+        }
+        return row
+    }
 
 }
