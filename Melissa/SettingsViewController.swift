@@ -68,9 +68,15 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 				empty.canBeMoved = true
 				empty.canBeDeleted = true
 				empty.fitControlToCell = true
-				empty.addObserver(self)
+                empty.configurationForCell {
+                    row, cell in
+                    if let preference = row as? JSMStaticTextPreference, let font = cell.textLabel?.font {
+                        preference.textField?.font = font
+                    }
+                }
+                empty.addObserver(self)
 
-				dataSource.insertRow(empty, intoSection: row.section, atIndex: UInt(indexPath.row), withRowAnimation: UITableViewRowAnimation.Bottom)
+                dataSource.insertRow(empty, intoSection: row.section, atIndex: UInt(indexPath.row), withRowAnimation: UITableViewRowAnimation.Bottom)
 				empty.textField?.becomeFirstResponder()
 
 			}
@@ -318,7 +324,13 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 				row.canBeMoved = true
 				row.canBeDeleted = true
 				row.fitControlToCell = true
-				row.addObserver(self)
+                row.configurationForCell {
+                    row, cell in
+                    if let preference = row as? JSMStaticTextPreference, let font = cell.textLabel?.font {
+                        preference.textField?.font = font
+                    }
+                }
+                row.addObserver(self)
 				section.addRow(row)
 			}
 		}
