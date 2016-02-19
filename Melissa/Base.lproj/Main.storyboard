@@ -48,7 +48,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="Lh2-jL-1AE">
-                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="RXu-lV-v9g">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="RXu-lV-v9g">
                             <connections>
                                 <action selector="unwindToMain:" destination="rdN-KO-PFr" id="FfX-uc-RR3"/>
                             </connections>
