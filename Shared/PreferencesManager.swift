@@ -84,26 +84,26 @@ class PreferencesManager {
 			else {
 				self.userDefaults.setObject(contact!.identifier, forKey: "contact-identifier")
 			}
-		}
+
+            self.userDefaults.synchronize()
+        }
 	}
 
 	/// The number used to make phone calls.
 	/// This will default to the first value in the `callOptions` array when a value has not been set.
 	var callRecipient: String? {
 		get {
-			if let call = self.userDefaults.stringForKey("call-recipient") {
-				return call
-			}
+            var recipient: String?
 
-			if let recipient = self.callOptions.first {
-				if let phoneNumber = recipient.value as? CNPhoneNumber {
-					return phoneNumber.stringValue
-				}
-				return (recipient.value as? String)
-			}
+            if let message = self.userDefaults.stringForKey("call-recipient") {
+                recipient = message
+            }
+            else if let option = self.callOptions.first {
+                recipient = option
+            }
 
-			return nil
-		}
+            return recipient
+        }
 		set(call) {
 			if call == nil {
 				self.userDefaults.removeObjectForKey("call-recipient")
@@ -112,6 +112,8 @@ class PreferencesManager {
 			else {
 				self.userDefaults.setObject(call, forKey: "call-recipient")
 			}
+
+            self.userDefaults.synchronize()
 		}
 	}
 
@@ -119,18 +121,16 @@ class PreferencesManager {
 	/// This will default to the first value in the `messageOptions` array when a value has not been set.
 	var messageRecipient: String? {
 		get {
-			if let message = self.userDefaults.stringForKey("message-recipient") {
-				return message
+            var recipient: String?
+
+            if let message = self.userDefaults.stringForKey("message-recipient") {
+				recipient = message
+			}
+			else if let option = self.messageOptions.first {
+                recipient = option
 			}
 
-			if let recipient = self.callOptions.first {
-				if let phoneNumber = recipient.value as? CNPhoneNumber {
-					return phoneNumber.stringValue
-				}
-				return (recipient.value as? String)
-			}
-
-			return nil
+            return recipient
 		}
 		set(message) {
 			if message == nil {
@@ -140,6 +140,8 @@ class PreferencesManager {
 			else {
 				self.userDefaults.setObject(message, forKey: "message-recipient")
 			}
+
+            self.userDefaults.synchronize()
 		}
 	}
 
@@ -147,29 +149,48 @@ class PreferencesManager {
 
 	/// Potential values from the linked contact for the `callRecipient` property.
 	/// If no contact is linked, returns an empty array.
-	var callOptions: [CNLabeledValue] {
+    var callOptions: [String] {
 		get {
 			guard let contact = self.contact else {
 				return []
 			}
 
-			return contact.phoneNumbers
+            var options: [String?] = []
+
+            options += contact.phoneNumbers.map({
+                (labelledValue) in
+                return (labelledValue.value as? CNPhoneNumber)?.stringValue
+            })
+
+            return options.flatMap({ $0 })
 		}
 	}
 
 	/// Potential values from the linked contact for the `messageRecipient` property.
 	/// If no contact is linked, returns an empty array.
-	var messageOptions: [CNLabeledValue] {
-		guard let contact = self.contact else {
-			return []
-		}
+	var messageOptions: [String] {
+        get {
+            guard let contact = self.contact else {
+                return []
+            }
 
-		let phoneNumbers = contact.phoneNumbers.filter({
-			(labelledValue) in
-			return labelledValue.label == CNLabelPhoneNumberiPhone || labelledValue.label == CNLabelPhoneNumberMobile
-		})
+            var options: [String?] = []
 
-		return phoneNumbers + contact.emailAddresses
-	}
+            options += contact.phoneNumbers.filter({
+                (labelledValue) in
+                return labelledValue.label == CNLabelPhoneNumberiPhone || labelledValue.label == CNLabelPhoneNumberMobile
+            }).map({
+                (labelledValue) in
+                return (labelledValue.value as? CNPhoneNumber)?.stringValue
+            })
+
+            options += contact.emailAddresses.map({
+                (labelledValue) in
+                return labelledValue.value as? String
+            })
+
+            return options.flatMap({ $0 })
+        }
+    }
 
 }

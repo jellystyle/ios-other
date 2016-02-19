@@ -20,11 +20,6 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		contactSection.headerText = "Contact"
 		self.dataSource.addSection(contactSection)
 
-		let messagesSection = JSMStaticSection(key: "messages")
-		messagesSection.headerText = "Messages"
-		messagesSection.footerText = "Messages are shown as shortcut buttons within the app, providing a quick way to send messages you use regularly."
-		self.dataSource.addSection(messagesSection)
-
 		self._updateView()
 	}
 
@@ -164,6 +159,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		else {
 			self._showMessage("Something went wrong while updating your preferences. Try again in a minute or three.")
 		}
+
+        self._updateView()
 	}
 
 	// MARK: Utilities
@@ -275,15 +272,14 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			section.addRow(callPreference)
 		}
 
-		callPreference.text = "Calls"
+        var callOptions = preferences.callOptions.map({ (option) in
+            return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option]
+        })
+        callOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""])
+
+        callPreference.text = "Calls"
 		callPreference.value = preferences.callRecipient
-		callPreference.options = preferences.callOptions.map({
-			(labelledValue) in
-			if let phoneNumber = labelledValue.value as? CNPhoneNumber {
-				return [JSMStaticSelectOptionLabel: phoneNumber.stringValue, JSMStaticSelectOptionValue: phoneNumber.stringValue]
-			}
-			return [JSMStaticSelectOptionLabel: labelledValue.value, JSMStaticSelectOptionValue: labelledValue.value]
-		})
+        callPreference.options = callOptions
 
 		// Message Recipient
 
@@ -297,25 +293,39 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			section.addRow(messagePreference)
 		}
 
+        var messageOptions = preferences.messageOptions.map({ (option) in
+            return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option]
+        })
+        messageOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""])
+
 		messagePreference.text = "Messages"
 		messagePreference.value = preferences.messageRecipient
-		messagePreference.options = preferences.messageOptions.map({
-			(labelledValue) in
-			if let phoneNumber = labelledValue.value as? CNPhoneNumber {
-				return [JSMStaticSelectOptionLabel: phoneNumber.stringValue, JSMStaticSelectOptionValue: phoneNumber.stringValue]
-			}
-			return [JSMStaticSelectOptionLabel: labelledValue.value, JSMStaticSelectOptionValue: labelledValue.value]
-		})
-	}
+        messagePreference.options = messageOptions
+}
 
 	private func _updateMessagesSection() {
-		guard let section = self.dataSource.sectionWithKey("messages") else {
-			return
-		}
+        guard let preferences = self.preferences, let recipient = preferences.messageRecipient where recipient.characters.count > 0 else {
 
-		section.removeAllRows()
+            if let messages = self.dataSource.sectionWithKey("messages") {
+                self.dataSource.removeSection(messages)
+            }
+            
+            return
+        }
+        
+        let section: JSMStaticSection
+        if self.dataSource.sectionWithKey("messages") != nil {
+            section = self.dataSource.sectionWithKey("messages")
+            section.removeAllRows()
+        }
+        else {
+            section = JSMStaticSection(key: "messages")
+            section.headerText = "Messages"
+            section.footerText = "Messages are shown as shortcut buttons within the app, providing a quick way to send messages you use regularly."
+            self.dataSource.insertSection(section, atIndex: 2)
+        }
 
-		if let messages = self.preferences?.messages {
+        if let messages = self.preferences?.messages {
 			for message in messages {
 				let row = JSMStaticTextPreference.transientPreferenceWithKey(message)
 				row.value = message
