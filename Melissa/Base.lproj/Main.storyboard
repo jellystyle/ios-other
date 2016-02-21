@@ -23,7 +23,7 @@
                                 <segue destination="QyY-ku-6Kk" kind="presentation" id="8l3-Oc-3ns"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="contact" id="J5E-BM-05k">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" image="contact" id="J5E-BM-05k">
                             <connections>
                                 <action selector="displayContact:" destination="GIU-fH-7lw" id="tNe-Nm-ySn"/>
                             </connections>

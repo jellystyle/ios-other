@@ -17,7 +17,7 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 			return
 		}
 
-		guard let messageRecipient = preferences.messageRecipient else {
+		guard let messageRecipient = preferences.messageRecipient where messageRecipient.characters.count > 0 else {
 			return
 		}
 
@@ -105,8 +105,8 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 			return
 		}
 
-		guard let _ = preferences.messageRecipient else {
-			self._showMessage("There's no recipient selected in your preferences. You need to set it up in the app before using this extension.", handler: {
+		guard let messageRecipient = preferences.messageRecipient where messageRecipient.characters.count > 0 else {
+			self._showMessage("There's no recipient for messages selected in your preferences. You need to set it up in the app before using this extension.", handler: {
 				(action) in
 				context.completeRequestReturningItems([], completionHandler: nil)
 			})

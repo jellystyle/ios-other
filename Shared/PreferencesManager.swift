@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 import Contacts
 
 /// Class used for managing various preferences within the app
@@ -87,6 +87,26 @@ class PreferencesManager {
 
             self.userDefaults.synchronize()
         }
+	}
+
+	func contactThumbnail(size: CGFloat, stroke: CGFloat, edgeInsets: UIEdgeInsets = UIEdgeInsetsZero) -> UIImage? {
+		guard let contact = self.contact else {
+			return nil
+		}
+
+		guard let imageData = contact.thumbnailImageData, let image = UIImage(data: imageData) else {
+			return nil
+		}
+
+		guard let maskedImage = self._maskImage(image, size: size, stroke: stroke) else {
+			return nil
+		}
+
+		guard let offsetImage = self._offsetImage(maskedImage, edgeInsets: edgeInsets) else {
+			return nil
+		}
+
+		return offsetImage.imageWithRenderingMode(.AlwaysOriginal)
 	}
 
 	/// The number used to make phone calls.
@@ -192,5 +212,66 @@ class PreferencesManager {
             return options.flatMap({ $0 })
         }
     }
+
+	// MARK: - Utilities
+
+	private func _maskImage(image: UIImage?, size: CGFloat, stroke: CGFloat = 0) -> UIImage? {
+		guard let image = image else { return nil }
+		if size == 0 { return nil }
+
+		let scale = UIScreen.mainScreen().scale
+		let scaledSize = size * scale
+
+		let source = image.CGImage
+
+		let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue)
+		let context = CGBitmapContextCreate(nil, Int(scaledSize), Int(scaledSize), CGImageGetBitsPerComponent(source), 0, CGImageGetColorSpace(source), bitmapInfo.rawValue)
+
+		let percent = scaledSize / min(image.size.width * image.scale, image.size.height * image.scale)
+		let rectSize = CGSize(width: image.size.width * image.scale * percent, height: image.size.height * image.scale * percent)
+		let rectOrigin = CGPoint(x: ((rectSize.width - scaledSize) / 2), y: ((rectSize.height - scaledSize) / 2) )
+		var rect = CGRect(origin: rectOrigin, size: rectSize)
+
+		if( stroke >= 1 ) {
+			CGContextAddEllipseInRect(context, rect)
+			CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
+			CGContextDrawPath(context, .Fill)
+
+			rect = rect.insetBy(dx: stroke * scale, dy: stroke * scale)
+		}
+
+		CGContextAddEllipseInRect(context, rect)
+		CGContextClip(context)
+
+		CGContextDrawImage(context, rect, source)
+
+		guard let imageRef = CGBitmapContextCreateImage(context) else {
+			return nil
+		}
+
+		return UIImage(CGImage: imageRef, scale: scale, orientation: image.imageOrientation)
+	}
+
+	private func _offsetImage(image: UIImage?, edgeInsets: UIEdgeInsets) -> UIImage? {
+		guard let image = image else { return nil }
+		if edgeInsets == UIEdgeInsetsZero { return image }
+
+		let scale = UIScreen.mainScreen().scale
+
+		let source = image.CGImage
+
+		let contextSize = CGSize(width: (image.size.width + edgeInsets.left + edgeInsets.right) * scale, height: (image.size.height + edgeInsets.top + edgeInsets.bottom) * scale)
+		let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue)
+		let context = CGBitmapContextCreate(nil, Int(contextSize.width), Int(contextSize.height), CGImageGetBitsPerComponent(source), 0, CGImageGetColorSpace(source), bitmapInfo.rawValue)
+
+		let rect = CGRect(x: edgeInsets.left * scale, y: edgeInsets.bottom * scale, width: image.size.width * scale, height: image.size.height * scale)
+		CGContextDrawImage(context, rect, source)
+
+		guard let imageRef = CGBitmapContextCreateImage(context) else {
+			return nil
+		}
+
+		return UIImage(CGImage: imageRef, scale: scale, orientation: image.imageOrientation)
+	}
 
 }

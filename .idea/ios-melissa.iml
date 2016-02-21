@@ -6,40 +6,6 @@
       <sourceFolder url="file://$MODULE_DIR$/MelissaTests/Info.plist" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Shared/Images.xcassets" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Shared/PreferencesManager.swift" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/StaticTables.podspec" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/StaticTables_Prefix.pch" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/README.md" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSection.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticDataSource.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/Info.plist" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/UITableView+StaticTables.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSliderPreference.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/StaticTables.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticBooleanPreference.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticTableViewController.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSliderPreference.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSelectPreference.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticDataSource+Convenience.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticBooleanPreference.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticTableViewController.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSelectPreferenceViewController.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSelectPreferenceViewController.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSection.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/UITableView+StaticTables.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticTextPreference.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticRow.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSelectPreference.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticDataSource+Convenience.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticPreference.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticTextPreference.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticRow.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticDataSource.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticPreference.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTablesTests/StaticTablesDataSourceTests.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTablesTests/StaticTablesTests.m" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTablesTests/Info.plist" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/StaticTables.xcodeproj" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/LICENSE" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Melissa/AppDelegate.swift" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Melissa/Melissa.entitlements" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Melissa/NavigationController.swift" isTestSource="false" />
@@ -49,6 +15,40 @@
       <sourceFolder url="file://$MODULE_DIR$/Melissa/Info.plist" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Melissa/Base.lproj/LaunchScreen.xib" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Melissa/Base.lproj/Main.storyboard" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/StaticTables.podspec" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/StaticTables_Prefix.pch" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/README.md" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSelectPreference.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSection.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/StaticTables.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/UITableView+StaticTables.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/Info.plist" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSliderPreference.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticBooleanPreference.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticTableViewController.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSliderPreference.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticBooleanPreference.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticTableViewController.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSelectPreferenceViewController.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSelectPreferenceViewController.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/UITableView+StaticTables.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticDataSource+Convenience.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticTextPreference.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticRow.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSelectPreference.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticDataSource+Convenience.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticPreference.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticTextPreference.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticRow.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticSection.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticDataSource.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticPreference.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTables/JSMStaticDataSource.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTablesTests/StaticTablesDataSourceTests.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTablesTests/StaticTablesTests.m" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/src/StaticTablesTests/Info.plist" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/StaticTables.xcodeproj" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Vendor/StaticTables/LICENSE" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Send to Melissa/Send to Melissa.entitlements" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Send to Melissa/MainInterface.storyboard" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Send to Melissa/ShareViewController.swift" isTestSource="false" />

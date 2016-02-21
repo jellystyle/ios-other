@@ -209,33 +209,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			section.addRow(contactRow)
 		}
 
-		if let imageData = contact.thumbnailImageData, let image = UIImage(data: imageData) {
-			let source = image.CGImage
-			let scale = UIScreen.mainScreen().scale
-
-			let size = 44 * scale
-
-			let context = CGBitmapContextCreate(nil, Int(size), Int(size), CGImageGetBitsPerComponent(source), 0, CGImageGetColorSpace(source), CGImageGetBitmapInfo(source).rawValue)
-
-			let percent = size / min(image.size.width * image.scale, image.size.height * image.scale)
-			let s = CGSize(width: image.size.width * image.scale * percent, height: image.size.height * image.scale * percent)
-			let o = CGPoint(x: ((s.width - size) / 2), y: ((s.height - size) / 2))
-			CGContextDrawImage(context, CGRect(origin: o, size: s), source)
-
-			if let imageRef = CGBitmapContextCreateImage(context) {
-				contactRow.image = UIImage(CGImage: imageRef, scale: scale, orientation: image.imageOrientation)
-			}
-		}
-
 		let formatter = CNContactFormatter()
 		contactRow.text = formatter.stringFromContact(contact)
-		contactRow.configurationForCell {
-			(row, cell) in
-			if let imageView = cell.imageView, let image = row.image {
-				imageView.layer.cornerRadius = image.size.width / 2
-				imageView.layer.masksToBounds = true
-			}
-		}
+		contactRow.image = preferences.contactThumbnail(46, stroke: 1, edgeInsets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
 
 		section.footerText = "This is your selected contact. You can tap at any time to select a different person from your address book."
 	}
@@ -301,7 +277,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		messagePreference.text = "Messages"
 		messagePreference.value = preferences.messageRecipient
         messagePreference.options = messageOptions
-}
+	}
 
 	private func _updateMessagesSection() {
         guard let preferences = self.preferences, let recipient = preferences.messageRecipient where recipient.characters.count > 0 else {
