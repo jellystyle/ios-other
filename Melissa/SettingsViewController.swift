@@ -297,7 +297,12 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
         else {
             section = JSMStaticSection(key: "messages")
             section.headerText = "Messages"
-            section.footerText = "Messages are shown as shortcut buttons within the app, providing a quick way to send messages you use regularly."
+			if #available(iOS 9.1, *) {
+				section.footerText = "Messages are shown as shortcut buttons within the app, and as 3D touch shortcuts on the home screen, providing a quick way to send messages you use regularly."
+			}
+			else {
+				section.footerText = "Messages are shown as shortcut buttons within the app, providing a quick way to send messages you use regularly."
+			}
             self.dataSource.insertSection(section, atIndex: 2)
         }
 
@@ -334,6 +339,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 	private func _updateMessagesInUserDefaults() {
 		if let preferences = self.preferences, let rows = self.dataSource?.sectionWithKey("messages")?.rows {
 
+			print("Saving messages...")
+
 			let values: [String?] = rows.map({
 				(row) in
 				guard let preference = row as? JSMStaticTextPreference else {
@@ -349,6 +356,15 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 			preferences.messages = values.flatMap({ $0 })
 
+			if #available(iOS 9.1, *) {
+				var shortcutItems: [UIMutableApplicationShortcutItem] = []
+				for message in preferences.messages {
+					let item = UIMutableApplicationShortcutItem(type: "message-shortcut", localizedTitle: message)
+					item.icon = UIApplicationShortcutIcon(type: .Compose)
+					shortcutItems.append(item)
+				}
+				UIApplication.sharedApplication().shortcutItems = shortcutItems
+			}
 		}
 		else {
 			self._showMessage("There was a problem with saving your messages. Maybe you can give it another shot?")
