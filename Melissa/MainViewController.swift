@@ -30,12 +30,18 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 			return
 		}
 
-		if let icon = preferences.contactThumbnail(25, stroke: 1) {
-			self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: icon, style: .Plain, target: self, action: "displayContact:")
-			self.navigationItem.rightBarButtonItem?.enabled = true
-		}
+        if preferences.contact != nil {
+            let icon: UIImage
+            if let thumbnail = preferences.contactThumbnail(25, stroke: 1) {
+                icon = thumbnail
+            }
+            else {
+                icon = UIImage(named: "contact")!
+            }
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: icon, style: .Plain, target: self, action: "displayContact:")
+        }
 
-		if let recipient = preferences.callRecipient where recipient.characters.count > 0 {
+    if let recipient = preferences.callRecipient where recipient.characters.count > 0 {
 			let row = self._row("Call", key: "__call")
 			self.section.addRow(row)
 		}
