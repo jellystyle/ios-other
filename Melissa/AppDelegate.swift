@@ -6,7 +6,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MFMessageComposeViewContr
 
 	var window: UIWindow?
 
-	let preferences = PreferencesManager(suiteName: "group.com.jellystyle.Melissa")
+	let preferences = PreferencesManager.sharedManager
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject:AnyObject]?) -> Bool {
 		return true

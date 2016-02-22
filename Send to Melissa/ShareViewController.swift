@@ -4,8 +4,6 @@ import MobileCoreServices
 
 class ShareViewController: UIViewController, MFMessageComposeViewControllerDelegate {
 
-	let preferences = PreferencesManager(suiteName: "group.com.jellystyle.Melissa")
-
 	// MARK: Handling extension requests
 
 	var messageController: MFMessageComposeViewController?
@@ -13,7 +11,7 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 	override func beginRequestWithExtensionContext(context: NSExtensionContext) {
 		super.beginRequestWithExtensionContext(context)
 
-		guard let preferences = self.preferences else {
+		guard let preferences = PreferencesManager.sharedManager else {
 			return
 		}
 
@@ -97,7 +95,7 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 
 		// We have to handle our "error" states here so we have a view to show our alerts on.
 
-		guard let preferences = self.preferences else {
+		guard let preferences = PreferencesManager.sharedManager else {
 			self._showMessage("Something went wrong while loading your preferences. Have another go in a minute or two.", handler: {
 				(action) in
 				context.completeRequestReturningItems([], completionHandler: nil)

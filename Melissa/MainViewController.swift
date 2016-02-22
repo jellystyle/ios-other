@@ -5,7 +5,7 @@ import MessageUI
 
 class MainViewController: JSMStaticTableViewController, MFMessageComposeViewControllerDelegate {
 
-	let preferences = PreferencesManager(suiteName: "group.com.jellystyle.Melissa")
+	let preferences = PreferencesManager.sharedManager
 
 	let section = JSMStaticSection()
 
@@ -92,14 +92,17 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let row = self.dataSource.rowAtIndexPath(indexPath)
-		let preferences = PreferencesManager(suiteName: "group.com.jellystyle.Melissa")
 
-		if let callRecipient = preferences!.callRecipient where row.key as? String == "__call" {
+		guard let preferences = self.preferences else {
+			return
+		}
+
+		if let callRecipient = preferences.callRecipient where row.key as? String == "__call" {
 			let telURL = NSURL(string: "tel:" + callRecipient)
 			UIApplication.sharedApplication().openURL(telURL!)
 		}
 
-		else if let messageRecipient = preferences!.messageRecipient {
+		else if let messageRecipient = preferences.messageRecipient {
 			let messageController = MFMessageComposeViewController()
 			messageController.messageComposeDelegate = self
 			messageController.recipients = [messageRecipient]

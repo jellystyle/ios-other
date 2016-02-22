@@ -5,8 +5,7 @@ import ImageIO
 
 class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceObserver, CNContactPickerDelegate {
 
-	//! Link to the shared `PreferencesManager` for storage
-	let preferences = PreferencesManager(suiteName: "group.com.jellystyle.Melissa")
+	let preferences = PreferencesManager.sharedManager
 
 	// MARK: View life cycle
 
