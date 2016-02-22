@@ -19,7 +19,7 @@ This app uses [StaticTables](https://github.com/jellybeansoup/ios-statictables),
 open source library I wrote to easily manipulate table views. It's linked as a
 submodule, which needs to be pulled before the app will build.
 
-The app itself is written in Swift 2.0, and at this point, requires Xcode 7 beta 4.
+The app itself is written in Swift 2.0, and at this point, requires Xcode 7.
 
 ##Released under the BSD License
 
