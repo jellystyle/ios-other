@@ -145,7 +145,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 					preferences.messageRecipient = select.value
 				}
 
-			}
+            }
 
 			else if let text = preference as? JSMStaticTextPreference {
 
@@ -158,8 +158,6 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		else {
 			self._showMessage("Something went wrong while updating your preferences. Try again in a minute or three.")
 		}
-
-        self._updateView()
 	}
 
 	// MARK: Utilities
