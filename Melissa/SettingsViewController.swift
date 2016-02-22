@@ -3,7 +3,7 @@ import StaticTables
 import ContactsUI
 import ImageIO
 
-class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceObserver, CNContactPickerDelegate {
+class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceObserver, CNContactPickerDelegate, UITextFieldDelegate {
 
 	let preferences = PreferencesManager.sharedManager
 
@@ -160,7 +160,14 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		}
 	}
 
-	// MARK: Utilities
+	// MARK: Text field delegate
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
+
+    // MARK: Utilities
 
 	private func _updateView() {
 		self._updateContactSection()
@@ -309,6 +316,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 				row.value = message
 				row.textField?.placeholder = "Message Text"
 				row.textField?.returnKeyType = .Done
+                row.textField?.delegate = self
 				row.canBeMoved = true
 				row.canBeDeleted = true
 				row.fitControlToCell = true
