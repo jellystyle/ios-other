@@ -4,9 +4,10 @@ import MobileCoreServices
 
 class ShareViewController: UIViewController, MFMessageComposeViewControllerDelegate {
 
-	// MARK: Handling extension requests
-
+	//! The messages view controller used to present the shared items.
 	var messageController: MFMessageComposeViewController?
+
+	// MARK: Handling extension requests
 
 	override func beginRequestWithExtensionContext(context: NSExtensionContext) {
 		super.beginRequestWithExtensionContext(context)
@@ -136,6 +137,9 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 
 	// MARK: Utilities
 
+	/// Displays a `UIAlertController` with the given `message`.
+	/// @param message The text to be displayed to the user.
+	/// @param handler The function to be run when the user taps the "OK" button (defaults to `nil`).
 	private func _showMessage(message: String, handler: ((UIAlertAction) -> Void)? = nil) {
 		let title = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as! String
 		let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)

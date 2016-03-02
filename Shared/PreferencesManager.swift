@@ -218,6 +218,11 @@ class PreferencesManager {
 
 	// MARK: - Utilities
 
+	/// Create a new image which is resized and masked as a circle, with an optional white stroke.
+	/// @param image The image to be masked.
+	/// @param size The diameter to use for the circle. The given image will be resized to fill this space.
+	/// @param stroke Line width to use for the stroke, defaults to 0 (which does not render a stroke).
+	/// @return A circular image matching the given parameters.
 	private func _maskImage(image: UIImage?, size: CGFloat, stroke: CGFloat = 0) -> UIImage? {
 		guard let image = image else { return nil }
 		if size == 0 { return nil }
@@ -255,6 +260,11 @@ class PreferencesManager {
 		return UIImage(CGImage: imageRef, scale: scale, orientation: image.imageOrientation)
 	}
 
+	/// Creates a new image in which the given image is "padded" based on the given `edgeInsets`.
+	/// This allows manual adjustments to an image's apparent position without needing to adjust the image view.
+	/// @param image The image to be offset.
+	/// @param edgeInsets The padding to use for each of the four sides.
+	/// @return A new image which has (transparent) padding added based on the given `edgeInsets`.
 	private func _offsetImage(image: UIImage?, edgeInsets: UIEdgeInsets) -> UIImage? {
 		guard let image = image else { return nil }
 		if edgeInsets == UIEdgeInsetsZero { return image }

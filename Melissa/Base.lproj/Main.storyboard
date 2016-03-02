@@ -25,7 +25,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" image="contact" id="J5E-BM-05k">
                             <connections>
-                                <action selector="displayContact:" destination="GIU-fH-7lw" id="tNe-Nm-ySn"/>
+                                <action selector="displayContact" destination="GIU-fH-7lw" id="aTG-Km-FyW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

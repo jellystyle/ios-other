@@ -5,6 +5,7 @@ import ImageIO
 
 class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceObserver, CNContactPickerDelegate, UITextFieldDelegate {
 
+	//! The shared preferences manager.
 	let preferences = PreferencesManager.sharedManager
 
 	// MARK: View life cycle
@@ -123,11 +124,11 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 	}
 
 	override func dataSource(dataSource: JSMStaticDataSource!, didMoveRow row: JSMStaticRow!, fromIndexPath: NSIndexPath!, toIndexPath: NSIndexPath!) {
-		self._updateMessagesInUserDefaults()
+		self._saveMessages()
 	}
 
 	override func dataSource(dataSource: JSMStaticDataSource!, didDeleteRow row: JSMStaticRow!, fromIndexPath indexPath: NSIndexPath!) {
-		self._updateMessagesInUserDefaults()
+		self._saveMessages()
 		tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
 	}
 
@@ -150,7 +151,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			else if let text = preference as? JSMStaticTextPreference {
 
 				if text.section?.key as? String == "messages" {
-					self._updateMessagesInUserDefaults()
+					self._saveMessages()
 				}
 
 			}
@@ -169,12 +170,14 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
     // MARK: Utilities
 
+	/// Refresh the various sections in the data source.
 	private func _updateView() {
 		self._updateContactSection()
 		self._updateRecipientSection()
 		self._updateMessagesSection()
 	}
 
+	/// Refresh the contact section.
 	private func _updateContactSection() {
 		guard let section = self.dataSource.sectionWithKey("contact") else {
 			return
@@ -220,6 +223,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		section.footerText = "This is your selected contact. You can tap at any time to select a different person from your address book."
 	}
 
+	/// Refresh the recipient section, removing if no contact is selected.
 	private func _updateRecipientSection() {
 		guard let preferences = self.preferences, let _ = preferences.contact else {
 
@@ -283,6 +287,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
         messagePreference.options = messageOptions
 	}
 
+	/// Refresh the messages section, removing if no message recipient is selected.
 	private func _updateMessagesSection() {
         guard let preferences = self.preferences, let recipient = preferences.messageRecipient where recipient.characters.count > 0 else {
 
@@ -341,7 +346,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		section.addRow(row)
 	}
 
-	private func _updateMessagesInUserDefaults() {
+	/// Generates a list of messages in the messages section, and saves them, using the PreferencesManager.
+	private func _saveMessages() {
 		if let preferences = self.preferences, let rows = self.dataSource?.sectionWithKey("messages")?.rows {
 
 			print("Saving messages...")
@@ -376,6 +382,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		}
 	}
 
+	/// Displays a `UIAlertController` with the given `message`.
+	/// @param message The text to be displayed to the user.
+	/// @param handler The function to be run when the user taps the "OK" button (defaults to `nil`).
 	private func _showMessage(message: String, handler: ((UIAlertAction) -> Void)? = nil) {
 		let title = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as! String
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)

@@ -5,15 +5,11 @@ import MessageUI
 
 class MainViewController: JSMStaticTableViewController, MFMessageComposeViewControllerDelegate {
 
+	//! The shared preferences manager.
 	let preferences = PreferencesManager.sharedManager
 
+	//! The section used by the data source.
 	let section = JSMStaticSection()
-
-	var callRecipient: String?
-
-	var messageRecipient: String?
-
-	var messages: [String]?
 
 	// MARK: View life cycle
 
@@ -38,7 +34,9 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
             else {
                 icon = UIImage(named: "contact")!
             }
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: icon, style: .Plain, target: self, action: "displayContact:")
+			if let item = self.navigationItem.rightBarButtonItem, let target = item.target {
+				self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: icon, style: .Plain, target: target, action: item.action)
+			}
         }
 
     if let recipient = preferences.callRecipient where recipient.characters.count > 0 {
@@ -71,7 +69,8 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 
 	// MARK: IBActions
 
-	@IBAction func displayContact(sender: AnyObject) {
+	/// Displays a `UIContactViewController` for the current contact.
+	@IBAction func displayContact() {
 		guard let contact = self.preferences?.contact else {
 			return
 		}
@@ -132,13 +131,17 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 
     // MARK: Utilities
 
-    private func _row(text: String, key: String, fontSize: CGFloat = 30) -> JSMStaticRow {
+	/// Generate a `JSMStaticRow` instance for a message.
+	/// @param text The text to be used for the cell's `textLabel`
+	/// @param key Unique-ish identifier for the row.
+	/// @return The generated row for addition to the data source.
+    private func _row(text: String, key: String) -> JSMStaticRow {
         let row = JSMStaticRow(key: key)
         row.style = .Default
         row.text = text
         row.configurationForCell {
             row, cell in
-            cell.textLabel?.font = UIFont.systemFontOfSize(fontSize);
+            cell.textLabel?.font = UIFont.systemFontOfSize(30);
             cell.textLabel?.textAlignment = .Center
         }
         return row

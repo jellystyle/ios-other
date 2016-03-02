@@ -4,8 +4,10 @@ import MessageUI
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MFMessageComposeViewControllerDelegate {
 
+	//! The main window.
 	var window: UIWindow?
 
+	//! The shared preferences manager.
 	let preferences = PreferencesManager.sharedManager
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject:AnyObject]?) -> Bool {

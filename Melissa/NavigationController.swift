@@ -21,6 +21,9 @@ extension UINavigationController {
 
 	// MARK: Utilities
 
+	/// Generate a vertical gradient based on a single colour.
+	/// @param color The (roughly) mid-point to use for the gradient.
+	/// @return A 900px square image with a vertical, linear gradient based on the given colour.
 	private func _gradient(color: UIColor) -> UIImage {
 		var hue: CGFloat = 0
 		var saturation: CGFloat = 0
