@@ -319,25 +319,23 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
             self.dataSource.insertSection(section, atIndex: 2)
         }
 
-        if let messages = self.preferences?.messages {
-			for message in messages {
-				let row = JSMStaticTextPreference.transientPreferenceWithKey(message)
-				row.value = message
-				row.textField?.placeholder = "Message Text"
-				row.textField?.returnKeyType = .Done
-                row.textField?.delegate = self
-				row.canBeMoved = true
-				row.canBeDeleted = true
-				row.fitControlToCell = true
-                row.configurationForCell {
-                    row, cell in
-                    if let preference = row as? JSMStaticTextPreference, let font = cell.textLabel?.font {
-                        preference.textField?.font = font
-                    }
-                }
-                row.addObserver(self)
-				section.addRow(row)
+		for message in preferences.messages {
+			let row = JSMStaticTextPreference.transientPreferenceWithKey(message)
+			row.value = message
+			row.textField?.placeholder = "Message Text"
+			row.textField?.returnKeyType = .Done
+			row.textField?.delegate = self
+			row.canBeMoved = true
+			row.canBeDeleted = true
+			row.fitControlToCell = true
+			row.configurationForCell {
+				row, cell in
+				if let preference = row as? JSMStaticTextPreference, let font = cell.textLabel?.font {
+					preference.textField?.font = font
+				}
 			}
+			row.addObserver(self)
+			section.addRow(row)
 		}
 
 		let row = JSMStaticRow(key: "add-message")
