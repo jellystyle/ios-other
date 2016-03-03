@@ -63,8 +63,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 				empty.canBeMoved = true
 				empty.canBeDeleted = true
 				empty.fitControlToCell = true
-                empty.configurationForCell {
-                    row, cell in
+                empty.configurationForCell { row, cell in
                     if let preference = row as? JSMStaticTextPreference, let font = cell.textLabel?.font {
                         preference.textField?.font = font
                     }
@@ -195,9 +194,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			if section.rowWithKey("select-contact") == nil {
 				let row = JSMStaticRow(key: "select-contact")
 				row.text = "Select contact…"
-				row.configurationForCell {
-					(row, cell) in
-					cell.textLabel?.textColor = UIColor(red: 0, green: 0.506, blue: 0.83, alpha: 1)
+				row.configurationForCell { row, cell in
+					cell.textLabel?.textColor = PreferencesManager.tintColor
 				}
 				section.addRow(row)
 			}
@@ -223,6 +221,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		let formatter = CNContactFormatter()
 		contactRow.text = formatter.stringFromContact(contact)
 		contactRow.image = preferences.contactThumbnail(46, stroke: 1, edgeInsets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
+		contactRow.configurationForCell { row, cell in
+			cell.textLabel?.textColor = PreferencesManager.tintColor
+		}
 
 		section.footerText = "This is your selected contact. You can tap at any time to select a different person from your address book."
 	}
@@ -268,6 +269,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
         callPreference.text = "Calls"
 		callPreference.value = preferences.callRecipient
         callPreference.options = callOptions
+		callPreference.configurationForCell { row, cell in
+			cell.textLabel?.textColor = PreferencesManager.tintColor
+		}
 
 		// Message Recipient
 
@@ -289,6 +293,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		messagePreference.text = "Messages"
 		messagePreference.value = preferences.messageRecipient
         messagePreference.options = messageOptions
+		messagePreference.configurationForCell { row, cell in
+			cell.textLabel?.textColor = PreferencesManager.tintColor
+		}
 	}
 
 	/// Refresh the messages section, removing if no message recipient is selected.
@@ -328,10 +335,10 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			row.canBeMoved = true
 			row.canBeDeleted = true
 			row.fitControlToCell = true
-			row.configurationForCell {
-				row, cell in
+			row.configurationForCell { row, cell in
 				if let preference = row as? JSMStaticTextPreference, let font = cell.textLabel?.font {
 					preference.textField?.font = font
+					preference.textField?.textColor = PreferencesManager.tintColor
 				}
 			}
 			row.addObserver(self)
@@ -343,7 +350,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		row.canBeDeleted = true
 		row.configurationForCell {
 			row, cell in
-			cell.textLabel?.textColor = preferences.color
+			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
 		section.addRow(row)
 	}

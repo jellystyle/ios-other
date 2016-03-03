@@ -35,8 +35,13 @@ class PreferencesManager {
 
 	// MARK: - Appearance
 
-	//! Main tint color for the app.
-	var color: UIColor {
+	class var tintColor: UIColor {
+		get {
+			return PreferencesManager.sharedManager?.tintColor ?? UINavigationBar.appearance().tintColor
+		}
+	}
+
+	var tintColor: UIColor {
 		get {
 			return UIColor(red: 0.122, green: 0.463, blue: 0.804, alpha: 1)
 		}
