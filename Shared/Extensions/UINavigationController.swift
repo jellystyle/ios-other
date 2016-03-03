@@ -5,6 +5,8 @@ extension UINavigationController {
 	public override func viewDidLoad() {
 		super.viewDidLoad()
 
+		if self._isStandardNavigationController { return }
+
 		let color = PreferencesManager.tintColor
 		let gradient = UIImage.imageWithGradient(color)
 
@@ -20,7 +22,17 @@ extension UINavigationController {
 	}
 
 	public override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		if self._isStandardNavigationController { return super.preferredStatusBarStyle() }
+
 		return UIStatusBarStyle.LightContent
+	}
+
+	/// Flag to indicate if the receiver is a plain `UINavigationController`.
+	/// This typically indicates if the controller is owned by an external library, like with a `MFMessageComposeViewController`
+	private var _isStandardNavigationController: Bool {
+		get {
+			return object_getClass(self.navigationBar.delegate).self != UINavigationController.self
+		}
 	}
 	
 }
