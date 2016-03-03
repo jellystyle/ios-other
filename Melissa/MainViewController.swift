@@ -95,6 +95,12 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 		return ((tableView.frame.size.height - tableView.contentInset.top - tableView.contentInset.bottom) / numberOfRows)
 	}
 
+	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+		cell.preservesSuperviewLayoutMargins = false
+		cell.layoutMargins = UIEdgeInsetsZero
+		cell.separatorInset = UIEdgeInsetsZero
+	}
+
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let row = self.dataSource.rowAtIndexPath(indexPath)
 
