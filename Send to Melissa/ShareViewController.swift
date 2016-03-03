@@ -97,26 +97,29 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 		// We have to handle our "error" states here so we have a view to show our alerts on.
 
 		guard let preferences = PreferencesManager.sharedManager else {
-			self._showMessage("Something went wrong while loading your preferences. Have another go in a minute or two.", handler: {
-				(action) in
+			let message = "Something went wrong while loading your preferences. Have another go in a minute or two."
+			let alert = UIAlertController.alert(message, handler: { action in
 				context.completeRequestReturningItems([], completionHandler: nil)
 			})
+			self.presentViewController(alert, animated: true, completion: nil)
 			return
 		}
 
 		guard let messageRecipient = preferences.messageRecipient where messageRecipient.characters.count > 0 else {
-			self._showMessage("There's no recipient for messages selected in your preferences. You need to set it up in the app before using this extension.", handler: {
-				(action) in
+			let message = "There's no recipient for messages selected in your preferences. You need to set it up in the app before using this extension."
+			let alert = UIAlertController.alert(message, handler: { action in
 				context.completeRequestReturningItems([], completionHandler: nil)
 			})
+			self.presentViewController(alert, animated: true, completion: nil)
 			return
 		}
 
 		guard let messageController = self.messageController else {
-			self._showMessage("Either no items were available to share, or they're not supported. Sorry!", handler: {
-				(action) in
+			let message = "Either no items were available to share, or they're not supported. Sorry!"
+			let alert = UIAlertController.alert(message, handler: { action in
 				context.completeRequestReturningItems([], completionHandler: nil)
 			})
+			self.presentViewController(alert, animated: true, completion: nil)
 			return
 		}
 
@@ -133,18 +136,6 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 				extensionContext.completeRequestReturningItems([], completionHandler: nil)
 			}
 		}
-	}
-
-	// MARK: Utilities
-
-	/// Displays a `UIAlertController` with the given `message`.
-	/// @param message The text to be displayed to the user.
-	/// @param handler The function to be run when the user taps the "OK" button (defaults to `nil`).
-	private func _showMessage(message: String, handler: ((UIAlertAction) -> Void)? = nil) {
-		let title = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as! String
-		let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-		alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: handler))
-		self.presentViewController(alert, animated: true, completion: nil)
 	}
 
 }

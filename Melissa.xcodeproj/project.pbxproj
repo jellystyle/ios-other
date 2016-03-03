@@ -26,8 +26,9 @@
 		A18D9C2E1B44EEA900F43BF5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */; };
 		A18D9C301B44EF1800F43BF5 /* StaticTables.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C291B44E92D00F43BF5 /* StaticTables.framework */; };
 		A18D9C311B44EF3500F43BF5 /* StaticTables.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C291B44E92D00F43BF5 /* StaticTables.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A190E2591C87B029003A72BB /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7F2A71B4D33AA00485CC0 /* ClassExtensions.swift */; };
 		A1B7F2951B4D2A5D00485CC0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */; };
-		A1B7F2A81B4D33AA00485CC0 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7F2A71B4D33AA00485CC0 /* NavigationController.swift */; };
+		A1B7F2A81B4D33AA00485CC0 /* ClassExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7F2A71B4D33AA00485CC0 /* ClassExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,7 +130,7 @@
 		A17FBA561B44E10D00564F82 /* StaticTables.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = StaticTables.xcodeproj; path = StaticTables/StaticTables.xcodeproj; sourceTree = "<group>"; };
 		A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		A1B7F2A71B4D33AA00485CC0 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		A1B7F2A71B4D33AA00485CC0 /* ClassExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ClassExtensions.swift; path = ../Melissa/ClassExtensions.swift; sourceTree = "<group>"; };
 		A1B7F2A91B4D38C700485CC0 /* Melissa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Melissa.entitlements; sourceTree = "<group>"; };
 		A1B7F2AA1B4D38E700485CC0 /* Send to Melissa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Send to Melissa.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,6 +170,7 @@
 			children = (
 				A1767B0E1B452F33008C9F83 /* Images.xcassets */,
 				A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */,
+				A1B7F2A71B4D33AA00485CC0 /* ClassExtensions.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -203,7 +205,6 @@
 				A17FBA231B44DF8200564F82 /* AppDelegate.swift */,
 				A17FBA251B44DF8200564F82 /* MainViewController.swift */,
 				A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */,
-				A1B7F2A71B4D33AA00485CC0 /* NavigationController.swift */,
 				A17FBA271B44DF8200564F82 /* Main.storyboard */,
 				A17FBA2C1B44DF8200564F82 /* LaunchScreen.xib */,
 				A17FBA2A1B44DF8200564F82 /* Images.xcassets */,
@@ -483,7 +484,7 @@
 			files = (
 				A13A2B3A1C1E6F11007EEEA4 /* PreferencesManager.swift in Sources */,
 				A17FBA261B44DF8200564F82 /* MainViewController.swift in Sources */,
-				A1B7F2A81B4D33AA00485CC0 /* NavigationController.swift in Sources */,
+				A1B7F2A81B4D33AA00485CC0 /* ClassExtensions.swift in Sources */,
 				A17FBA241B44DF8200564F82 /* AppDelegate.swift in Sources */,
 				A1B7F2951B4D2A5D00485CC0 /* SettingsViewController.swift in Sources */,
 			);
@@ -502,6 +503,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A13A2B3B1C1E6F11007EEEA4 /* PreferencesManager.swift in Sources */,
+				A190E2591C87B029003A72BB /* ClassExtensions.swift in Sources */,
 				A17FBA4C1B44DFF300564F82 /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -109,7 +109,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		}
 
 		else {
-			self._showMessage("An error occurred while updating your selected contact. Can you give it another try in a moment?")
+			let message = "An error occurred while updating your selected contact. Can you give it another try in a moment?"
+			let alert = UIAlertController.alert(message)
+			self.presentViewController(alert, animated: true, completion: nil)
 		}
 	}
 
@@ -157,7 +159,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			}
 		}
 		else {
-			self._showMessage("Something went wrong while updating your preferences. Try again in a minute or three.")
+			let message = "Something went wrong while updating your preferences. Try again in a minute or three."
+			let alert = UIAlertController.alert(message)
+			self.presentViewController(alert, animated: true, completion: nil)
 		}
 	}
 
@@ -378,18 +382,10 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			}
 		}
 		else {
-			self._showMessage("There was a problem with saving your messages. Maybe you can give it another shot?")
+			let message = "There was a problem with saving your messages. Maybe you can give it another shot?"
+			let alert = UIAlertController.alert(message)
+			self.presentViewController(alert, animated: true, completion: nil)
 		}
-	}
-
-	/// Displays a `UIAlertController` with the given `message`.
-	/// @param message The text to be displayed to the user.
-	/// @param handler The function to be run when the user taps the "OK" button (defaults to `nil`).
-	private func _showMessage(message: String, handler: ((UIAlertAction) -> Void)? = nil) {
-		let title = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as! String
-		let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-		alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: handler))
-		self.presentViewController(alertController, animated: true, completion: nil)
 	}
 
 }
