@@ -154,6 +154,17 @@ class PreferencesManager {
 		}
 	}
 
+	var callURL: NSURL? {
+		get {
+			let characterSet = NSCharacterSet.URLFragmentAllowedCharacterSet()
+			guard let number = self.callRecipient?.stringByAddingPercentEncodingWithAllowedCharacters(characterSet) else {
+				return nil
+			}
+
+			return NSURL(string: "tel:\(number)");
+		}
+	}
+
 	/// The number or email address used to send messages.
 	/// This will default to the first value in the `messageOptions` array when a value has not been set.
 	var messageRecipient: String? {

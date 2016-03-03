@@ -108,9 +108,8 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 			return
 		}
 
-		if let callRecipient = preferences.callRecipient where row.key as? String == "__call" {
-			let telURL = NSURL(string: "tel:" + callRecipient)
-			UIApplication.sharedApplication().openURL(telURL!)
+		if let callURL = preferences.callURL where row.key as? String == "__call" {
+			UIApplication.sharedApplication().openURL(callURL)
 		}
 
 		else if let messageRecipient = preferences.messageRecipient {
