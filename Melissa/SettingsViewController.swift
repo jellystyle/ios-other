@@ -344,8 +344,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		row.text = "Add Message"
 		row.canBeDeleted = true
 		row.configurationForCell {
-			(row, cell) in
-			cell.textLabel?.textColor = UIColor(red: 0, green: 0.506, blue: 0.83, alpha: 1)
+			row, cell in
+			cell.textLabel?.textColor = preferences.color
 		}
 		section.addRow(row)
 	}

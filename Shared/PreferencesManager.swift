@@ -33,8 +33,17 @@ class PreferencesManager {
 	//! Instance of `NSUserDefaults` used for persistance of preferences.
 	var userDefaults: NSUserDefaults
 
-	// MARK: - Messages
+	// MARK: - Appearance
 
+	//! Main tint color for the app.
+	var color: UIColor {
+		get {
+			return UIColor(red: 0.122, green: 0.463, blue: 0.804, alpha: 1)
+		}
+	}
+
+	// MARK: - Messages
+	
 	//! Array of preset messages to display for quick messaging.
 	var messages: [String] {
 		get {

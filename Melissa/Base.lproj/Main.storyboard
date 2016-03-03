@@ -66,11 +66,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MrV-gI-uqn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.0" green="0.50668013095855713" blue="0.83060371875762939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="rdN-KO-PFr" kind="relationship" relationship="rootViewController" id="RTt-vv-lC2"/>
@@ -87,11 +82,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fMq-FI-jFb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.0" green="0.50668013095855713" blue="0.83060371875762939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="GIU-fH-7lw" kind="relationship" relationship="rootViewController" id="Kgl-xH-gfd"/>
