@@ -39,7 +39,7 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 			}
         }
 
-    if let recipient = preferences.callRecipient where recipient.characters.count > 0 {
+		if let recipient = preferences.callRecipient where recipient.characters.count > 0 {
 			let row = self._row("Call", key: "__call")
 			self.section.addRow(row)
 		}
@@ -54,6 +54,7 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 			}
 		}
 
+		self._calculateRowHeight()
 		self.tableView.reloadData()
 	}
 
@@ -63,9 +64,24 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
             (context) in
             // Reload the data here so the cells update their height correctly, otherwise the
             // contentInsets we use (in `tableView:heightForRowAtIndexPath:`) are incorrect.
+			self._calculateRowHeight()
             self.tableView.reloadData()
         }, completion: nil)
     }
+
+	var rowHeight: CGFloat = 0
+
+	private func _calculateRowHeight() {
+		let numberOfRows: CGFloat = CGFloat(self.section.numberOfRows)
+		let tableViewHeight = tableView.frame.size.height  - tableView.contentInset.top - tableView.contentInset.bottom
+
+		self.rowHeight = max( 80, tableViewHeight / numberOfRows )
+
+		let overflows = ( self.rowHeight * numberOfRows > tableViewHeight )
+
+		self.tableView.scrollEnabled = overflows
+		self.tableView.bounces = overflows
+	}
 
 	// MARK: IBActions
 
@@ -91,8 +107,7 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 	// MARK: Table view delegate
 
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		let numberOfRows: CGFloat = CGFloat(self.section.numberOfRows)
-		return ((tableView.frame.size.height - tableView.contentInset.top - tableView.contentInset.bottom) / numberOfRows)
+		return self.rowHeight
 	}
 
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
