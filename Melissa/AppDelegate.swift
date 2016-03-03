@@ -21,13 +21,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MFMessageComposeViewContr
 			return
 		}
 
-		if shortcutItem.type == "message-shortcut" {
-			let messageController = MFMessageComposeViewController()
-			messageController.messageComposeDelegate = self
-			messageController.recipients = [messageRecipient]
-			messageController.body = shortcutItem.localizedTitle
-			self.window?.rootViewController?.presentViewController(messageController, animated: true, completion: nil)
-		}
+		self.window?.rootViewController?.dismissViewControllerAnimated(false, completion: {
+
+			if shortcutItem.type == "message-shortcut" {
+				let messageController = MFMessageComposeViewController()
+				messageController.messageComposeDelegate = self
+				messageController.recipients = [messageRecipient]
+				messageController.body = shortcutItem.localizedTitle
+				self.window?.rootViewController?.presentViewController(messageController, animated: false, completion: nil)
+			}
+
+		})
 	}
 
 	// MARK: Message compose view delegate
