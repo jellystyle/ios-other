@@ -20,6 +20,19 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		contactSection.headerText = "Contact"
 		self.dataSource.addSection(contactSection)
 
+		let support = JSMStaticSection(key: "support-1")
+		support.headerText = NSBundle.mainBundle().displayName ?? "Melissa"
+		self.dataSource.addSection(support)
+
+		let about = JSMStaticRow(key: "support.about")
+		about.text = "About"
+		about.configurationForCell({ row, cell in
+			cell.accessoryType = .DisclosureIndicator
+			cell.selectionStyle = .Default
+			cell.textLabel?.textColor = PreferencesManager.tintColor
+		})
+		support.addRow(about)
+
 		self._updateView()
 	}
 
@@ -72,6 +85,12 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
                 dataSource.insertRow(empty, intoSection: row.section, atIndex: UInt(indexPath.row), withRowAnimation: UITableViewRowAnimation.Bottom)
 				empty.textField?.becomeFirstResponder()
+
+			}
+			else if row.key as? String == "support.about" {
+
+				let viewController = AboutViewController(style: .Grouped)
+				self.navigationController?.pushViewController(viewController, animated: true)
 
 			}
 		}

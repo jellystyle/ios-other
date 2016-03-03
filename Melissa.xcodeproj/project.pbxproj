@@ -26,6 +26,7 @@
 		A18D9C2E1B44EEA900F43BF5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */; };
 		A18D9C301B44EF1800F43BF5 /* StaticTables.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C291B44E92D00F43BF5 /* StaticTables.framework */; };
 		A18D9C311B44EF3500F43BF5 /* StaticTables.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C291B44E92D00F43BF5 /* StaticTables.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A190E2631C87BA6A003A72BB /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A190E2621C87BA6A003A72BB /* AboutViewController.swift */; };
 		A190E26B1C87C6E2003A72BB /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A190E26A1C87C6E2003A72BB /* UIImage.swift */; };
 		A190E26D1C87C6F3003A72BB /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A190E26C1C87C6F3003A72BB /* UINavigationController.swift */; };
 		A190E26F1C87C703003A72BB /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A190E26E1C87C703003A72BB /* UIAlertController.swift */; };
@@ -135,6 +136,7 @@
 		A17FBA4D1B44DFF300564F82 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		A17FBA561B44E10D00564F82 /* StaticTables.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = StaticTables.xcodeproj; path = StaticTables/StaticTables.xcodeproj; sourceTree = "<group>"; };
 		A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		A190E2621C87BA6A003A72BB /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A190E26A1C87C6E2003A72BB /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		A190E26C1C87C6F3003A72BB /* UINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		A190E26E1C87C703003A72BB /* UIAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				A17FBA231B44DF8200564F82 /* AppDelegate.swift */,
 				A17FBA251B44DF8200564F82 /* MainViewController.swift */,
 				A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */,
+				A190E2621C87BA6A003A72BB /* AboutViewController.swift */,
 				A17FBA271B44DF8200564F82 /* Main.storyboard */,
 				A17FBA2C1B44DF8200564F82 /* LaunchScreen.xib */,
 				A17FBA2A1B44DF8200564F82 /* Images.xcassets */,
@@ -502,6 +505,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A190E2631C87BA6A003A72BB /* AboutViewController.swift in Sources */,
 				A190E26B1C87C6E2003A72BB /* UIImage.swift in Sources */,
 				A13A2B3A1C1E6F11007EEEA4 /* PreferencesManager.swift in Sources */,
 				A190E26F1C87C703003A72BB /* UIAlertController.swift in Sources */,
