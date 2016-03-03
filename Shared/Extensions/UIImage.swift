@@ -1,33 +1,5 @@
 import UIKit
 
-/// Customisations to the overall appearance of navigation controllers.
-extension UINavigationController {
-
-	public override func viewDidLoad() {
-		super.viewDidLoad()
-
-		if let color = PreferencesManager.sharedManager?.color {
-			let gradient = UIImage.imageWithGradient(color)
-
-			self.navigationBar.barTintColor = color
-			self.navigationBar.setBackgroundImage(gradient, forBarMetrics: .Default)
-			self.navigationBar.setBackgroundImage(gradient, forBarMetrics: .Compact)
-			self.navigationBar.setBackgroundImage(gradient, forBarMetrics: .DefaultPrompt)
-			self.navigationBar.setBackgroundImage(gradient, forBarMetrics: .CompactPrompt)
-
-			// TODO: Automatically determine best contrast for colour of title and buttons.
-			self.navigationBar.tintColor = UIColor.whiteColor()
-			self.navigationBar.titleTextAttributes = [ NSForegroundColorAttributeName: UIColor.whiteColor() ]
-		}
-	}
-
-	public override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return UIStatusBarStyle.LightContent
-	}
-
-}
-
-/// Additional methods for manipulating images.
 extension UIImage {
 
 	/// Generate a vertical gradient based on a single colour.
@@ -127,21 +99,5 @@ extension UIImage {
 
 		return UIImage(CGImage: imageRef, scale: scale, orientation: self.imageOrientation)
 	}
-
-}
-
-/// Additional methods for super basic alerts.
-extension UIAlertController {
-
-	/// Create a `UIAlertController` with the given `message`.
-	/// @param message The text to be displayed to the user.
-	/// @param handler The function to be run when the user taps the "OK" button (defaults to `nil`).
-	/// @return The generated alert.
-	class func alert(message: String, handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
-		let title = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as! String
-		let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-		alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: handler))
-		return alertController
-	}
-
+	
 }

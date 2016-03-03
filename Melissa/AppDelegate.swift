@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MFMessageComposeViewContr
 		return true
 	}
 
-	// MARK: Shortcut Items
+	// MARK: - Shortcut Items
 
 	func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
 		guard let messageRecipient = self.preferences?.messageRecipient else {
