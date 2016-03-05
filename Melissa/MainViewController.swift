@@ -58,6 +58,11 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 		self.tableView.reloadData()
 	}
 
+	override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		self._calculateRowHeight()
+	}
+
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         coordinator.animateAlongsideTransition({
