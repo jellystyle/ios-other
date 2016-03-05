@@ -1,8 +1,35 @@
 import UIKit
 import StaticTables
 import SafariServices
+import AVFoundation
+
+private class PlayerView: UIView {
+
+	override class func layerClass() -> AnyClass {
+		return AVPlayerLayer.self
+	}
+
+	override var layer: AVPlayerLayer {
+		get {
+			return (super.layer as! AVPlayerLayer)
+		}
+	}
+
+	var player: AVPlayer? {
+		get {
+			return self.layer.player
+		}
+		set(player) {
+			self.layer.player = player
+			self.layer.backgroundColor = UIColor.clearColor().CGColor
+		}
+	}
+
+}
 
 class AboutViewController: JSMStaticTableViewController {
+
+	var player: AVPlayer? = nil
 
 	// MARK: View life cycle
 
@@ -10,6 +37,37 @@ class AboutViewController: JSMStaticTableViewController {
 		super.viewDidLoad()
 
 		self.navigationItem.title = "About"
+
+		// illustration
+		if let url = NSBundle.mainBundle().URLForResource("illustration", withExtension: "mp4") {
+			let playerItem = AVPlayerItem(URL: url)
+
+			if let track = playerItem.asset.tracksWithMediaCharacteristic(AVMediaCharacteristicVisual).first {
+				// Let's figure out an appropriate size for the video
+				let screen = UIScreen.mainScreen()
+				let percent = min( track.naturalSize.width / screen.scale, screen.bounds.size.width, screen.bounds.size.height ) / track.naturalSize.width
+				let size = CGSize(width: track.naturalSize.width * percent, height: track.naturalSize.height * percent)
+
+				let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.size.width, height: size.height * 0.28))
+				headerView.backgroundColor = UIColor.clearColor()
+				self.tableView.tableHeaderView = headerView
+
+				let player = AVPlayer(playerItem: playerItem)
+				player.allowsExternalPlayback = false
+				player.muted = true
+				self.player = player
+
+				let playerView = PlayerView(frame: CGRect(x: (headerView.frame.size.width - size.width) / 2, y: size.height * -0.72, width: size.width, height: size.height))
+				playerView.autoresizingMask = [ .FlexibleLeftMargin, .FlexibleRightMargin ]
+				playerView.backgroundColor = UIColor.clearColor()
+				playerView.player = self.player
+				headerView.addSubview(playerView)
+
+				NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerItemDidReachEnd:", name: AVPlayerItemDidPlayToEndTimeNotification, object: playerItem)
+				NSNotificationCenter.defaultCenter().addObserver(self, selector: "pausePlayer", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+				NSNotificationCenter.defaultCenter().addObserver(self, selector: "resumePlayer", name: UIApplicationWillEnterForegroundNotification, object: nil)
+			}
+		}
 
 		// About
 		let about = JSMStaticSection()
@@ -56,6 +114,24 @@ class AboutViewController: JSMStaticTableViewController {
 
 	}
 
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		self.resumePlayer()
+	}
+
+	override func viewDidDisappear(animated: Bool) {
+		super.viewDidDisappear(animated)
+		self.pausePlayer()
+	}
+
+	func pausePlayer() {
+		self.player?.pause()
+	}
+
+	func resumePlayer() {
+		self.player?.play()
+	}
+
 	// MARK: Table view delegate
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -72,6 +148,13 @@ class AboutViewController: JSMStaticTableViewController {
 			}
 
 		}
+	}
+
+	// MARK: Player item notifications
+
+	func playerItemDidReachEnd(playerItem: AVPlayerItem) {
+		self.player?.seekToTime(kCMTimeZero)
+		self.player?.play()
 	}
 
 }

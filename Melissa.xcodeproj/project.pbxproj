@@ -35,6 +35,7 @@
 		A190E2721C87C8CE003A72BB /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A190E26C1C87C6F3003A72BB /* UINavigationController.swift */; };
 		A190E2741C87CCB6003A72BB /* NSBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A190E2731C87CCB6003A72BB /* NSBundle.swift */; };
 		A190E2751C87CCB6003A72BB /* NSBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A190E2731C87CCB6003A72BB /* NSBundle.swift */; };
+		A19F6D0B1C8981D2007E1B15 /* illustration.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A19F6D0A1C8981D2007E1B15 /* illustration.mp4 */; };
 		A1B7F2951B4D2A5D00485CC0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +142,7 @@
 		A190E26C1C87C6F3003A72BB /* UINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		A190E26E1C87C703003A72BB /* UIAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		A190E2731C87CCB6003A72BB /* NSBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSBundle.swift; sourceTree = "<group>"; };
+		A19F6D0A1C8981D2007E1B15 /* illustration.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = illustration.mp4; sourceTree = "<group>"; };
 		A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A1B7F2A91B4D38C700485CC0 /* Melissa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Melissa.entitlements; sourceTree = "<group>"; };
 		A1B7F2AA1B4D38E700485CC0 /* Send to Melissa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Send to Melissa.entitlements"; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				A190E2621C87BA6A003A72BB /* AboutViewController.swift */,
 				A17FBA271B44DF8200564F82 /* Main.storyboard */,
 				A17FBA2C1B44DF8200564F82 /* LaunchScreen.xib */,
+				A19F6D0A1C8981D2007E1B15 /* illustration.mp4 */,
 				A17FBA2A1B44DF8200564F82 /* Images.xcassets */,
 				A17FBA211B44DF8200564F82 /* Supporting Files */,
 			);
@@ -462,6 +465,7 @@
 				A17FBA2E1B44DF8200564F82 /* LaunchScreen.xib in Resources */,
 				A1767B0F1B452F33008C9F83 /* Images.xcassets in Resources */,
 				A17FBA2B1B44DF8200564F82 /* Images.xcassets in Resources */,
+				A19F6D0B1C8981D2007E1B15 /* illustration.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
