@@ -172,6 +172,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			preferences.contact = contact
 			self._updateView()
 			self.tableView.reloadData()
+
+			// Save messages here so we immediately get shortcut items
+			self._saveMessages()
 		}
 
 		else {
