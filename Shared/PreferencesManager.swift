@@ -57,7 +57,7 @@ class PreferencesManager {
 			if let messages = self.userDefaults.arrayForKey("messages") as? [String] {
 				return messages
 			}
-			return []
+			return [ "🚗💨", "🚙🚛🚗🚓🚚", "👋" ]
 		}
 		set(messages) {
 			self.userDefaults.setObject(messages, forKey: "messages")
