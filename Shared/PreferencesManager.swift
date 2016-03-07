@@ -35,15 +35,17 @@ class PreferencesManager {
 
 	// MARK: - Appearance
 
+	/// Convenience endpoint for accessing the user-stored tintColor, which falls back to a default.
 	class var tintColor: UIColor {
 		get {
-			return PreferencesManager.sharedManager?.tintColor ?? UINavigationBar.appearance().tintColor
+			return PreferencesManager.sharedManager?.tintColor ?? UIColor(red: 0.122, green: 0.463, blue: 0.804, alpha: 1)
 		}
 	}
 
-	var tintColor: UIColor {
+	/// User-selected tint color for giving the app a little bit of customisation.
+	var tintColor: UIColor? {
 		get {
-			return UIColor(red: 0.122, green: 0.463, blue: 0.804, alpha: 1)
+			return nil
 		}
 	}
 
