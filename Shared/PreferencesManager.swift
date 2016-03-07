@@ -195,6 +195,17 @@ class PreferencesManager {
 		}
 	}
 
+	var messageURL: NSURL? {
+		get {
+			let characterSet = NSCharacterSet.URLFragmentAllowedCharacterSet()
+			guard let number = self.messageRecipient?.stringByAddingPercentEncodingWithAllowedCharacters(characterSet) else {
+				return nil
+			}
+
+			return NSURL(string: "sms:\(number)");
+		}
+	}
+
 	// MARK: - Contact options
 
 	/// Potential values from the linked contact for the `callRecipient` property.

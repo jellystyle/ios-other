@@ -132,15 +132,15 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 			UIApplication.sharedApplication().openURL(callURL)
 		}
 
+		else if let messageURL = preferences.messageURL where row.key as? String == "__message" {
+			UIApplication.sharedApplication().openURL(messageURL)
+		}
+
 		else if let messageRecipient = preferences.messageRecipient {
 			let messageController = MFMessageComposeViewController()
 			messageController.messageComposeDelegate = self
 			messageController.recipients = [messageRecipient]
-
-			if row.key as? String != "__message" {
-				messageController.body = row.text
-			}
-
+			messageController.body = row.text
 			self.navigationController?.presentViewController(messageController, animated: true, completion: nil)
 		}
 
