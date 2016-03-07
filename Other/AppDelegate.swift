@@ -18,21 +18,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MFMessageComposeViewContr
 	// MARK: - Shortcut Items
 
 	func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
-		guard let messageRecipient = self.preferences?.messageRecipient else {
+		guard let rootViewController = self.window?.rootViewController else {
 			return
 		}
 
-		self.window?.rootViewController?.dismissViewControllerAnimated(false, completion: {
+		if rootViewController.presentedViewController != nil {
 
-			if shortcutItem.type == "message-shortcut" {
-				let messageController = MFMessageComposeViewController()
-				messageController.messageComposeDelegate = self
-				messageController.recipients = [messageRecipient]
-				messageController.body = shortcutItem.localizedTitle
-				self.window?.rootViewController?.presentViewController(messageController, animated: false, completion: nil)
+			rootViewController.dismissViewControllerAnimated(false, completion: {
+				self._handleShortcutItem(shortcutItem)
+			})
+
+		}
+
+		else {
+			self._handleShortcutItem(shortcutItem)
+		}
+	}
+
+	/// Perform the appropriate action for the given shortcut item
+	private func _handleShortcutItem(shortcutItem: UIApplicationShortcutItem) {
+		if shortcutItem.type == "message-shortcut" {
+			guard let messageRecipient = self.preferences?.messageRecipient else {
+				return
 			}
 
-		})
+			let messageController = MFMessageComposeViewController()
+			messageController.messageComposeDelegate = self
+			messageController.recipients = [messageRecipient]
+			messageController.body = shortcutItem.localizedTitle
+			self.window?.rootViewController?.presentViewController(messageController, animated: false, completion: nil)
+		}
 	}
 
 	// MARK: Message compose view delegate
