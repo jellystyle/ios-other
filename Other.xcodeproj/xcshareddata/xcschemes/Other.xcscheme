@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A17FBA1D1B44DF8200564F82"
-               BuildableName = "Melissa.app"
-               BlueprintName = "Melissa"
-               ReferencedContainer = "container:Melissa.xcodeproj">
+               BuildableName = "Other.app"
+               BlueprintName = "Other"
+               ReferencedContainer = "container:Other.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A17FBA321B44DF8200564F82"
-               BuildableName = "MelissaTests.xctest"
-               BlueprintName = "MelissaTests"
-               ReferencedContainer = "container:Melissa.xcodeproj">
+               BuildableName = "Other.xctest"
+               BlueprintName = "OtherTests"
+               ReferencedContainer = "container:Other.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "A18D9BC61B44E61700F43BF5"
                BuildableName = "StaticTablesTests.xctest"
                BlueprintName = "StaticTablesTests"
-               ReferencedContainer = "container:Melissa.xcodeproj">
+               ReferencedContainer = "container:Other.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A17FBA321B44DF8200564F82"
-               BuildableName = "MelissaTests.xctest"
-               BlueprintName = "MelissaTests"
-               ReferencedContainer = "container:Melissa.xcodeproj">
+               BuildableName = "Other.xctest"
+               BlueprintName = "OtherTests"
+               ReferencedContainer = "container:Other.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -73,7 +73,7 @@
                BlueprintIdentifier = "A18D9BC61B44E61700F43BF5"
                BuildableName = "StaticTablesTests.xctest"
                BlueprintName = "StaticTablesTests"
-               ReferencedContainer = "container:Melissa.xcodeproj">
+               ReferencedContainer = "container:Other.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -81,9 +81,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A17FBA1D1B44DF8200564F82"
-            BuildableName = "Melissa.app"
-            BlueprintName = "Melissa"
-            ReferencedContainer = "container:Melissa.xcodeproj">
+            BuildableName = "Other.app"
+            BlueprintName = "Other"
+            ReferencedContainer = "container:Other.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -104,9 +104,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A17FBA1D1B44DF8200564F82"
-            BuildableName = "Melissa.app"
-            BlueprintName = "Melissa"
-            ReferencedContainer = "container:Melissa.xcodeproj">
+            BuildableName = "Other.app"
+            BlueprintName = "Other"
+            ReferencedContainer = "container:Other.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -123,9 +123,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A17FBA1D1B44DF8200564F82"
-            BuildableName = "Melissa.app"
-            BlueprintName = "Melissa"
-            ReferencedContainer = "container:Melissa.xcodeproj">
+            BuildableName = "Other.app"
+            BlueprintName = "Other"
+            ReferencedContainer = "container:Other.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

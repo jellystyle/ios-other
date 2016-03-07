@@ -7,7 +7,7 @@ extension UIAlertController {
 	/// @param handler The function to be run when the user taps the "OK" button (defaults to `nil`).
 	/// @return The generated alert.
 	class func alert(message: String, handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
-		let title = NSBundle.mainBundle().displayName ?? "Melissa"
+		let title = NSBundle.mainBundle().displayName ?? "Other"
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
 		alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: handler))
 		return alertController

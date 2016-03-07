@@ -22,7 +22,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		self.dataSource.addSection(contactSection)
 
 		var support = JSMStaticSection(key: "support-1")
-		support.headerText = NSBundle.mainBundle().displayName ?? "Melissa"
+		support.headerText = NSBundle.mainBundle().displayName ?? "Other"
 		self.dataSource.addSection(support)
 
 		if MFMailComposeViewController.canSendMail() {
@@ -120,7 +120,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			}
 			else if row.key as? String == "support.feedback" {
 
-				let appName = NSBundle.mainBundle().displayName ?? "Melissa"
+				let appName = NSBundle.mainBundle().displayName ?? "Other"
 				let appVersion = NSBundle.mainBundle().displayVersion ?? "(Unknown)"
 
 				let viewController = MFMailComposeViewController()

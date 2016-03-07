@@ -1,4 +1,4 @@
-#Melissa
+# Other
 
 An app for making single-recipient communication a little faster.
 
@@ -9,11 +9,12 @@ I needed replacement app for sending a message to my wife without too much effor
 And then, with the advent of extensions, I thought it might be useful to be able to
 send photos, links and other biz to her as well.
 
-Thus was born Melissa, a shortcut app for messaging my wife (and named after her,
+Thus was born _Melissa_, a shortcut app for messaging my wife (and named after her,
 for obvious reasons) without having to find or type her details in each time I want
-to send her something.
+to send her something. In an effort to make the app more generally useful, the name
+was changed to _Other_.
 
-##Requirements
+## Requirements
 
 This app uses [StaticTables](https://github.com/jellybeansoup/ios-statictables), an
 open source library I wrote to easily manipulate table views. It's linked as a
@@ -21,7 +22,7 @@ submodule, which needs to be pulled before the app will build.
 
 The app itself is written in Swift 2.0, and at this point, requires Xcode 7.
 
-##Released under the BSD License
+## Released under the BSD License
 
 Copyright © 2015 Daniel Farrelly
 

@@ -28,7 +28,7 @@ class PreferencesManager {
 	}
 
 	/// Initialise and store a shared manager, based on the `suiteName` for the user defaults we want ot use for storage.
-	static let sharedManager = PreferencesManager(suiteName: "group.com.jellystyle.Melissa")
+	static let sharedManager = PreferencesManager(suiteName: "group.com.jellystyle.Other")
 
 	//! Instance of `NSUserDefaults` used for persistance of preferences.
 	var userDefaults: NSUserDefaults

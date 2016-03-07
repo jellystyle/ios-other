@@ -1,6 +1,6 @@
 //
-//  MelissaTests.swift
-//  MelissaTests
+//  OtherTests.swift
+//  OtherTests
 //
 //  Created by Daniel Farrelly on 2/07/2015.
 //  Copyright (c) 2015 Daniel Farrelly. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 import XCTest
 
-class MelissaTests: XCTestCase {
+class OtherTests: XCTestCase {
 
 	override func setUp() {
 		super.setUp()

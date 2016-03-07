@@ -19,10 +19,10 @@
 		A17FBA291B44DF8200564F82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17FBA271B44DF8200564F82 /* Main.storyboard */; };
 		A17FBA2B1B44DF8200564F82 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A17FBA2A1B44DF8200564F82 /* Images.xcassets */; };
 		A17FBA2E1B44DF8200564F82 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A17FBA2C1B44DF8200564F82 /* LaunchScreen.xib */; };
-		A17FBA3A1B44DF8200564F82 /* MelissaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBA391B44DF8200564F82 /* MelissaTests.swift */; };
+		A17FBA3A1B44DF8200564F82 /* OtherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBA391B44DF8200564F82 /* OtherTests.swift */; };
 		A17FBA4C1B44DFF300564F82 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBA4B1B44DFF300564F82 /* ShareViewController.swift */; };
 		A17FBA4E1B44DFF300564F82 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17FBA4D1B44DFF300564F82 /* MainInterface.storyboard */; };
-		A17FBA511B44DFF300564F82 /* Send to Melissa.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A17FBA471B44DFF300564F82 /* Send to Melissa.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A17FBA511B44DFF300564F82 /* Send to Other.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A17FBA471B44DFF300564F82 /* Send to Other.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A18D9C2E1B44EEA900F43BF5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */; };
 		A18D9C301B44EF1800F43BF5 /* StaticTables.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C291B44E92D00F43BF5 /* StaticTables.framework */; };
 		A18D9C311B44EF3500F43BF5 /* StaticTables.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C291B44E92D00F43BF5 /* StaticTables.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -100,7 +100,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				A17FBA511B44DFF300564F82 /* Send to Melissa.appex in Embed App Extensions */,
+				A17FBA511B44DFF300564F82 /* Send to Other.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -121,19 +121,21 @@
 /* Begin PBXFileReference section */
 		A13A2B371C1E636B007EEEA4 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesManager.swift; sourceTree = "<group>"; };
+		A14CB5961C8D2B3A00028601 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		A14CB5971C8D2B3A00028601 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A1767B0B1B450EFC008C9F83 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		A1767B0E1B452F33008C9F83 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		A17FBA1E1B44DF8200564F82 /* Melissa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Melissa.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A17FBA1E1B44DF8200564F82 /* Other.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Other.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A17FBA221B44DF8200564F82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A17FBA231B44DF8200564F82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A17FBA251B44DF8200564F82 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A17FBA281B44DF8200564F82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A17FBA2A1B44DF8200564F82 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A17FBA2D1B44DF8200564F82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		A17FBA331B44DF8200564F82 /* MelissaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MelissaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A17FBA331B44DF8200564F82 /* Other.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Other.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A17FBA381B44DF8200564F82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A17FBA391B44DF8200564F82 /* MelissaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MelissaTests.swift; sourceTree = "<group>"; };
-		A17FBA471B44DFF300564F82 /* Send to Melissa.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Send to Melissa.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A17FBA391B44DF8200564F82 /* OtherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherTests.swift; sourceTree = "<group>"; };
+		A17FBA471B44DFF300564F82 /* Send to Other.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Send to Other.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A17FBA4A1B44DFF300564F82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A17FBA4B1B44DFF300564F82 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		A17FBA4D1B44DFF300564F82 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
@@ -144,11 +146,11 @@
 		A190E26C1C87C6F3003A72BB /* UINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		A190E26E1C87C703003A72BB /* UIAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		A190E2731C87CCB6003A72BB /* NSBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSBundle.swift; sourceTree = "<group>"; };
-		A190E2761C87F2DC003A72BB /* AppStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppStoreManager.swift; path = ../Melissa/AppStoreManager.swift; sourceTree = "<group>"; };
+		A190E2761C87F2DC003A72BB /* AppStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStoreManager.swift; sourceTree = "<group>"; };
 		A19F6D0A1C8981D2007E1B15 /* illustration.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = illustration.mp4; sourceTree = "<group>"; };
 		A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		A1B7F2A91B4D38C700485CC0 /* Melissa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Melissa.entitlements; sourceTree = "<group>"; };
-		A1B7F2AA1B4D38E700485CC0 /* Send to Melissa.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Send to Melissa.entitlements"; sourceTree = "<group>"; };
+		A1B7F2A91B4D38C700485CC0 /* Other.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Other.entitlements; sourceTree = "<group>"; };
+		A1B7F2AA1B4D38E700485CC0 /* Send to Other.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Send to Other.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,29 +198,31 @@
 			isa = PBXGroup;
 			children = (
 				A1767B0D1B452F1C008C9F83 /* Shared */,
-				A17FBA201B44DF8200564F82 /* Melissa */,
-				A17FBA481B44DFF300564F82 /* Send to Melissa */,
-				A17FBA361B44DF8200564F82 /* MelissaTests */,
+				A17FBA201B44DF8200564F82 /* Other */,
+				A17FBA481B44DFF300564F82 /* Send to Other */,
+				A17FBA361B44DF8200564F82 /* OtherTests */,
 				A17FBA5D1B44E11400564F82 /* Vendor */,
 				A18D9C2F1B44EEAD00F43BF5 /* Frameworks */,
 				A17FBA1F1B44DF8200564F82 /* Products */,
+				A14CB5961C8D2B3A00028601 /* LICENSE */,
+				A14CB5971C8D2B3A00028601 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
 		A17FBA1F1B44DF8200564F82 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A17FBA1E1B44DF8200564F82 /* Melissa.app */,
-				A17FBA331B44DF8200564F82 /* MelissaTests.xctest */,
-				A17FBA471B44DFF300564F82 /* Send to Melissa.appex */,
+				A17FBA1E1B44DF8200564F82 /* Other.app */,
+				A17FBA331B44DF8200564F82 /* Other.xctest */,
+				A17FBA471B44DFF300564F82 /* Send to Other.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A17FBA201B44DF8200564F82 /* Melissa */ = {
+		A17FBA201B44DF8200564F82 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				A1B7F2A91B4D38C700485CC0 /* Melissa.entitlements */,
+				A1B7F2A91B4D38C700485CC0 /* Other.entitlements */,
 				A17FBA231B44DF8200564F82 /* AppDelegate.swift */,
 				A17FBA251B44DF8200564F82 /* MainViewController.swift */,
 				A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */,
@@ -229,7 +233,7 @@
 				A17FBA2A1B44DF8200564F82 /* Images.xcassets */,
 				A17FBA211B44DF8200564F82 /* Supporting Files */,
 			);
-			path = Melissa;
+			path = Other;
 			sourceTree = "<group>";
 		};
 		A17FBA211B44DF8200564F82 /* Supporting Files */ = {
@@ -240,13 +244,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A17FBA361B44DF8200564F82 /* MelissaTests */ = {
+		A17FBA361B44DF8200564F82 /* OtherTests */ = {
 			isa = PBXGroup;
 			children = (
-				A17FBA391B44DF8200564F82 /* MelissaTests.swift */,
+				A17FBA391B44DF8200564F82 /* OtherTests.swift */,
 				A17FBA371B44DF8200564F82 /* Supporting Files */,
 			);
-			path = MelissaTests;
+			path = OtherTests;
 			sourceTree = "<group>";
 		};
 		A17FBA371B44DF8200564F82 /* Supporting Files */ = {
@@ -257,15 +261,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A17FBA481B44DFF300564F82 /* Send to Melissa */ = {
+		A17FBA481B44DFF300564F82 /* Send to Other */ = {
 			isa = PBXGroup;
 			children = (
-				A1B7F2AA1B4D38E700485CC0 /* Send to Melissa.entitlements */,
+				A1B7F2AA1B4D38E700485CC0 /* Send to Other.entitlements */,
 				A17FBA4B1B44DFF300564F82 /* ShareViewController.swift */,
 				A17FBA4D1B44DFF300564F82 /* MainInterface.storyboard */,
 				A17FBA491B44DFF300564F82 /* Supporting Files */,
 			);
-			path = "Send to Melissa";
+			path = "Send to Other";
 			sourceTree = "<group>";
 		};
 		A17FBA491B44DFF300564F82 /* Supporting Files */ = {
@@ -318,9 +322,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A17FBA1D1B44DF8200564F82 /* Melissa */ = {
+		A17FBA1D1B44DF8200564F82 /* Other */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A17FBA3D1B44DF8200564F82 /* Build configuration list for PBXNativeTarget "Melissa" */;
+			buildConfigurationList = A17FBA3D1B44DF8200564F82 /* Build configuration list for PBXNativeTarget "Other" */;
 			buildPhases = (
 				A1B7F2D51B4D677B00485CC0 /* Increment Version Numbers */,
 				A17FBA1A1B44DF8200564F82 /* Sources */,
@@ -335,14 +339,14 @@
 				A1767B181B454AC0008C9F83 /* PBXTargetDependency */,
 				A17FBA501B44DFF300564F82 /* PBXTargetDependency */,
 			);
-			name = Melissa;
+			name = Other;
 			productName = Melissa;
-			productReference = A17FBA1E1B44DF8200564F82 /* Melissa.app */;
+			productReference = A17FBA1E1B44DF8200564F82 /* Other.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A17FBA321B44DF8200564F82 /* MelissaTests */ = {
+		A17FBA321B44DF8200564F82 /* OtherTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A17FBA401B44DF8200564F82 /* Build configuration list for PBXNativeTarget "MelissaTests" */;
+			buildConfigurationList = A17FBA401B44DF8200564F82 /* Build configuration list for PBXNativeTarget "OtherTests" */;
 			buildPhases = (
 				A17FBA2F1B44DF8200564F82 /* Sources */,
 				A17FBA301B44DF8200564F82 /* Frameworks */,
@@ -354,14 +358,14 @@
 				A17FBA351B44DF8200564F82 /* PBXTargetDependency */,
 				A1AB769B1B6C96A900221ED6 /* PBXTargetDependency */,
 			);
-			name = MelissaTests;
+			name = OtherTests;
 			productName = MelissaTests;
-			productReference = A17FBA331B44DF8200564F82 /* MelissaTests.xctest */;
+			productReference = A17FBA331B44DF8200564F82 /* Other.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A17FBA461B44DFF300564F82 /* Send to Melissa */ = {
+		A17FBA461B44DFF300564F82 /* Send to Other */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A17FBA521B44DFF300564F82 /* Build configuration list for PBXNativeTarget "Send to Melissa" */;
+			buildConfigurationList = A17FBA521B44DFF300564F82 /* Build configuration list for PBXNativeTarget "Send to Other" */;
 			buildPhases = (
 				A17FBA431B44DFF300564F82 /* Sources */,
 				A17FBA441B44DFF300564F82 /* Frameworks */,
@@ -371,9 +375,9 @@
 			);
 			dependencies = (
 			);
-			name = "Send to Melissa";
+			name = "Send to Other";
 			productName = "Send to Melissa";
-			productReference = A17FBA471B44DFF300564F82 /* Send to Melissa.appex */;
+			productReference = A17FBA471B44DFF300564F82 /* Send to Other.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -410,7 +414,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A17FBA191B44DF8200564F82 /* Build configuration list for PBXProject "Melissa" */;
+			buildConfigurationList = A17FBA191B44DF8200564F82 /* Build configuration list for PBXProject "Other" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -429,9 +433,9 @@
 			);
 			projectRoot = "";
 			targets = (
-				A17FBA1D1B44DF8200564F82 /* Melissa */,
-				A17FBA461B44DFF300564F82 /* Send to Melissa */,
-				A17FBA321B44DF8200564F82 /* MelissaTests */,
+				A17FBA1D1B44DF8200564F82 /* Other */,
+				A17FBA461B44DFF300564F82 /* Send to Other */,
+				A17FBA321B44DF8200564F82 /* OtherTests */,
 			);
 		};
 /* End PBXProject section */
@@ -530,7 +534,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A17FBA3A1B44DF8200564F82 /* MelissaTests.swift in Sources */,
+				A17FBA3A1B44DF8200564F82 /* OtherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,17 +562,17 @@
 		};
 		A17FBA351B44DF8200564F82 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A17FBA1D1B44DF8200564F82 /* Melissa */;
+			target = A17FBA1D1B44DF8200564F82 /* Other */;
 			targetProxy = A17FBA341B44DF8200564F82 /* PBXContainerItemProxy */;
 		};
 		A17FBA501B44DFF300564F82 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A17FBA461B44DFF300564F82 /* Send to Melissa */;
+			target = A17FBA461B44DFF300564F82 /* Send to Other */;
 			targetProxy = A17FBA4F1B44DFF300564F82 /* PBXContainerItemProxy */;
 		};
 		A1AB769B1B6C96A900221ED6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A17FBA461B44DFF300564F82 /* Send to Melissa */;
+			target = A17FBA461B44DFF300564F82 /* Send to Other */;
 			targetProxy = A1AB769A1B6C96A900221ED6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -682,15 +686,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Melissa/Melissa.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Other/Other.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 3;
-				INFOPLIST_FILE = Melissa/Info.plist;
+				INFOPLIST_FILE = Other/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Other;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -701,15 +705,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Melissa/Melissa.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Other/Other.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 3;
-				INFOPLIST_FILE = Melissa/Info.plist;
+				INFOPLIST_FILE = Other/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Other;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -725,11 +729,11 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = MelissaTests/Info.plist;
+				INFOPLIST_FILE = OtherTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Melissa.app/Melissa";
+				PRODUCT_NAME = Other;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Other.app/Other";
 			};
 			name = Debug;
 		};
@@ -738,11 +742,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = MelissaTests/Info.plist;
+				INFOPLIST_FILE = OtherTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Melissa.app/Melissa";
+				PRODUCT_NAME = Other;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Other.app/Other";
 			};
 			name = Release;
 		};
@@ -750,18 +754,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Send to Melissa/Send to Melissa.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Send to Other/Send to Other.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Send to Melissa/Info.plist";
+				INFOPLIST_FILE = "Send to Other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.Melissa.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.Other.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "Send to Other";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Vendor/StaticTables/\"";
@@ -772,14 +776,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Send to Melissa/Send to Melissa.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Send to Other/Send to Other.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "Send to Melissa/Info.plist";
+				INFOPLIST_FILE = "Send to Other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.Melissa.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.Other.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "Send to Other";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Vendor/StaticTables/\"";
@@ -789,7 +793,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A17FBA191B44DF8200564F82 /* Build configuration list for PBXProject "Melissa" */ = {
+		A17FBA191B44DF8200564F82 /* Build configuration list for PBXProject "Other" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A17FBA3B1B44DF8200564F82 /* Debug */,
@@ -798,7 +802,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A17FBA3D1B44DF8200564F82 /* Build configuration list for PBXNativeTarget "Melissa" */ = {
+		A17FBA3D1B44DF8200564F82 /* Build configuration list for PBXNativeTarget "Other" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A17FBA3E1B44DF8200564F82 /* Debug */,
@@ -807,7 +811,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A17FBA401B44DF8200564F82 /* Build configuration list for PBXNativeTarget "MelissaTests" */ = {
+		A17FBA401B44DF8200564F82 /* Build configuration list for PBXNativeTarget "OtherTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A17FBA411B44DF8200564F82 /* Debug */,
@@ -816,7 +820,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A17FBA521B44DFF300564F82 /* Build configuration list for PBXNativeTarget "Send to Melissa" */ = {
+		A17FBA521B44DFF300564F82 /* Build configuration list for PBXNativeTarget "Send to Other" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A17FBA531B44DFF300564F82 /* Debug */,

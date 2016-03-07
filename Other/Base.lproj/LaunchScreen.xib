@@ -15,13 +15,13 @@
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="rNG-6c-ff2">
                     <rect key="frame" x="0.0" y="0.0" width="475" height="642"/>
                 </imageView>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="melissa" translatesAutoresizingMaskIntoConstraints="NO" id="GV1-iR-zqQ">
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="other" translatesAutoresizingMaskIntoConstraints="NO" id="GV1-iR-zqQ">
                     <rect key="frame" x="56" y="128" width="363" height="514"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="GV1-iR-zqQ" secondAttribute="height" multiplier="771:1090" id="gCH-XN-jYe"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Melissa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15q-uh-WVv">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Other" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15q-uh-WVv">
                     <rect key="frame" x="190" y="66" width="96" height="36"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -48,6 +48,6 @@
     </objects>
     <resources>
         <image name="gradient" width="300" height="300"/>
-        <image name="melissa" width="771" height="1090"/>
+        <image name="other" width="300" height="300"/>
     </resources>
 </document>
