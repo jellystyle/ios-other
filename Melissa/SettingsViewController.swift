@@ -69,20 +69,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			}
 			else if row.key as? String == "add-message" {
 
-				let empty = JSMStaticTextPreference(key: String(indexPath.row))
-				empty.value = nil
-				empty.textField?.placeholder = "Message Text"
-				empty.textField?.returnKeyType = .Done
-				empty.canBeMoved = true
-				empty.canBeDeleted = true
-				empty.fitControlToCell = true
-                empty.configurationForCell { row, cell in
-                    if let preference = row as? JSMStaticTextPreference, let font = cell.textLabel?.font {
-                        preference.textField?.font = font
-                    }
-                }
-                empty.addObserver(self)
-
+				let empty = self._rowForMessage(nil, key: String(indexPath.row))
                 dataSource.insertRow(empty, intoSection: row.section, atIndex: UInt(indexPath.row), withRowAnimation: UITableViewRowAnimation.Bottom)
 				empty.textField?.becomeFirstResponder()
 
@@ -346,21 +333,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
         }
 
 		for message in preferences.messages {
-			let row = JSMStaticTextPreference.transientPreferenceWithKey(message)
-			row.value = message
-			row.textField?.placeholder = "Message Text"
-			row.textField?.returnKeyType = .Done
-			row.textField?.delegate = self
-			row.canBeMoved = true
-			row.canBeDeleted = true
-			row.fitControlToCell = true
-			row.configurationForCell { row, cell in
-				if let preference = row as? JSMStaticTextPreference, let font = cell.textLabel?.font {
-					preference.textField?.font = font
-					preference.textField?.textColor = PreferencesManager.tintColor
-				}
-			}
-			row.addObserver(self)
+			let row = self._rowForMessage(message, key: message)
 			section.addRow(row)
 		}
 
@@ -372,6 +345,26 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
 		section.addRow(row)
+	}
+
+	/// Generate a row for editing the content of a message.
+	private func _rowForMessage(message: String?, key: String) -> JSMStaticTextPreference {
+		let row = JSMStaticTextPreference.transientPreferenceWithKey(key)
+		row.value = message
+		row.textField?.placeholder = "Message Text"
+		row.textField?.returnKeyType = .Done
+		row.textField?.delegate = self
+		row.canBeMoved = true
+		row.canBeDeleted = true
+		row.fitControlToCell = true
+		row.configurationForCell { row, cell in
+			if let preference = row as? JSMStaticTextPreference, let font = cell.textLabel?.font {
+				preference.textField?.font = font
+				preference.textField?.textColor = PreferencesManager.tintColor
+			}
+		}
+		row.addObserver(self)
+		return row
 	}
 
 	/// Generates a list of messages in the messages section, and saves them, using the PreferencesManager.
