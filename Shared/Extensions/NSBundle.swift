@@ -2,6 +2,17 @@ import Foundation
 
 extension NSBundle {
 
+	//! Flag to indicate if the receiver is a debug build.
+	var debug: Bool {
+		get {
+			#if DEBUG
+				return true
+			#else
+				return false
+			#endif
+		}
+	}
+
 	//! Flag to indicate if the receiver is a prerelease build (usually Testflight).
 	var prerelease: Bool {
 		get {
@@ -33,7 +44,16 @@ extension NSBundle {
 	//! Human-readable version identifier, including build number, prerelease information and marketing version.
 	var displayVersion: String? {
 		get {
-			let configuration: String = self.prerelease ? " Prerelease" : ""
+			let configuration: String
+			if self.debug {
+				configuration = " Development"
+			}
+			else if self.prerelease {
+				configuration = " Prerelease"
+			}
+			else {
+				configuration = ""
+			}
 
 			if let version = self.versionString, let build = self.buildString {
 				return "v\(version)\(configuration) (\(build))"
