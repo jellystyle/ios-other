@@ -259,19 +259,19 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			return
 		}
 
+		section.removeAllRows()
+
 		// Remove sections
 
 		guard let preferences = self.preferences, let contact = preferences.contact else {
 			section.footerText = nil
 
-			if section.rowWithKey("select-contact") == nil {
-				let row = JSMStaticRow(key: "select-contact")
-				row.text = "Select contact…"
-				row.configurationForCell { row, cell in
-					cell.textLabel?.textColor = PreferencesManager.tintColor
-				}
-				section.addRow(row)
+			let row = JSMStaticRow(key: "select-contact")
+			row.text = "Select contact…"
+			row.configurationForCell { row, cell in
+				cell.textLabel?.textColor = PreferencesManager.tintColor
 			}
+			section.addRow(row)
 
 			if let recipients = self.dataSource.sectionWithKey("recipients") {
 				self.dataSource.removeSection(recipients)
@@ -282,14 +282,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 		// Contact Row
 
-		let contactRow: JSMStaticRow
-		if section.rowWithKey("contact") != nil {
-			contactRow = section.rowWithKey("contact")
-		}
-		else {
-			contactRow = JSMStaticRow(key: "contact")
-			section.addRow(contactRow)
-		}
+		let contactRow = JSMStaticRow(key: "contact")
+		section.addRow(contactRow)
 
 		let formatter = CNContactFormatter()
 		contactRow.text = formatter.stringFromContact(contact)
