@@ -53,7 +53,7 @@ class AppStoreManager {
 
 				guard let dictionary = json as? Dictionary<String, AnyObject> else { return }
 
-				guard let results = dictionary["results"] as? Array<AnyObject> else { return }
+				guard let results = dictionary["results"] as? Array<AnyObject> where results.count > 0 else { return }
 
 				guard let firstResult = results[0] as? Dictionary<String, AnyObject> else { return }
 
