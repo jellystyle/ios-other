@@ -11,6 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MFMessageComposeViewContr
 	let preferences = PreferencesManager.sharedManager
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject:AnyObject]?) -> Bool {
+		AppStoreManager.sharedManager?.fetchNumberOfUserRatings()
 		return true
 	}
 

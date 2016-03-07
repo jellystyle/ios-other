@@ -20,9 +20,41 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		contactSection.headerText = "Contact"
 		self.dataSource.addSection(contactSection)
 
-		let support = JSMStaticSection(key: "support-1")
+		var support = JSMStaticSection(key: "support-1")
 		support.headerText = NSBundle.mainBundle().displayName ?? "Melissa"
 		self.dataSource.addSection(support)
+
+		if let appStoreManager = AppStoreManager.sharedManager {
+			let review = JSMStaticRow(key: "support.review")
+			review.text = NSLocalizedString("Review on the App Store", comment: "Label for button to open the App Store to post a review")
+			review.configurationForCell { row, cell in
+				cell.accessoryType = .None
+				cell.selectionStyle = .Default
+				cell.textLabel?.textColor = PreferencesManager.tintColor
+			}
+			support.addRow(review)
+
+			if let count = appStoreManager.numberOfUserRatings {
+				if( count == 0 ) {
+					support.footerText = "Be the first to rate this version!"
+				}
+				else {
+					let formattedCount = NSNumberFormatter.localizedStringFromNumber(count, numberStyle: .DecimalStyle)
+					if count <= 50 {
+						support.footerText = "Only \(formattedCount) people have rated this version."
+					}
+					else {
+						support.footerText = "\(formattedCount) people have rated this version."
+					}
+				}
+			}
+			else {
+				support.footerText = "\(support.headerText) will never interrupt you for ratings."
+			}
+
+			support = JSMStaticSection(key: "support-2")
+			self.dataSource.addSection(support)
+		}
 
 		let about = JSMStaticRow(key: "support.about")
 		about.text = "About"
@@ -72,6 +104,11 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 				let empty = self._rowForMessage(nil, key: String(indexPath.row))
                 dataSource.insertRow(empty, intoSection: row.section, atIndex: UInt(indexPath.row), withRowAnimation: UITableViewRowAnimation.Bottom)
 				empty.textField?.becomeFirstResponder()
+
+			}
+			else if row.key as? String == "support.review", let appStoreManager = AppStoreManager.sharedManager {
+
+				UIApplication.sharedApplication().openURL(appStoreManager.storeURL)
 
 			}
 			else if row.key as? String == "support.about" {
