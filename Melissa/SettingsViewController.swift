@@ -1,9 +1,10 @@
 import UIKit
 import StaticTables
 import ContactsUI
+import MessageUI
 import ImageIO
 
-class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceObserver, CNContactPickerDelegate, UITextFieldDelegate {
+class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceObserver, CNContactPickerDelegate, UITextFieldDelegate, MFMailComposeViewControllerDelegate {
 
 	//! The shared preferences manager.
 	let preferences = PreferencesManager.sharedManager
@@ -23,6 +24,17 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		var support = JSMStaticSection(key: "support-1")
 		support.headerText = NSBundle.mainBundle().displayName ?? "Melissa"
 		self.dataSource.addSection(support)
+
+		if MFMailComposeViewController.canSendMail() {
+			let feedback = JSMStaticRow(key: "support.feedback")
+			feedback.text = NSLocalizedString("Send Feedback", comment: "Label for button to send feedback")
+			feedback.configurationForCell { row, cell in
+				cell.accessoryType = .None
+				cell.selectionStyle = .Default
+				cell.textLabel?.textColor = PreferencesManager.tintColor
+			}
+			support.addRow(feedback)
+		}
 
 		if let appStoreManager = AppStoreManager.sharedManager {
 			let review = JSMStaticRow(key: "support.review")
@@ -104,6 +116,18 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 				let empty = self._rowForMessage(nil, key: String(indexPath.row))
                 dataSource.insertRow(empty, intoSection: row.section, atIndex: UInt(indexPath.row), withRowAnimation: UITableViewRowAnimation.Bottom)
 				empty.textField?.becomeFirstResponder()
+
+			}
+			else if row.key as? String == "support.feedback" {
+
+				let appName = NSBundle.mainBundle().displayName ?? "Melissa"
+				let appVersion = NSBundle.mainBundle().displayVersion ?? "(Unknown)"
+
+				let viewController = MFMailComposeViewController()
+				viewController.mailComposeDelegate = self
+				viewController.setToRecipients(["JellyStyle Support <support@jellystyle.com>"])
+				viewController.setSubject("\(appName) \(appVersion)")
+				self.presentViewController(viewController, animated: true, completion: nil)
 
 			}
 			else if row.key as? String == "support.review", let appStoreManager = AppStoreManager.sharedManager {
@@ -214,6 +238,12 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
         return false
     }
 
+	// MARK: Mail compose controller delegate
+
+	func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+		controller.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
     // MARK: Utilities
 
 	/// Refresh the various sections in the data source.
