@@ -38,7 +38,7 @@ class PreferencesManager {
 	/// Convenience endpoint for accessing the user-stored tintColor, which falls back to a default.
 	class var tintColor: UIColor {
 		get {
-			return PreferencesManager.sharedManager?.tintColor ?? UIColor(red:0.29,  green:0.259,  blue:0.761, alpha:1)
+			return PreferencesManager.sharedManager?.tintColor ?? UIColor(hue:0.664, saturation:0.636, brightness:0.839, alpha:1)
 		}
 	}
 

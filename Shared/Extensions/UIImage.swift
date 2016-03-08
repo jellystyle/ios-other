@@ -9,21 +9,21 @@ extension UIImage {
 		var hue: CGFloat = 0
 		var saturation: CGFloat = 0
 		var brightness: CGFloat = 0
-		var alpha: CGFloat = 0
+		var alpha: CGFloat = 1
 
 		color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
-		let topColor = UIColor(hue: hue, saturation: saturation, brightness: brightness + 0.2, alpha: alpha)
-		let bottomColor = UIColor(hue: hue, saturation: saturation, brightness: brightness - 0.02, alpha: alpha)
+		let topColor = UIColor(hue: hue + 0.01, saturation: saturation + 0.04, brightness: brightness - 0.095, alpha: alpha)
+		let bottomColor = UIColor(hue: hue, saturation: saturation - 0.05, brightness: brightness + 0.05, alpha: alpha)
 
-		let size = CGSize(width: 900, height: 900)
+		let size = CGSize(width: 20, height: 100 * UIScreen.mainScreen().scale)
 
 		UIGraphicsBeginImageContext(size)
 		let context = UIGraphicsGetCurrentContext()
 
 		let colorSpace = CGColorSpaceCreateDeviceRGB()
-		let locations: [CGFloat] = [0.0, 1.0]
+		let locations: [CGFloat] = [0.0, 0.5, 1.0]
 
-		let gradient = CGGradientCreateWithColors(colorSpace, [topColor.CGColor, bottomColor.CGColor], locations)
+		let gradient = CGGradientCreateWithColors(colorSpace, [topColor.CGColor, color.CGColor, bottomColor.CGColor], locations)
 
 		let startPoint = CGPointMake(size.width / 2, 0)
 		let endPoint = CGPointMake(size.width / 2, size.height)
