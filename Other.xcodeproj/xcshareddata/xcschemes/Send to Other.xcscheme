@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A17FBA461B44DFF300564F82"
-               BuildableName = "Other.appex"
+               BuildableName = "Send to Other.appex"
                BlueprintName = "Send to Other"
                ReferencedContainer = "container:Other.xcodeproj">
             </BuildableReference>
