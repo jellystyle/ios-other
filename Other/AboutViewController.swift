@@ -137,7 +137,7 @@ class AboutViewController: JSMStaticTableViewController {
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if let row = self.dataSource.rowAtIndexPath(indexPath), let key = row.key as? String {
 
-			if key == "other.github", let url = NSURL(string: "https://github.com/jellybeansoup/ios-other") {
+			if key == "other.github", let url = NSURL(string: "https://github.com/jellybeansoup/ios-melissa") {
 				let viewController = SFSafariViewController(URL: url)
 				self.presentViewController(viewController, animated: true, completion: nil)
 			}
