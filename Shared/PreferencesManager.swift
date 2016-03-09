@@ -104,7 +104,7 @@ class PreferencesManager {
 			do {
 				let store = CNContactStore()
 
-				self._contact = try store.unifiedContactWithIdentifier(identifier, keysToFetch: [CNContactFormatter.descriptorForRequiredKeysForStyle(.FullName), CNContactThumbnailImageDataKey, CNContactPhoneNumbersKey, CNContactEmailAddressesKey])
+				self._contact = try store.unifiedContactWithIdentifier(identifier, keysToFetch: [CNContactFormatter.descriptorForRequiredKeysForStyle(.FullName), CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey, CNContactPhoneNumbersKey, CNContactEmailAddressesKey])
 
 				return self._contact
 			} catch {
@@ -142,13 +142,28 @@ class PreferencesManager {
         }
 	}
 
+	/// Flag to indicate if the selected contact has an image attached.
+	var contactHasThumbnail: Bool {
+		guard let contact = self.contact else {
+			return false
+		}
+
+		return contact.imageDataAvailable
+	}
+
+	/// Get the contact thumbnail at a given size.
+	/// @param size The diameter for the thumbnail.
+	/// @param stroke The width of the stroke in points.
+	/// @param edgeInsets Padding to apply around the thumbnail.
+	/// @return Contact's image, formatted to match the given parameters.
 	func contactThumbnail(size: CGFloat, stroke: CGFloat, edgeInsets: UIEdgeInsets = UIEdgeInsetsZero) -> UIImage? {
 		guard let contact = self.contact else {
 			return nil
 		}
 
-		guard let imageData = contact.thumbnailImageData, let image = UIImage(data: imageData) else {
-			return nil
+		var image = UIImage(named: "empty")!
+		if let data = contact.thumbnailImageData, let imageFromData = UIImage(data: data) {
+			image = imageFromData
 		}
 
 		guard let maskedImage = image.circularImage(size, stroke: stroke) else {
