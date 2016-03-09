@@ -172,10 +172,11 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
         let row = JSMStaticRow(key: key)
         row.style = .Default
         row.text = text
-        row.configurationForCell {
-            row, cell in
-            cell.textLabel?.font = UIFont.systemFontOfSize(30);
+        row.configurationForCell { row, cell in
+			cell.backgroundColor = self.tableView.backgroundColor
+			cell.textLabel?.font = UIFont.systemFontOfSize(30);
             cell.textLabel?.textAlignment = .Center
+			cell.textLabel?.textColor = PreferencesManager.tintColor
         }
         return row
     }
