@@ -34,6 +34,7 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 		let viewController = CNContactPickerViewController()
 		viewController.delegate = self
 		viewController.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0 || phoneNumbers.@count > 0")
+		viewController.modalPresentationStyle = .FormSheet
 		self.presentViewController(viewController, animated: true, completion: nil)
 	}
 
