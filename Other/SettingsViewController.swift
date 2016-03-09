@@ -170,11 +170,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 	func contactPicker(picker: CNContactPickerViewController, didSelectContact contact: CNContact) {
 		if let preferences = self.preferences {
 			preferences.contact = contact
+			preferences.updateShortcutItems()
 			self._updateView()
 			self.tableView.reloadData()
-
-			// Save messages here so we immediately get shortcut items
-			self._saveMessages()
 		}
 
 		else {
@@ -451,16 +449,6 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			})
 
 			preferences.messages = values.flatMap({ $0 })
-
-			if #available(iOS 9.1, *) {
-				var shortcutItems: [UIMutableApplicationShortcutItem] = []
-				for message in preferences.messages {
-					let item = UIMutableApplicationShortcutItem(type: "message-shortcut", localizedTitle: message)
-					item.icon = UIApplicationShortcutIcon(type: .Compose)
-					shortcutItems.append(item)
-				}
-				UIApplication.sharedApplication().shortcutItems = shortcutItems
-			}
 		}
 		else {
 			let message = "There was a problem with saving your messages. Maybe you can give it another shot?"

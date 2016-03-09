@@ -17,6 +17,10 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 		super.viewDidLoad()
 
 		self.dataSource.addSection(self.section);
+
+		if self.preferences?.contact == nil {
+			self.performSegueWithIdentifier("onboarding", sender: nil)
+		}
 	}
 
 	override func viewWillAppear(animated: Bool) {
@@ -26,7 +30,7 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 			return
 		}
 
-        if preferences.contact != nil {
+		if preferences.contact != nil {
             let icon: UIImage
             if let thumbnail = preferences.contactThumbnail(25, stroke: 1) {
                 icon = thumbnail

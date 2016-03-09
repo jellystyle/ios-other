@@ -38,6 +38,7 @@
 		A190E2771C87F2DC003A72BB /* AppStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A190E2761C87F2DC003A72BB /* AppStoreManager.swift */; };
 		A190E27A1C8806B8003A72BB /* AppStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A190E2761C87F2DC003A72BB /* AppStoreManager.swift */; };
 		A19F6D0B1C8981D2007E1B15 /* illustration.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A19F6D0A1C8981D2007E1B15 /* illustration.mp4 */; };
+		A1B6111F1C8FDA6E008D382F /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6111E1C8FDA6E008D382F /* EmptyViewController.swift */; };
 		A1B7F2951B4D2A5D00485CC0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -148,6 +149,7 @@
 		A190E2731C87CCB6003A72BB /* NSBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSBundle.swift; sourceTree = "<group>"; };
 		A190E2761C87F2DC003A72BB /* AppStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStoreManager.swift; sourceTree = "<group>"; };
 		A19F6D0A1C8981D2007E1B15 /* illustration.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = illustration.mp4; sourceTree = "<group>"; };
+		A1B6111E1C8FDA6E008D382F /* EmptyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A1B7F2A91B4D38C700485CC0 /* Other.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Other.entitlements; sourceTree = "<group>"; };
 		A1B7F2AA1B4D38E700485CC0 /* Send to Other.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Send to Other.entitlements"; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				A1B7F2A91B4D38C700485CC0 /* Other.entitlements */,
 				A17FBA231B44DF8200564F82 /* AppDelegate.swift */,
 				A17FBA251B44DF8200564F82 /* MainViewController.swift */,
+				A1B6111E1C8FDA6E008D382F /* EmptyViewController.swift */,
 				A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */,
 				A190E2621C87BA6A003A72BB /* AboutViewController.swift */,
 				A17FBA271B44DF8200564F82 /* Main.storyboard */,
@@ -521,6 +524,7 @@
 				A190E26B1C87C6E2003A72BB /* UIImage.swift in Sources */,
 				A13A2B3A1C1E6F11007EEEA4 /* PreferencesManager.swift in Sources */,
 				A190E26F1C87C703003A72BB /* UIAlertController.swift in Sources */,
+				A1B6111F1C8FDA6E008D382F /* EmptyViewController.swift in Sources */,
 				A17FBA261B44DF8200564F82 /* MainViewController.swift in Sources */,
 				A190E2771C87F2DC003A72BB /* AppStoreManager.swift in Sources */,
 				A190E26D1C87C6F3003A72BB /* UINavigationController.swift in Sources */,

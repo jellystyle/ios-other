@@ -1,5 +1,6 @@
 import UIKit
 import Contacts
+import ContactsUI
 
 /// Class used for managing various preferences within the app
 
@@ -62,7 +63,26 @@ class PreferencesManager {
 		set(messages) {
 			self.userDefaults.setObject(messages, forKey: "messages")
 			self.userDefaults.synchronize()
+			self.updateShortcutItems()
 		}
+	}
+
+	func updateShortcutItems() {
+		guard #available(iOS 9.1, *) else {
+			return
+		}
+
+		#if NS_EXTENSION_UNAVAILABLE_IOS
+
+		var shortcutItems: [UIMutableApplicationShortcutItem] = []
+		for message in self.messages {
+			let item = UIMutableApplicationShortcutItem(type: "message-shortcut", localizedTitle: message)
+			item.icon = UIApplicationShortcutIcon(type: .Compose)
+			shortcutItems.append(item)
+		}
+		UIApplication.sharedApplication().shortcutItems = shortcutItems
+
+		#endif
 	}
 
 	// MARK: - Contact values
@@ -92,7 +112,21 @@ class PreferencesManager {
 			}
 		}
 		set(contact) {
-			self._contact = contact
+			// Attempt to grab the full contact so we prompt for access, if needed.
+			let unifiedContact: CNContact?
+			do {
+				let store = CNContactStore()
+				if contact != nil {
+					unifiedContact = try store.unifiedContactWithIdentifier(contact!.identifier, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
+				}
+				else {
+					unifiedContact = nil
+				}
+			} catch {
+				unifiedContact = nil
+			}
+			
+			self._contact = unifiedContact
 			self.callRecipient = nil
 			self.messageRecipient = nil
 
