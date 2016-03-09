@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1Ka-8R-9fe">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -55,29 +54,23 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="WYT-Ff-HzE">
-                                        <rect key="frame" x="100" y="53" width="400" height="430"/>
+                                        <rect key="frame" x="125" y="53" width="350" height="430"/>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="ePe-UG-dFV">
-                                                <rect key="frame" x="110" y="0.0" width="180" height="180"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="ePe-UG-dFV" secondAttribute="height" multiplier="1:1" id="AHi-1c-y6a"/>
-                                                    <constraint firstAttribute="width" constant="180" id="sGJ-Lc-9MT">
-                                                        <variation key="heightClass=compact" constant="0.0"/>
-                                                    </constraint>
-                                                </constraints>
+                                                <rect key="frame" x="85" y="0.0" width="180" height="180"/>
                                             </imageView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="exJ-rd-pai">
-                                                <rect key="frame" x="0.0" y="200" width="400" height="146"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="exJ-rd-pai">
+                                                <rect key="frame" x="0.0" y="200" width="350" height="146"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeD-Ne-MFJ">
-                                                        <rect key="frame" x="141.5" y="0.0" width="117.5" height="32.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Welcome!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeD-Ne-MFJ">
+                                                        <rect key="frame" x="117" y="0.0" width="118" height="33"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                         <color key="textColor" red="0.098023496568202972" green="0.098048247396945953" blue="0.098021931946277618" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JZr-dh-3oK">
-                                                        <rect key="frame" x="0.0" y="42.5" width="400" height="103.5"/>
-                                                        <string key="text">You'll need to choose a contact to use Other for. Someone you message a lot works great. Like say, your significant OTHER.
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JZr-dh-3oK">
+                                                        <rect key="frame" x="0.0" y="43" width="350" height="104"/>
+                                                        <string key="text">You'll need to choose a contact to use Other for: someone you often send things to via Messages. A significant OTHER, perhaps?
 
 Yeah, you see what I did there.</string>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -90,7 +83,7 @@ Yeah, you see what I did there.</string>
                                                 </variation>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3gV-0Q-aq3">
-                                                <rect key="frame" x="0.0" y="366" width="400" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="366" width="350" height="0.0"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" id="YPG-BQ-00d"/>
@@ -100,7 +93,7 @@ Yeah, you see what I did there.</string>
                                                 </variation>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3XJ-T8-AXI">
-                                                <rect key="frame" x="128" y="386" width="144" height="44"/>
+                                                <rect key="frame" x="103" y="386" width="144" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="Ggh-0d-iO4"/>
                                                 </constraints>
@@ -116,8 +109,8 @@ Yeah, you see what I did there.</string>
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="Ij6-ug-b2T"/>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="YTq-RT-sKe"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="Ij6-ug-b2T"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="350" id="YTq-RT-sKe"/>
                                             <constraint firstItem="3gV-0Q-aq3" firstAttribute="width" secondItem="WYT-Ff-HzE" secondAttribute="width" id="ZjE-C5-hz7"/>
                                         </constraints>
                                         <variation key="heightClass=compact" misplaced="YES">
@@ -152,6 +145,7 @@ Yeah, you see what I did there.</string>
                     <connections>
                         <outlet property="button" destination="3XJ-T8-AXI" id="ziu-jo-im8"/>
                         <outlet property="imageView" destination="ePe-UG-dFV" id="cT2-wK-O2i"/>
+                        <outlet property="stackView" destination="WYT-Ff-HzE" id="7qH-tN-Miy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5KH-Q7-ZdC" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -8,6 +8,8 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 
 	// MARK: View life cycle
 
+	@IBOutlet weak var stackView: UIStackView!
+
 	@IBOutlet weak var imageView: UIImageView!
 
 	@IBOutlet weak var button: UIButton!
@@ -17,6 +19,13 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 
 		self.imageView.tintColor = PreferencesManager.tintColor
 		self.button.tintColor = PreferencesManager.tintColor
+	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+
+		let imageViewHeight = self.imageView.hidden ? self.imageView.image!.size.height : 0
+		self.imageView.hidden = self.stackView.frame.size.height + imageViewHeight >= self.stackView.superview!.frame.size.height
 	}
 
 	// MARK: IBActions
