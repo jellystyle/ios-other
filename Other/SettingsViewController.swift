@@ -265,7 +265,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		// Remove sections
 
 		guard let preferences = self.preferences, let contact = preferences.contact else {
-			section.footerText = nil
+			section.footerText = "You'll need to choose a contact to use Other for: someone you often send things to via Messages."
 
 			let row = JSMStaticRow(key: "select-contact")
 			row.text = "Select contact…"
