@@ -63,16 +63,13 @@ class PreferencesManager {
 		set(messages) {
 			self.userDefaults.setObject(messages, forKey: "messages")
 			self.userDefaults.synchronize()
-			self.updateShortcutItems()
 		}
 	}
 
-	func updateShortcutItems() {
+	func updateShortcutItems(application: UIApplication) {
 		guard #available(iOS 9.1, *) else {
 			return
 		}
-
-		#if NS_EXTENSION_UNAVAILABLE_IOS
 
 		var shortcutItems: [UIMutableApplicationShortcutItem] = []
 		for message in self.messages {
@@ -80,9 +77,7 @@ class PreferencesManager {
 			item.icon = UIApplicationShortcutIcon(type: .Compose)
 			shortcutItems.append(item)
 		}
-		UIApplication.sharedApplication().shortcutItems = shortcutItems
-
-		#endif
+		application.shortcutItems = shortcutItems
 	}
 
 	// MARK: - Contact values

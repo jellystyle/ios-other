@@ -171,7 +171,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 	func contactPicker(picker: CNContactPickerViewController, didSelectContact contact: CNContact) {
 		if let preferences = self.preferences {
 			preferences.contact = contact
-			preferences.updateShortcutItems()
+			preferences.updateShortcutItems( UIApplication.sharedApplication() )
 			self._updateView()
 			self.tableView.reloadData()
 		}
@@ -450,6 +450,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			})
 
 			preferences.messages = values.flatMap({ $0 })
+
+			preferences.updateShortcutItems( UIApplication.sharedApplication() )
 		}
 		else {
 			let message = "There was a problem with saving your messages. Maybe you can give it another shot?"

@@ -43,7 +43,7 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 	func contactPicker(picker: CNContactPickerViewController, didSelectContact contact: CNContact) {
 		if let preferences = self.preferences {
 			preferences.contact = contact
-			preferences.updateShortcutItems()
+			preferences.updateShortcutItems( UIApplication.sharedApplication() )
 
 			self.navigationController?.popToRootViewControllerAnimated(false)
 		}
