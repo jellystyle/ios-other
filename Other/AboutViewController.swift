@@ -126,9 +126,17 @@ class AboutViewController: JSMStaticTableViewController {
 
 	func pausePlayer() {
 		self.player?.pause()
+		do {
+			try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategorySoloAmbient)
+		}
+		catch {}
 	}
 
 	func resumePlayer() {
+		do {
+			try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+		}
+		catch {}
 		self.player?.play()
 	}
 
