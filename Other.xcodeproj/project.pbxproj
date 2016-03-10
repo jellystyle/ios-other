@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A105BA031C914EC60077209B /* illustration-640.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A105BA011C914EC60077209B /* illustration-640.mp4 */; };
+		A105BA041C914EC60077209B /* illustration-1242.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A105BA021C914EC60077209B /* illustration-1242.mp4 */; };
 		A13A2B381C1E636B007EEEA4 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13A2B371C1E636B007EEEA4 /* ContactsUI.framework */; };
 		A13A2B3A1C1E6F11007EEEA4 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */; };
 		A13A2B3B1C1E6F11007EEEA4 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */; };
@@ -37,7 +39,6 @@
 		A190E2751C87CCB6003A72BB /* NSBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A190E2731C87CCB6003A72BB /* NSBundle.swift */; };
 		A190E2771C87F2DC003A72BB /* AppStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A190E2761C87F2DC003A72BB /* AppStoreManager.swift */; };
 		A190E27A1C8806B8003A72BB /* AppStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A190E2761C87F2DC003A72BB /* AppStoreManager.swift */; };
-		A19F6D0B1C8981D2007E1B15 /* illustration.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A19F6D0A1C8981D2007E1B15 /* illustration.mp4 */; };
 		A1B6111F1C8FDA6E008D382F /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6111E1C8FDA6E008D382F /* EmptyViewController.swift */; };
 		A1B7F2951B4D2A5D00485CC0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
@@ -120,6 +121,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A105BA011C914EC60077209B /* illustration-640.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "illustration-640.mp4"; sourceTree = "<group>"; };
+		A105BA021C914EC60077209B /* illustration-1242.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "illustration-1242.mp4"; sourceTree = "<group>"; };
 		A13A2B371C1E636B007EEEA4 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesManager.swift; sourceTree = "<group>"; };
 		A14CB5961C8D2B3A00028601 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -148,7 +151,6 @@
 		A190E26E1C87C703003A72BB /* UIAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		A190E2731C87CCB6003A72BB /* NSBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSBundle.swift; sourceTree = "<group>"; };
 		A190E2761C87F2DC003A72BB /* AppStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStoreManager.swift; sourceTree = "<group>"; };
-		A19F6D0A1C8981D2007E1B15 /* illustration.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = illustration.mp4; sourceTree = "<group>"; };
 		A1B6111E1C8FDA6E008D382F /* EmptyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A1B7F2A91B4D38C700485CC0 /* Other.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Other.entitlements; sourceTree = "<group>"; };
@@ -232,7 +234,8 @@
 				A190E2621C87BA6A003A72BB /* AboutViewController.swift */,
 				A17FBA271B44DF8200564F82 /* Main.storyboard */,
 				A17FBA2C1B44DF8200564F82 /* LaunchScreen.xib */,
-				A19F6D0A1C8981D2007E1B15 /* illustration.mp4 */,
+				A105BA011C914EC60077209B /* illustration-640.mp4 */,
+				A105BA021C914EC60077209B /* illustration-1242.mp4 */,
 				A17FBA2A1B44DF8200564F82 /* Images.xcassets */,
 				A17FBA211B44DF8200564F82 /* Supporting Files */,
 			);
@@ -472,11 +475,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A105BA031C914EC60077209B /* illustration-640.mp4 in Resources */,
+				A105BA041C914EC60077209B /* illustration-1242.mp4 in Resources */,
 				A17FBA291B44DF8200564F82 /* Main.storyboard in Resources */,
 				A17FBA2E1B44DF8200564F82 /* LaunchScreen.xib in Resources */,
 				A1767B0F1B452F33008C9F83 /* Images.xcassets in Resources */,
 				A17FBA2B1B44DF8200564F82 /* Images.xcassets in Resources */,
-				A19F6D0B1C8981D2007E1B15 /* illustration.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

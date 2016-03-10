@@ -38,13 +38,15 @@ class AboutViewController: JSMStaticTableViewController {
 
 		self.navigationItem.title = "About"
 
-		// illustration
-		if let url = NSBundle.mainBundle().URLForResource("illustration", withExtension: "mp4") {
+		// Illustration
+		// We have to fetch an alternate version for small screens.
+		let screen = UIScreen.mainScreen()
+		let allowedWidth = screen.nativeBounds.size.width <= 640 ? "640" : "1242"
+		if let url = NSBundle.mainBundle().URLForResource("illustration-\(allowedWidth)", withExtension: "mp4") {
 			let playerItem = AVPlayerItem(URL: url)
 
 			if let track = playerItem.asset.tracksWithMediaCharacteristic(AVMediaCharacteristicVisual).first {
 				// Let's figure out an appropriate size for the video
-				let screen = UIScreen.mainScreen()
 				let percent = min( track.naturalSize.width / screen.scale, screen.bounds.size.width, screen.bounds.size.height ) / track.naturalSize.width
 				let size = CGSize(width: track.naturalSize.width * percent, height: track.naturalSize.height * percent)
 
