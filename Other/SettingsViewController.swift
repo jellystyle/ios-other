@@ -145,20 +145,6 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		}
 	}
 
-	override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-		if let dataSource = tableView.dataSource as? JSMStaticDataSource {
-			let row = dataSource.rowAtIndexPath(indexPath)
-			if row.key as? String == "add-message" {
-				return UITableViewCellEditingStyle.Insert
-			}
-			else if row.canBeDeleted {
-				return UITableViewCellEditingStyle.Delete
-			}
-		}
-
-		return UITableViewCellEditingStyle.None
-	}
-
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		if let dataSource = tableView.dataSource as? JSMStaticDataSource, let row = dataSource.rowAtIndexPath(indexPath) where row.key as? String == "contact" {
 			return 60
@@ -197,9 +183,15 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		self._saveMessages()
 	}
 
-	override func dataSource(dataSource: JSMStaticDataSource!, didDeleteRow row: JSMStaticRow!, fromIndexPath indexPath: NSIndexPath!) {
-		self._saveMessages()
-		tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+	override func dataSource(dataSource: JSMStaticDataSource!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRow row: JSMStaticRow!, atIndexPath indexPath: NSIndexPath!) {
+		if let tableView = dataSource.tableView where editingStyle == .Insert {
+			self.tableView(tableView, didSelectRowAtIndexPath: indexPath)
+		}
+
+		else if editingStyle == .Delete {
+			dataSource.removeRow(row, withRowAnimation: .Fade)
+			self._saveMessages()
+		}
 	}
 
 	// MARK: Static preference observer
@@ -402,7 +394,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 		let row = JSMStaticRow(key: "add-message")
 		row.text = "Add Message"
-		row.canBeDeleted = true
+		row.editingStyle = .Insert
 		row.configurationForCell {
 			row, cell in
 			cell.textLabel?.textColor = PreferencesManager.tintColor
@@ -418,7 +410,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		row.textField?.returnKeyType = .Done
 		row.textField?.delegate = self
 		row.canBeMoved = true
-		row.canBeDeleted = true
+		row.editingStyle = .Delete
 		row.fitControlToCell = true
 		row.configurationForCell { row, cell in
 			if let preference = row as? JSMStaticTextPreference, let font = cell.textLabel?.font {
