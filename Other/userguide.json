@@ -1,0 +1,20 @@
+[
+	{
+		"title": null,
+		"detail": null,
+		"articles": [
+			{
+				"title": "How do I find the share extension?",
+				"body": "When sharing an item, scroll the second row of icons to the far right until you reach the \"More\" option.\n\nTap this, and then find \"Send to Other\" in the list that appears. Switch the toggle beside it to the on position to enable the share extension.\n\nWhen you are finished, press the \"Done\" button at the top of the screen, and you'll be returned to the sharing screen thet you started with.",
+				"build_min": null,
+				"build_max": null
+			},
+			{
+				"title": "Why are my 3D touch shortcuts showing in the opposite order to how I've set them up?",
+				"body": "If you've placed the icon for Other in the lower half of your home screen, the menu opens in reverse so that the top most item is closest to the icon.\n\nTo work around this, you can either place the icon in the top half of the screen, or sort your messages so they appear in the reverse order in-app.",
+				"build_min": null,
+				"build_max": null
+			}
+		]
+	}
+]

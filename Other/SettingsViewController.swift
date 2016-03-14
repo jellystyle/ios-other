@@ -25,6 +25,17 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		support.headerText = NSBundle.mainBundle().displayName ?? "Other"
 		self.dataSource.addSection(support)
 
+		if NSBundle.mainBundle().URLForResource("userguide", withExtension: "json") != nil {
+			let guide = JSMStaticRow(key: "support.guide")
+			guide.text = "User Guide"
+			guide.configurationForCell { row, cell in
+				cell.accessoryType = .DisclosureIndicator
+				cell.selectionStyle = .Default
+				cell.textLabel?.textColor = PreferencesManager.tintColor
+			}
+			support.addRow(guide)
+		}
+
 		if MFMailComposeViewController.canSendMail() {
 			let feedback = JSMStaticRow(key: "support.feedback")
 			feedback.text = NSLocalizedString("Send Feedback", comment: "Label for button to send feedback")
@@ -116,6 +127,13 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 				let empty = self._rowForMessage(nil, key: String(indexPath.row))
                 dataSource.insertRow(empty, intoSection: row.section, atIndex: UInt(indexPath.row), withRowAnimation: UITableViewRowAnimation.Bottom)
 				empty.textField?.becomeFirstResponder()
+
+			}
+			else if row.key as? String == "support.guide", let url = NSBundle.mainBundle().URLForResource("userguide", withExtension: "json") {
+
+				let viewController = UserGuideViewController(fileAtURL: url)
+				viewController.tintColor = PreferencesManager.tintColor
+				self.navigationController?.pushViewController(viewController, animated: true)
 
 			}
 			else if row.key as? String == "support.feedback" {
