@@ -21,6 +21,14 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 		self.button.tintColor = PreferencesManager.tintColor
 	}
 
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+
+		if self.preferences?.contact != nil {
+			self.navigationController?.popToRootViewControllerAnimated(false)
+		}
+	}
+
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
