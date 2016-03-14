@@ -27,6 +27,14 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 		if self.preferences?.contact != nil {
 			self.navigationController?.popToRootViewControllerAnimated(false)
 		}
+
+		self.preferences?.addObserver(self, forKeyPath: "contact", options: [], context: nil)
+	}
+
+	override func viewDidDisappear(animated: Bool) {
+		super.viewDidDisappear(animated)
+
+		self.preferences?.removeObserver(self, forKeyPath: "contact")
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -60,6 +68,14 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 			let message = "An error occurred while updating your selected contact. Can you give it another try in a moment?"
 			let alert = UIAlertController.alert(message)
 			self.presentViewController(alert, animated: true, completion: nil)
+		}
+	}
+
+	// MARK: Key-value observing
+
+	override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+		if self.preferences?.contact != nil {
+			self.navigationController?.popToRootViewControllerAnimated(false)
 		}
 	}
 

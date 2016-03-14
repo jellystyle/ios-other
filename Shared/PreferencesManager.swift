@@ -4,7 +4,7 @@ import ContactsUI
 
 /// Class used for managing various preferences within the app
 
-class PreferencesManager {
+class PreferencesManager: NSObject {
 
 	/// Initialises a `PreferencesManager` connected to the given `NSUserDefaults`.
 	/// @param userDefaults The `NSUserDefaults` instance to use for persistant storage.
@@ -53,7 +53,7 @@ class PreferencesManager {
 	// MARK: - Messages
 	
 	//! Array of preset messages to display for quick messaging.
-	var messages: [String] {
+	dynamic var messages: [String] {
 		get {
 			if let messages = self.userDefaults.arrayForKey("messages") as? [String] {
 				return messages
@@ -86,7 +86,7 @@ class PreferencesManager {
 	private var _contact: CNContact? = nil
 
 	//! The linked address book contact.
-	var contact: CNContact? {
+	dynamic var contact: CNContact? {
 		get {
 			if self._contact != nil {
 				return self._contact
@@ -174,7 +174,7 @@ class PreferencesManager {
 
 	/// The number used to make phone calls.
 	/// This will default to the first value in the `callOptions` array when a value has not been set.
-	var callRecipient: String? {
+	dynamic var callRecipient: String? {
 		get {
             var recipient: String?
 
@@ -213,7 +213,7 @@ class PreferencesManager {
 
 	/// The number or email address used to send messages.
 	/// This will default to the first value in the `messageOptions` array when a value has not been set.
-	var messageRecipient: String? {
+	dynamic var messageRecipient: String? {
 		get {
             var recipient: String?
 

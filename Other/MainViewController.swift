@@ -24,8 +24,6 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 	}
 
 	override func viewWillAppear(animated: Bool) {
-		self.section.removeAllRows()
-
 		guard let preferences = self.preferences else {
 			return
 		}
@@ -47,23 +45,21 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 			self.navigationItem.rightBarButtonItem?.enabled = true
 		}
 
-		if let recipient = preferences.callRecipient where recipient.characters.count > 0 {
-			let row = self._row("Call", key: "__call")
-			self.section.addRow(row)
-		}
+		self._updateShortcutsSection()
 
-		if let recipient = preferences.messageRecipient where recipient.characters.count > 0 {
-			let row = self._row("Message", key: "__message")
-			self.section.addRow(row)
+		self.preferences?.addObserver(self, forKeyPath: "contact", options: [], context: nil)
+		self.preferences?.addObserver(self, forKeyPath: "messages", options: [], context: nil)
+		self.preferences?.addObserver(self, forKeyPath: "callRecipient", options: [], context: nil)
+		self.preferences?.addObserver(self, forKeyPath: "messageRecipient", options: [], context: nil)
+	}
 
-			for message in preferences.messages {
-				let row = self._row(message, key: message)
-				self.section.addRow(row)
-			}
-		}
+	override func viewDidDisappear(animated: Bool) {
+		super.viewDidDisappear(animated)
 
-		self._calculateRowHeight()
-		self.tableView.reloadData()
+		self.preferences?.removeObserver(self, forKeyPath: "contact")
+		self.preferences?.removeObserver(self, forKeyPath: "messages")
+		self.preferences?.removeObserver(self, forKeyPath: "callRecipient")
+		self.preferences?.removeObserver(self, forKeyPath: "messageRecipient")
 	}
 
 	override func viewWillLayoutSubviews() {
@@ -73,8 +69,7 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        coordinator.animateAlongsideTransition({
-            (context) in
+        coordinator.animateAlongsideTransition({ context in
             // Reload the data here so the cells update their height correctly, otherwise the
             // contentInsets we use (in `tableView:heightForRowAtIndexPath:`) are incorrect.
 			self._calculateRowHeight()
@@ -162,7 +157,49 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 		controller.dismissViewControllerAnimated(true, completion: nil)
 	}
 
+	// MARK: Key-value observing
+
+	override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+		guard let keyPath = keyPath else {
+			return
+		}
+
+		if keyPath == "contact" && self.preferences?.contact == nil {
+			self.performSegueWithIdentifier("onboarding", sender: nil)
+		}
+
+		else if keyPath == "callRecipient" || keyPath == "messageRecipient" || keyPath == "messages" {
+			self._updateShortcutsSection()
+		}
+	}
+
     // MARK: Utilities
+
+	private func _updateShortcutsSection() {
+		self.section.removeAllRows()
+
+		guard let preferences = self.preferences else {
+			return
+		}
+
+		if let recipient = preferences.callRecipient where recipient.characters.count > 0 {
+			let row = self._row("Call", key: "__call")
+			self.section.addRow(row)
+		}
+
+		if let recipient = preferences.messageRecipient where recipient.characters.count > 0 {
+			let row = self._row("Message", key: "__message")
+			self.section.addRow(row)
+
+			for message in preferences.messages {
+				let row = self._row(message, key: message)
+				self.section.addRow(row)
+			}
+		}
+
+		self._calculateRowHeight()
+		self.tableView.reloadData()
+	}
 
 	/// Generate a `JSMStaticRow` instance for a message.
 	/// @param text The text to be used for the cell's `textLabel`

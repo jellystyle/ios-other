@@ -21,7 +21,7 @@
                     <navigationItem key="navigationItem" title="Shortcuts" id="bCw-kk-Jzi">
                         <barButtonItem key="leftBarButtonItem" image="settings" id="vbc-ay-8aU">
                             <connections>
-                                <segue destination="QyY-ku-6Kk" kind="presentation" id="8l3-Oc-3ns"/>
+                                <segue destination="QyY-ku-6Kk" kind="presentation" modalPresentationStyle="formSheet" id="8l3-Oc-3ns"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" image="contact" id="J5E-BM-05k">
@@ -138,7 +138,7 @@ Yeah, you see what I did there.</string>
                     <navigationItem key="navigationItem" title="Other" id="etq-IV-hOp">
                         <barButtonItem key="leftBarButtonItem" image="settings" id="Bsr-A1-314">
                             <connections>
-                                <segue destination="QyY-ku-6Kk" kind="presentation" id="Pgb-c6-23d"/>
+                                <segue destination="QyY-ku-6Kk" kind="presentation" modalPresentationStyle="formSheet" id="Pgb-c6-23d"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
