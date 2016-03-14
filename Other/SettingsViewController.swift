@@ -76,12 +76,11 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		})
 		support.addRow(about)
-
-		self._updateView()
 	}
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		self._updateView()
 		self.tableView.reloadData()
 	}
 
