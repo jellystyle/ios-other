@@ -1,17 +1,53 @@
 [
 	{
-		"title": null,
+		"title": "General",
 		"detail": null,
 		"articles": [
+			{
+				"title": "How do I set up Other?",
+				"body": "The main thing you need to do is select a contact from your address book. Once that's done, the app swings into action using some basic defaults, such as the first available phone number, and some simple messages.\n\nTo change the numbers used by the call or messaging shortcuts, tap the corresponding item in Settings, and then select the number you want to use.\n\nIf you have a valid number selected for the messages option, you'll also be able to customise the message shortcuts, which can be edited, re-ordered and removed completely, should you feel the need.\n\nThese simple settings manage all of the interactions the app has to offer, and all changes are saved as soon as you make them.",
+				"build_min": null,
+				"build_max": null
+			},
+		]
+		},
+		{
+		"title": "Messages",
+		"detail": null,
+		"articles": [
+			{
+				"title": "Why isn't the number I use to message my other available as an option?",
+				"body": "The options available for the Message number are limited to numbers on the contact labelled as either mobile/cell numbers, iPhone numbers, or email addresses associated with Apple IDs. If the number you wish to use isn't available as an option, you may need to go to Contacts.app and change the label for the number you wish to use to one of these options.",
+				"build_min": null,
+				"build_max": null
+			},
+			{
+				"title": "Why do I still have to press Send when I use one of the message shortcuts?",
+				"body": "Apple limits third-party access to certain functionality in iOS for security purposes. One such limitation is that in order to send an iMessage, apps must present a screen that allows the user to send the message.\n\nSadly, this means that using the message shortcuts in Other is a two step process, and after selecting one in the app, you'll need to press Send to instruct Messages to actually send the message.",
+				"build_min": null,
+				"build_max": null
+			},
+		]
+	},
+	{
+	"title": "Extensions",
+	"detail": null,
+	"articles": [
 			{
 				"title": "How do I find the share extension?",
 				"body": "When sharing an item, scroll the second row of icons to the far right until you reach the \"More\" option.\n\nTap this, and then find \"Send to Other\" in the list that appears. Switch the toggle beside it to the on position to enable the share extension.\n\nWhen you are finished, press the \"Done\" button at the top of the screen, and you'll be returned to the sharing screen thet you started with.",
 				"build_min": null,
 				"build_max": null
 			},
+		]
+	},
+	{
+		"title": "3D Touch",
+		"detail": null,
+		"articles": [
 			{
 				"title": "Why are my 3D touch shortcuts showing in the opposite order to how I've set them up?",
-				"body": "If you've placed the icon for Other in the lower half of your home screen, the menu opens in reverse so that the top most item is closest to the icon.\n\nTo work around this, you can either place the icon in the top half of the screen, or sort your messages so they appear in the reverse order in-app.",
+				"body": "If you've placed the icon for Other in the lower half of your home screen, the menu opens in reverse so that the top most item is closest to the icon.\n\nTo work around this, you can either place the icon in the top half of the screen, or arrange your messages so they appear in the reverse order in-app.",
 				"build_min": null,
 				"build_max": null
 			}
