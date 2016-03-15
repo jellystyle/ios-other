@@ -1,5 +1,6 @@
 import UIKit
 import StaticTables
+import Sherpa
 import ContactsUI
 import MessageUI
 import ImageIO
@@ -131,8 +132,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			}
 			else if row.key as? String == "support.guide", let url = NSBundle.mainBundle().URLForResource("userguide", withExtension: "json") {
 
-				let viewController = UserGuideViewController(fileAtURL: url)
+				let viewController = SherpaViewController(fileAtURL: url)
 				viewController.tintColor = PreferencesManager.tintColor
+				viewController.articleTextColor = UIColor.darkGrayColor()
 				self.navigationController?.pushViewController(viewController, animated: true)
 
 			}

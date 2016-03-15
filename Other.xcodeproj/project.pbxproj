@@ -42,7 +42,8 @@
 		A1B6111F1C8FDA6E008D382F /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B6111E1C8FDA6E008D382F /* EmptyViewController.swift */; };
 		A1B7F2951B4D2A5D00485CC0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */; };
 		A1E665EB1C965BFC0005CE51 /* userguide.json in Resources */ = {isa = PBXBuildFile; fileRef = A1E665EA1C965BFC0005CE51 /* userguide.json */; };
-		A1E665F01C96602A0005CE51 /* UserGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E665EF1C96602A0005CE51 /* UserGuideViewController.swift */; };
+		A1E6662F1C97E8700005CE51 /* Sherpa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E6662C1C97E8600005CE51 /* Sherpa.framework */; };
+		A1E666301C97E87A0005CE51 /* Sherpa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1E6662C1C97E8600005CE51 /* Sherpa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,20 @@
 			remoteGlobalIDString = A17FBA461B44DFF300564F82;
 			remoteInfo = "Send to Melissa";
 		};
+		A1E6662B1C97E8600005CE51 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1E666261C97E85F0005CE51 /* Sherpa.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A1A787381C7BED9C0095A0EF;
+			remoteInfo = Sherpa;
+		};
+		A1E6662D1C97E86A0005CE51 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1E666261C97E85F0005CE51 /* Sherpa.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A1A787371C7BED9C0095A0EF;
+			remoteInfo = Sherpa;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -115,6 +130,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				A1E666301C97E87A0005CE51 /* Sherpa.framework in Embed Frameworks */,
 				A18D9C311B44EF3500F43BF5 /* StaticTables.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -158,7 +174,7 @@
 		A1B7F2A91B4D38C700485CC0 /* Other.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Other.entitlements; sourceTree = "<group>"; };
 		A1B7F2AA1B4D38E700485CC0 /* Send to Other.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Send to Other.entitlements"; sourceTree = "<group>"; };
 		A1E665EA1C965BFC0005CE51 /* userguide.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = userguide.json; sourceTree = "<group>"; };
-		A1E665EF1C96602A0005CE51 /* UserGuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGuideViewController.swift; sourceTree = "<group>"; };
+		A1E666261C97E85F0005CE51 /* Sherpa.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sherpa.xcodeproj; path = Sherpa/Sherpa.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1E6662F1C97E8700005CE51 /* Sherpa.framework in Frameworks */,
 				A13A2B381C1E636B007EEEA4 /* ContactsUI.framework in Frameworks */,
 				A18D9C301B44EF1800F43BF5 /* StaticTables.framework in Frameworks */,
 				A18D9C2E1B44EEA900F43BF5 /* MessageUI.framework in Frameworks */,
@@ -236,7 +253,6 @@
 				A1B6111E1C8FDA6E008D382F /* EmptyViewController.swift */,
 				A1B7F2941B4D2A5D00485CC0 /* SettingsViewController.swift */,
 				A190E2621C87BA6A003A72BB /* AboutViewController.swift */,
-				A1E665EF1C96602A0005CE51 /* UserGuideViewController.swift */,
 				A17FBA271B44DF8200564F82 /* Main.storyboard */,
 				A17FBA2C1B44DF8200564F82 /* LaunchScreen.xib */,
 				A105BA011C914EC60077209B /* illustration-640.mp4 */,
@@ -295,6 +311,7 @@
 		A17FBA5D1B44E11400564F82 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				A1E666261C97E85F0005CE51 /* Sherpa.xcodeproj */,
 				A17FBA561B44E10D00564F82 /* StaticTables.xcodeproj */,
 			);
 			path = Vendor;
@@ -331,6 +348,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		A1E666271C97E85F0005CE51 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1E6662C1C97E8600005CE51 /* Sherpa.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -348,6 +373,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A1E6662E1C97E86A0005CE51 /* PBXTargetDependency */,
 				A1767B181B454AC0008C9F83 /* PBXTargetDependency */,
 				A17FBA501B44DFF300564F82 /* PBXTargetDependency */,
 			);
@@ -439,6 +465,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = A1E666271C97E85F0005CE51 /* Products */;
+					ProjectRef = A1E666261C97E85F0005CE51 /* Sherpa.xcodeproj */;
+				},
+				{
 					ProductGroup = A18D9B701B44E1B800F43BF5 /* Products */;
 					ProjectRef = A17FBA561B44E10D00564F82 /* StaticTables.xcodeproj */;
 				},
@@ -472,6 +502,13 @@
 			fileType = wrapper.framework;
 			path = StaticTables.framework;
 			remoteRef = A18D9C281B44E92D00F43BF5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A1E6662C1C97E8600005CE51 /* Sherpa.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Sherpa.framework;
+			remoteRef = A1E6662B1C97E8600005CE51 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -539,7 +576,6 @@
 				A17FBA261B44DF8200564F82 /* MainViewController.swift in Sources */,
 				A190E2771C87F2DC003A72BB /* AppStoreManager.swift in Sources */,
 				A190E26D1C87C6F3003A72BB /* UINavigationController.swift in Sources */,
-				A1E665F01C96602A0005CE51 /* UserGuideViewController.swift in Sources */,
 				A190E2741C87CCB6003A72BB /* NSBundle.swift in Sources */,
 				A17FBA241B44DF8200564F82 /* AppDelegate.swift in Sources */,
 				A1B7F2951B4D2A5D00485CC0 /* SettingsViewController.swift in Sources */,
@@ -590,6 +626,11 @@
 			isa = PBXTargetDependency;
 			target = A17FBA461B44DFF300564F82 /* Send to Other */;
 			targetProxy = A1AB769A1B6C96A900221ED6 /* PBXContainerItemProxy */;
+		};
+		A1E6662E1C97E86A0005CE51 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Sherpa;
+			targetProxy = A1E6662D1C97E86A0005CE51 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
