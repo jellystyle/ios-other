@@ -24,11 +24,11 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 
+		self.preferences?.addObserver(self, forKeyPath: "contact", options: [], context: nil)
+
 		if self.preferences?.contact != nil {
 			self.navigationController?.popToRootViewControllerAnimated(false)
 		}
-
-		self.preferences?.addObserver(self, forKeyPath: "contact", options: [], context: nil)
 	}
 
 	override func viewDidDisappear(animated: Bool) {
