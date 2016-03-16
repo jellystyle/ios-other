@@ -1,5 +1,6 @@
 import UIKit
 import ContactsUI
+import Sherpa
 
 class EmptyViewController: UIViewController, CNContactPickerDelegate {
 
@@ -52,6 +53,17 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 		viewController.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0 || phoneNumbers.@count > 0")
 		viewController.modalPresentationStyle = .FormSheet
 		self.presentViewController(viewController, animated: true, completion: nil)
+	}
+
+	@IBAction func showUserGuide()  {
+		if let url = NSBundle.mainBundle().URLForResource("userguide", withExtension: "json") {
+			let viewController = SherpaViewController(fileAtURL: url)
+			viewController.tintColor = PreferencesManager.tintColor
+			viewController.articleTextColor = PreferencesManager.textColor
+			viewController.articleBackgroundColor = PreferencesManager.backgroundColor
+			viewController.articleKey = "setting-up"
+			self.presentViewController(viewController, animated: true, completion: nil)
+		}
 	}
 
 	// MARK: Contact picker delegate

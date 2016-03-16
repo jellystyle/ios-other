@@ -36,6 +36,12 @@ class PreferencesManager: NSObject {
 
 	// MARK: - Appearance
 
+	//! Color used for display text
+	static var textColor: UIColor = UIColor(red:0.290,  green:0.290,  blue:0.290, alpha:1)
+
+	//! Color used for view background
+	static var backgroundColor: UIColor = UIColor.groupTableViewBackgroundColor()
+	
 	/// Convenience endpoint for accessing the user-stored tintColor, which falls back to a default.
 	class var tintColor: UIColor {
 		get {

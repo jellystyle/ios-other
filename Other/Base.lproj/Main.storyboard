@@ -12,7 +12,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9QM-JC-dsV">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.92549019610000005" green="0.92156862750000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <connections>
                             <outlet property="dataSource" destination="GIU-fH-7lw" id="9u6-73-rtB"/>
                             <outlet property="delegate" destination="GIU-fH-7lw" id="E87-8N-116"/>
@@ -20,11 +20,17 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Shortcuts" id="bCw-kk-Jzi">
                         <barButtonItem key="leftBarButtonItem" image="settings" id="vbc-ay-8aU">
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Settings" localized="YES"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <segue destination="QyY-ku-6Kk" kind="presentation" modalPresentationStyle="formSheet" id="8l3-Oc-3ns"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" image="contact" id="J5E-BM-05k">
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Display Contact" localized="YES"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="displayContact" destination="GIU-fH-7lw" id="aTG-Km-FyW"/>
                             </connections>
@@ -65,7 +71,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Welcome!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeD-Ne-MFJ">
                                                         <rect key="frame" x="117" y="0.0" width="118" height="33"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                                        <color key="textColor" red="0.098023496568202972" green="0.098048247396945953" blue="0.098021931946277618" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" red="0.29012390971183777" green="0.29023817181587219" blue="0.29011636972427368" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JZr-dh-3oK">
@@ -74,7 +80,7 @@
 
 Yeah, you see what I did there.</string>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                        <color key="textColor" red="0.098023496568202972" green="0.098048247396945953" blue="0.098021931946277618" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" red="0.29012390971183777" green="0.29023817181587219" blue="0.29011636972427368" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -118,7 +124,7 @@ Yeah, you see what I did there.</string>
                                         </variation>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="WYT-Ff-HzE" firstAttribute="width" secondItem="pf9-7j-py7" secondAttribute="width" multiplier="0.8" priority="750" id="JS4-dD-WKj"/>
                                     <constraint firstItem="WYT-Ff-HzE" firstAttribute="centerY" secondItem="pf9-7j-py7" secondAttribute="centerY" id="Mnw-YK-m4g"/>
@@ -137,8 +143,19 @@ Yeah, you see what I did there.</string>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Other" id="etq-IV-hOp">
                         <barButtonItem key="leftBarButtonItem" image="settings" id="Bsr-A1-314">
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Settings" localized="YES"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <segue destination="QyY-ku-6Kk" kind="presentation" modalPresentationStyle="formSheet" id="Pgb-c6-23d"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="help" id="aCx-EF-ZME">
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Help" localized="YES"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="showUserGuide" destination="4Np-he-faj" id="L20-zy-ped"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -159,7 +176,7 @@ Yeah, you see what I did there.</string>
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="jEh-q0-wZo">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <connections>
                             <outlet property="dataSource" destination="rdN-KO-PFr" id="LAy-X5-feI"/>
                             <outlet property="delegate" destination="rdN-KO-PFr" id="Lwb-3C-BUK"/>
@@ -214,9 +231,10 @@ Yeah, you see what I did there.</string>
         <image name="button" width="7" height="7"/>
         <image name="contact" width="25" height="25"/>
         <image name="empty" width="180" height="180"/>
+        <image name="help" width="25" height="25"/>
         <image name="settings" width="23" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8l3-Oc-3ns"/>
+        <segue reference="Pgb-c6-23d"/>
     </inferredMetricsTieBreakers>
 </document>

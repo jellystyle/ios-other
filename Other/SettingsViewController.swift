@@ -134,7 +134,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 				let viewController = SherpaViewController(fileAtURL: url)
 				viewController.tintColor = PreferencesManager.tintColor
-				viewController.articleTextColor = UIColor.darkGrayColor()
+				viewController.articleTextColor = PreferencesManager.textColor
+				viewController.articleBackgroundColor = PreferencesManager.backgroundColor
 				self.navigationController?.pushViewController(viewController, animated: true)
 
 			}

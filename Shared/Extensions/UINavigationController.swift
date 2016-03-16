@@ -10,6 +10,7 @@ extension UINavigationController {
 		let color = PreferencesManager.tintColor
 		let gradient = UIImage.imageWithGradient(color)
 
+		self.navigationBar.translucent = true
 		self.navigationBar.barTintColor = color
 		self.navigationBar.setBackgroundImage(gradient, forBarMetrics: .Default)
 		self.navigationBar.setBackgroundImage(gradient, forBarMetrics: .Compact)
