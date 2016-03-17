@@ -1,75 +1,100 @@
-[
-	{
-		"title": "General",
-		"detail": null,
-		"articles": [
-			{
-				"key": "setting-up",
-				"title": "How do I set up Other?",
-				"body": "The main thing you need to do is select a contact from your address book. Once that's done, the app swings into action using some basic defaults, such as the first available phone number, and some simple messages.\n\nTo change the numbers used by the call or messaging shortcuts, tap the corresponding item in Settings, and then select the number you want to use.\n\nIf you have a valid number selected for the messages option, you'll also be able to customise the message shortcuts, which can be edited, re-ordered and removed completely, should you feel the need.\n\nThese simple settings manage all of the interactions the app has to offer, and all changes are saved as soon as you make them.",
-				"build_min": null,
-				"build_max": null,
-				"related_articles": [
-					"number-unavailable",
-					"find-share-extension",
-				]
-			}
-		]
+{
+	"feedback_email": "JellyStyle Support <support@jellystyle.com>",
+	"feedback_twitter": null,
+	"entries": [
+		{
+			"title": "General",
+			"detail": null,
+			"articles": [
+				{
+					"key": "setting-up",
+					"title": "How do I set up Other?",
+					"body": "The main thing you need to do is select a contact from your address book. Once that's done, the app swings into action using some basic defaults, such as the first available phone number, and some simple messages.\n\nTo change the numbers used by the call or messaging shortcuts, tap the corresponding item in Settings, and then select the number you want to use.\n\nIf you have a valid number selected for the messages option, you'll also be able to customise the message shortcuts, which can be edited, re-ordered and removed completely, should you feel the need.\n\nThese simple settings manage all of the interactions the app has to offer, and all changes are saved as soon as you make them.",
+					"build_min": null,
+					"build_max": null,
+					"related_articles": [
+						"number-unavailable",
+						"find-share-extension",
+					]
+				}
+			]
 		},
 		{
-		"title": "Messages",
-		"detail": null,
-		"articles": [
-			{
-				"key": "number-unavailable",
-				"title": "Why isn't the number I use to message my other available as an option?",
-				"body": "The options available for the Message number are limited to numbers on the contact labelled as either mobile/cell numbers, iPhone numbers, or email addresses associated with Apple IDs. If the number you wish to use isn't available as an option, you may need to go to Contacts.app and change the label for the number you wish to use to one of these options.",
-				"build_min": null,
-				"build_max": null
-			},
-			{
-				"title": "Why do I still have to press Send when I use one of the message shortcuts?",
-				"body": "Apple limits third-party access to certain functionality in iOS for security purposes. One such limitation is that in order to send an iMessage, apps must present a screen that allows the user to send the message.\n\nSadly, this means that using the message shortcuts in Other is a two step process, and after selecting one in the app, you'll need to press Send to instruct Messages to actually send the message.",
-				"build_min": null,
-				"build_max": null
-			},
-			{
-				"title": "Why doesn't my other get an email when I send messages to an email address?",
-				"body": "The options available for the Messages field is limited to mobile/cell numbers and email addresses. Email addresses are included because Messages.app has the capability to send iMessages to the iCloud account associated with them.\n\nIf the email address you've selected isn't associated with an iCloud account, the message will simply fail to send (which is only visible within Messages.app), and your other will not receive the message. <strong>The message will not be sent by email.</strong>\n\nUnfortunately, the only way to determine if an email address is associated with an iCloud account, and can therefore recieve messages, is to talk to your other (communication is the key to healthy relationships, after all!). The list of associated addresses and phone numbers can be found in <em>Settings.app > Messages > Send & Receive</em>.",
-				"build_min": null,
-				"build_max": null
-			}
-		]
-	},
-	{
-	"title": "Extensions",
-	"detail": null,
-	"articles": [
-			{
-				"key": "find-share-extension",
-				"title": "How do I find the share extension?",
-				"body": "When sharing an item, scroll the second row of icons to the far right until you reach the \"More\" option.\n\nTap this, and then find \"Send to Other\" in the list that appears. Switch the toggle beside it to the on position to enable the share extension.\n\nWhen you are finished, press the \"Done\" button at the top of the screen, and you'll be returned to the sharing screen thet you started with.",
-				"build_min": null,
-				"build_max": null
-			},
-			{
-				"title": "What kinds of content are supported by the share extension?",
-				"body": "Currently the extension has been tested with images, videos, GIFs and other kinds of files, as well as URLs and text.\n\nTheoretically, the \"Send to Other\" extension <em>should</em> support all of the same types of content as the Messages share extension. If you come across a some content supported by Messages that you cannot send through Other's share extension, let me know!",
-				"build_min": null,
-				"build_max": null
-			}
-		]
-	},
-	{
-		"title": "3D Touch",
-		"detail": null,
-		"articles": [
-			{
-				"title": "Why are my 3D touch shortcuts showing in the opposite order to how I've set them up?",
-				"body": "If you've placed the icon for Other in the lower half of your home screen, the menu opens in reverse so that the top most item is closest to the icon.\n\nTo work around this, you can either place the icon in the top half of the screen, or arrange your messages so they appear in the reverse order in-app.",
-				"build_min": null,
-				"build_max": null
-			}
-		]
-	}
-]
+			"title": "Messages",
+			"detail": null,
+			"articles": [
+				{
+					"key": "number-unavailable",
+					"title": "Why isn't the number I use to message my other available as an option?",
+					"body": "The options available for the Message number are limited to numbers on the contact labelled as either mobile/cell numbers, iPhone numbers, or email addresses associated with Apple IDs. If the number you wish to use isn't available as an option, you may need to go to Contacts.app and change the label for the number you wish to use to one of these options.",
+					"build_min": null,
+					"build_max": null,
+					"related_articles": [
+						"press-send",
+						"dont-get-email"
+					]
+				},
+				{
+					"key": "press-send",
+					"title": "Why do I still have to press Send when I use one of the message shortcuts?",
+					"body": "Apple limits third-party access to certain functionality in iOS for security purposes. One such limitation is that in order to send an iMessage, apps must present a screen that allows the user to send the message.\n\nSadly, this means that using the message shortcuts in Other is a two step process, and after selecting one in the app, you'll need to press Send to instruct Messages to actually send the message.",
+					"build_min": null,
+					"build_max": null,
+					"related_articles": [
+						"number-unavailable",
+						"dont-get-email"
+					]
+				},
+				{
+					"key": "dont-get-email",
+					"title": "Why doesn't my other get an email when I send messages to an email address?",
+					"body": "The options available for the Messages field is limited to mobile/cell numbers and email addresses. Email addresses are included because Messages.app has the capability to send iMessages to the iCloud account associated with them.\n\nIf the email address you've selected isn't associated with an iCloud account, the message will simply fail to send (which is only visible within Messages.app), and your other will not receive the message. <strong>The message will not be sent by email.</strong>\n\nUnfortunately, the only way to determine if an email address is associated with an iCloud account, and can therefore receive messages, is to talk to your other (communication is the key to healthy relationships, after all!). The list of associated addresses and phone numbers can be found in <em>Settings.app > Messages > Send & Receive</em>.",
+					"build_min": null,
+					"build_max": null,
+					"related_articles": [
+						"number-unavailable",
+						"press-send"
+					]
+				}
+			]
+		},
+		{
+			"title": "Extensions",
+			"detail": null,
+			"articles": [
+				{
+					"key": "find-share-extension",
+					"title": "How do I find the share extension?",
+					"body": "When sharing an item, scroll the second row of icons to the far right until you reach the \"More\" option.\n\nTap this, and then find \"Send to Other\" in the list that appears. Switch the toggle beside it to the on position to enable the share extension.\n\nWhen you are finished, press the \"Done\" button at the top of the screen, and you'll be returned to the sharing screen that you started with.",
+					"build_min": null,
+					"build_max": null,
+					"related_articles": [
+						"supported-content"
+					]
+				},
+				{
+					"key": "supported-content",
+					"title": "What kinds of content are supported by the share extension?",
+					"body": "Currently the extension has been tested with images, videos, GIFs and other kinds of files, as well as URLs and text.\n\nTheoretically, the \"Send to Other\" extension <em>should</em> support all of the same types of content as the Messages share extension. If you come across some content supported by Messages that you cannot send through Other's share extension, let me know!",
+					"build_min": null,
+					"build_max": null,
+					"related_articles": [
+						"find-share-extension"
+					]
+				}
+			]
+		},
+		{
+			"title": "3D Touch",
+			"detail": null,
+			"articles": [
+				{
+					"title": "Why are my 3D touch shortcuts showing in the opposite order to how I've set them up?",
+					"body": "If you've placed the icon for Other in the lower half of your home screen, the menu opens in reverse so that the top most item is closest to the icon.\n\nTo work around this, you can either place the icon in the top half of the screen, or arrange your messages so they appear in the reverse order in-app.",
+					"build_min": null,
+					"build_max": null
+				}
+			]
+		}
+	]
+}

@@ -26,28 +26,6 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		support.headerText = NSBundle.mainBundle().displayName ?? "Other"
 		self.dataSource.addSection(support)
 
-		if NSBundle.mainBundle().URLForResource("userguide", withExtension: "json") != nil {
-			let guide = JSMStaticRow(key: "support.guide")
-			guide.text = "User Guide"
-			guide.configurationForCell { row, cell in
-				cell.accessoryType = .DisclosureIndicator
-				cell.selectionStyle = .Default
-				cell.textLabel?.textColor = PreferencesManager.tintColor
-			}
-			support.addRow(guide)
-		}
-
-		if MFMailComposeViewController.canSendMail() {
-			let feedback = JSMStaticRow(key: "support.feedback")
-			feedback.text = NSLocalizedString("Send Feedback", comment: "Label for button to send feedback")
-			feedback.configurationForCell { row, cell in
-				cell.accessoryType = .None
-				cell.selectionStyle = .Default
-				cell.textLabel?.textColor = PreferencesManager.tintColor
-			}
-			support.addRow(feedback)
-		}
-
 		if let appStoreManager = AppStoreManager.sharedManager {
 			let review = JSMStaticRow(key: "support.review")
 			review.text = NSLocalizedString("Review on the App Store", comment: "Label for button to open the App Store to post a review")
@@ -78,6 +56,17 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 			support = JSMStaticSection(key: "support-2")
 			self.dataSource.addSection(support)
+		}
+
+		if NSBundle.mainBundle().URLForResource("userguide", withExtension: "json") != nil {
+			let guide = JSMStaticRow(key: "support.guide")
+			guide.text = "User Guide"
+			guide.configurationForCell { row, cell in
+				cell.accessoryType = .DisclosureIndicator
+				cell.selectionStyle = .Default
+				cell.textLabel?.textColor = PreferencesManager.tintColor
+			}
+			support.addRow(guide)
 		}
 
 		let about = JSMStaticRow(key: "support.about")
@@ -137,18 +126,6 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 				viewController.articleTextColor = PreferencesManager.textColor
 				viewController.articleBackgroundColor = PreferencesManager.backgroundColor
 				self.navigationController?.pushViewController(viewController, animated: true)
-
-			}
-			else if row.key as? String == "support.feedback" {
-
-				let appName = NSBundle.mainBundle().displayName ?? "Other"
-				let appVersion = NSBundle.mainBundle().displayVersion ?? "(Unknown)"
-
-				let viewController = MFMailComposeViewController()
-				viewController.mailComposeDelegate = self
-				viewController.setToRecipients(["JellyStyle Support <support@jellystyle.com>"])
-				viewController.setSubject("\(appName) \(appVersion)")
-				self.presentViewController(viewController, animated: true, completion: nil)
 
 			}
 			else if row.key as? String == "support.review", let appStoreManager = AppStoreManager.sharedManager {
