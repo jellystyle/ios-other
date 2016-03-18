@@ -9,11 +9,8 @@
 /* Begin PBXBuildFile section */
 		A105BA031C914EC60077209B /* illustration-640.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A105BA011C914EC60077209B /* illustration-640.mp4 */; };
 		A105BA041C914EC60077209B /* illustration-1242.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A105BA021C914EC60077209B /* illustration-1242.mp4 */; };
-		A13A2B381C1E636B007EEEA4 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A13A2B371C1E636B007EEEA4 /* ContactsUI.framework */; };
 		A13A2B3A1C1E6F11007EEEA4 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */; };
 		A13A2B3B1C1E6F11007EEEA4 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */; };
-		A1767B0A1B450E86008C9F83 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */; };
-		A1767B0C1B450EFC008C9F83 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1767B0B1B450EFC008C9F83 /* MobileCoreServices.framework */; };
 		A1767B0F1B452F33008C9F83 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1767B0E1B452F33008C9F83 /* Images.xcassets */; };
 		A1767B101B452F33008C9F83 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1767B0E1B452F33008C9F83 /* Images.xcassets */; };
 		A17FBA241B44DF8200564F82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBA231B44DF8200564F82 /* AppDelegate.swift */; };
@@ -25,7 +22,6 @@
 		A17FBA4C1B44DFF300564F82 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBA4B1B44DFF300564F82 /* ShareViewController.swift */; };
 		A17FBA4E1B44DFF300564F82 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17FBA4D1B44DFF300564F82 /* MainInterface.storyboard */; };
 		A17FBA511B44DFF300564F82 /* Send to Other.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A17FBA471B44DFF300564F82 /* Send to Other.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A18D9C2E1B44EEA900F43BF5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */; };
 		A18D9C301B44EF1800F43BF5 /* StaticTables.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C291B44E92D00F43BF5 /* StaticTables.framework */; };
 		A18D9C311B44EF3500F43BF5 /* StaticTables.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C291B44E92D00F43BF5 /* StaticTables.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A190E2631C87BA6A003A72BB /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A190E2621C87BA6A003A72BB /* AboutViewController.swift */; };
@@ -141,11 +137,9 @@
 /* Begin PBXFileReference section */
 		A105BA011C914EC60077209B /* illustration-640.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "illustration-640.mp4"; sourceTree = "<group>"; };
 		A105BA021C914EC60077209B /* illustration-1242.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "illustration-1242.mp4"; sourceTree = "<group>"; };
-		A13A2B371C1E636B007EEEA4 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesManager.swift; sourceTree = "<group>"; };
 		A14CB5961C8D2B3A00028601 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A14CB5971C8D2B3A00028601 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		A1767B0B1B450EFC008C9F83 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		A1767B0E1B452F33008C9F83 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A17FBA1E1B44DF8200564F82 /* Other.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Other.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A17FBA221B44DF8200564F82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -162,7 +156,6 @@
 		A17FBA4B1B44DFF300564F82 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		A17FBA4D1B44DFF300564F82 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		A17FBA561B44E10D00564F82 /* StaticTables.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = StaticTables.xcodeproj; path = StaticTables/StaticTables.xcodeproj; sourceTree = "<group>"; };
-		A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A190E2621C87BA6A003A72BB /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A190E26A1C87C6E2003A72BB /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		A190E26C1C87C6F3003A72BB /* UINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
@@ -183,9 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1E6662F1C97E8700005CE51 /* Sherpa.framework in Frameworks */,
-				A13A2B381C1E636B007EEEA4 /* ContactsUI.framework in Frameworks */,
 				A18D9C301B44EF1800F43BF5 /* StaticTables.framework in Frameworks */,
-				A18D9C2E1B44EEA900F43BF5 /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,8 +191,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1767B0C1B450EFC008C9F83 /* MobileCoreServices.framework in Frameworks */,
-				A1767B0A1B450E86008C9F83 /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,7 +216,6 @@
 				A17FBA481B44DFF300564F82 /* Send to Other */,
 				A17FBA361B44DF8200564F82 /* OtherTests */,
 				A17FBA5D1B44E11400564F82 /* Vendor */,
-				A18D9C2F1B44EEAD00F43BF5 /* Frameworks */,
 				A17FBA1F1B44DF8200564F82 /* Products */,
 				A14CB5961C8D2B3A00028601 /* LICENSE */,
 				A14CB5971C8D2B3A00028601 /* README.md */,
@@ -325,16 +313,6 @@
 				A18D9BDD1B44E61700F43BF5 /* StaticTablesTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		A18D9C2F1B44EEAD00F43BF5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				A13A2B371C1E636B007EEEA4 /* ContactsUI.framework */,
-				A1767B0B1B450EFC008C9F83 /* MobileCoreServices.framework */,
-				A18D9C2D1B44EEA900F43BF5 /* MessageUI.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A190E2691C87C6C5003A72BB /* Extensions */ = {
@@ -691,7 +669,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
@@ -731,7 +709,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -827,6 +805,7 @@
 				PRODUCT_NAME = "Send to Other";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Vendor/StaticTables/\"";
 			};
 			name = Debug;
@@ -845,6 +824,7 @@
 				PRODUCT_NAME = "Send to Other";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Vendor/StaticTables/\"";
 			};
 			name = Release;
