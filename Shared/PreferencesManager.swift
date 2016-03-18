@@ -42,19 +42,8 @@ class PreferencesManager: NSObject {
 	//! Color used for view background
 	static var backgroundColor: UIColor = UIColor.groupTableViewBackgroundColor()
 	
-	/// Convenience endpoint for accessing the user-stored tintColor, which falls back to a default.
-	class var tintColor: UIColor {
-		get {
-			return PreferencesManager.sharedManager?.tintColor ?? UIColor(hue:0.664, saturation:0.636, brightness:0.839, alpha:1)
-		}
-	}
-
-	/// User-selected tint color for giving the app a little bit of customisation.
-	var tintColor: UIColor? {
-		get {
-			return nil
-		}
-	}
+	/// Color used for highlights throughout the app
+	static var tintColor: UIColor = UIColor(hue:0.664, saturation:0.636, brightness:0.839, alpha:1)
 
 	// MARK: - Messages
 	
