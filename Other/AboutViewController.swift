@@ -85,34 +85,37 @@ class AboutViewController: JSMStaticTableViewController {
 		about.addRow(version)
 
 		// Other
-		let other = JSMStaticSection()
-		other.headerText = "Other"
-		other.footerText = "Copyright © 2015 Daniel Farrelly\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n\n* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-		self.dataSource.addSection(other)
+		let openSource = JSMStaticSection()
+		openSource.headerText = "Open Source"
+		openSource.footerText = "Copyright © Daniel Farrelly\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n\n* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
+		self.dataSource.addSection(openSource)
 
-		let otherRow = JSMStaticRow(key: "other.github")
-		otherRow.text = "GitHub"
-		otherRow.configurationForCell { row, cell in
+		let other = JSMStaticRow(key: "open-source.other")
+		other.text = "Other"
+		other.configurationForCell { row, cell in
 			cell.accessoryType = .DisclosureIndicator
 			cell.selectionStyle = .Default
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
-		other.addRow(otherRow)
+		openSource.addRow(other)
 
-		// StaticTables
-		let staticTables = JSMStaticSection()
-		staticTables.headerText = "StaticTables"
-		staticTables.footerText = "Copyright © 2014 Daniel Farrelly\n\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n\n* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-		self.dataSource.addSection(staticTables)
-
-		let staticTablesRow = JSMStaticRow(key: "statictables.github")
-		staticTablesRow.text = "GitHub"
-		staticTablesRow.configurationForCell { row, cell in
+		let sherpa = JSMStaticRow(key: "open-source.sherpa")
+		sherpa.text = "Sherpa"
+		sherpa.configurationForCell { row, cell in
 			cell.accessoryType = .DisclosureIndicator
 			cell.selectionStyle = .Default
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
-		staticTables.addRow(staticTablesRow)
+		openSource.addRow(sherpa)
+
+		let staticTables = JSMStaticRow(key: "open-source.statictables")
+		staticTables.text = "StaticTables"
+		staticTables.configurationForCell { row, cell in
+			cell.accessoryType = .DisclosureIndicator
+			cell.selectionStyle = .Default
+			cell.textLabel?.textColor = PreferencesManager.tintColor
+		}
+		openSource.addRow(staticTables)
 
 	}
 
@@ -147,12 +150,17 @@ class AboutViewController: JSMStaticTableViewController {
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if let row = self.dataSource.rowAtIndexPath(indexPath), let key = row.key as? String {
 
-			if key == "other.github", let url = NSURL(string: "https://github.com/jellybeansoup/ios-melissa") {
+			if key == "open-source.other", let url = NSURL(string: "https://github.com/jellystyle/ios-other") {
 				let viewController = SFSafariViewController(URL: url)
 				self.presentViewController(viewController, animated: true, completion: nil)
 			}
 
-			else if key == "statictables.github", let url = NSURL(string: "https://github.com/jellybeansoup/ios-statictables") {
+			else if key == "open-source.sherpa", let url = NSURL(string: "https://github.com/jellybeansoup/ios-sherpa") {
+				let viewController = SFSafariViewController(URL: url)
+				self.presentViewController(viewController, animated: true, completion: nil)
+			}
+
+			else if key == "open-source.statictables", let url = NSURL(string: "https://github.com/jellybeansoup/ios-statictables") {
 				let viewController = SFSafariViewController(URL: url)
 				self.presentViewController(viewController, animated: true, completion: nil)
 			}
