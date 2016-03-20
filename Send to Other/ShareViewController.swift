@@ -131,6 +131,7 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 	// MARK: Message compose view delegate
 
 	func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+		PreferencesManager.sharedManager?.didFinishMessaging(result)
 		controller.dismissViewControllerAnimated(true) {
 			if let extensionContext = self.extensionContext {
 				extensionContext.completeRequestReturningItems([], completionHandler: nil)

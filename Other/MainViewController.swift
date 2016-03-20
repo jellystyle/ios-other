@@ -133,10 +133,12 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 
 		if let callURL = preferences.callURL where row.key as? String == "__call" {
 			UIApplication.sharedApplication().openURL(callURL)
+			PreferencesManager.sharedManager?.didStartCall()
 		}
 
 		else if let messageURL = preferences.messageURL where row.key as? String == "__message" {
 			UIApplication.sharedApplication().openURL(messageURL)
+			PreferencesManager.sharedManager?.didOpenMessages()
 		}
 
 		else if let messageRecipient = preferences.messageRecipient {
@@ -154,6 +156,7 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 	// MARK: Message compose view delegate
 
 	func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+		PreferencesManager.sharedManager?.didFinishMessaging(result)
 		controller.dismissViewControllerAnimated(true, completion: nil)
 	}
 

@@ -1,6 +1,7 @@
 import UIKit
 import Contacts
 import ContactsUI
+import MessageUI
 
 /// Class used for managing various preferences within the app
 
@@ -292,5 +293,29 @@ class PreferencesManager: NSObject {
             return options.flatMap({ $0 })
         }
     }
+
+	// MARK: Analytics
+
+	/// Log a count of the number of calls made
+	func didStartCall() {
+		let key = "analytics-open-call"
+		let count = self.userDefaults.integerForKey(key)
+		self.userDefaults.setInteger(count+1, forKey: key)
+	}
+	
+	/// Log a count of the number of times Messages.app was opened
+	func didOpenMessages() {
+		let key = "analytics-open-messages"
+		let count = self.userDefaults.integerForKey(key)
+		self.userDefaults.setInteger(count+1, forKey: key)
+	}
+
+	/// Log a count of the number of messages sent
+	func didFinishMessaging(result: MessageComposeResult) {
+		if result != MessageComposeResultSent { return }
+		let key = "analytics-sent-messages"
+		let count = self.userDefaults.integerForKey(key)
+		self.userDefaults.setInteger(count+1, forKey: key)
+	}
 
 }
