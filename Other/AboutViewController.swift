@@ -65,9 +65,9 @@ class AboutViewController: JSMStaticTableViewController {
 				playerView.player = self.player
 				headerView.addSubview(playerView)
 
-				NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerItemDidReachEnd:", name: AVPlayerItemDidPlayToEndTimeNotification, object: playerItem)
-				NSNotificationCenter.defaultCenter().addObserver(self, selector: "pausePlayer", name: UIApplicationDidEnterBackgroundNotification, object: nil)
-				NSNotificationCenter.defaultCenter().addObserver(self, selector: "resumePlayer", name: UIApplicationWillEnterForegroundNotification, object: nil)
+				NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AboutViewController.playerItemDidReachEnd(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: playerItem)
+				NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AboutViewController.pausePlayer), name: UIApplicationDidEnterBackgroundNotification, object: nil)
+				NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AboutViewController.resumePlayer), name: UIApplicationWillEnterForegroundNotification, object: nil)
 			}
 		}
 
