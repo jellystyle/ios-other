@@ -18,65 +18,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		self.tableView.editing = true
 		self.tableView.allowsSelectionDuringEditing = true
 
-		let contactSection = JSMStaticSection(key: "contact")
-		contactSection.headerText = "Contact"
-		self.dataSource.addSection(contactSection)
-
-		var support = JSMStaticSection(key: "support-1")
-		support.headerText = NSBundle.mainBundle().displayName ?? "Other"
-		self.dataSource.addSection(support)
-
-		if let appStoreManager = AppStoreManager.sharedManager {
-			let review = JSMStaticRow(key: "support.review")
-			review.text = NSLocalizedString("Review on the App Store", comment: "Label for button to open the App Store to post a review")
-			review.configurationForCell { row, cell in
-				cell.accessoryType = .None
-				cell.selectionStyle = .Default
-				cell.textLabel?.textColor = PreferencesManager.tintColor
-			}
-			support.addRow(review)
-
-			if let count = appStoreManager.numberOfUserRatings {
-				if( count == 0 ) {
-					support.footerText = "Be the first to rate this version!"
-				}
-				else {
-					let formattedCount = NSNumberFormatter.localizedStringFromNumber(count, numberStyle: .DecimalStyle)
-					if count <= 50 {
-						support.footerText = "Only \(formattedCount) people have rated this version."
-					}
-					else {
-						support.footerText = "\(formattedCount) people have rated this version."
-					}
-				}
-			}
-			else {
-				support.footerText = "\(support.headerText) will never interrupt you for ratings."
-			}
-
-			support = JSMStaticSection(key: "support-2")
-			self.dataSource.addSection(support)
-		}
-
-		if NSBundle.mainBundle().URLForResource("userguide", withExtension: "json") != nil {
-			let guide = JSMStaticRow(key: "support.guide")
-			guide.text = "User Guide"
-			guide.configurationForCell { row, cell in
-				cell.accessoryType = .DisclosureIndicator
-				cell.selectionStyle = .Default
-				cell.textLabel?.textColor = PreferencesManager.tintColor
-			}
-			support.addRow(guide)
-		}
-
-		let about = JSMStaticRow(key: "support.about")
-		about.text = "About"
-		about.configurationForCell({ row, cell in
-			cell.accessoryType = .DisclosureIndicator
-			cell.selectionStyle = .Default
-			cell.textLabel?.textColor = PreferencesManager.tintColor
-		})
-		support.addRow(about)
+		self._updateView()
 	}
 
 	override func viewWillAppear(animated: Bool) {
@@ -239,22 +181,96 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 	/// Refresh the various sections in the data source.
 	private func _updateView() {
-		self._updateContactSection()
-		self._updateRecipientSection()
-		self._updateMessagesSection()
+		var sections: [JSMStaticSection] = []
+
+		let contact = self._contactSection()
+		sections.append(contact)
+
+		if let recipients = self._recipientSection() {
+			sections.append(recipients)
+		}
+
+		if let messages = self._messagesSection() {
+			sections.append(messages)
+		}
+
+		var support = JSMStaticSection(key: "support-1")
+		support.headerText = NSBundle.mainBundle().displayName ?? "Other"
+		sections.append(support)
+
+		if let appStoreManager = AppStoreManager.sharedManager {
+			let review = JSMStaticRow(key: "support.review")
+			review.text = NSLocalizedString("Review on the App Store", comment: "Label for button to open the App Store to post a review")
+			review.configurationForCell { row, cell in
+				cell.accessoryType = .None
+				cell.selectionStyle = .Default
+				cell.textLabel?.textColor = PreferencesManager.tintColor
+			}
+			support.addRow(review)
+
+			if let count = appStoreManager.numberOfUserRatings {
+				if( count == 0 ) {
+					support.footerText = "Be the first to rate this version!"
+				}
+				else {
+					let formattedCount = NSNumberFormatter.localizedStringFromNumber(count, numberStyle: .DecimalStyle)
+					if count <= 50 {
+						support.footerText = "Only \(formattedCount) people have rated this version."
+					}
+					else {
+						support.footerText = "\(formattedCount) people have rated this version."
+					}
+				}
+			}
+			else {
+				support.footerText = "\(support.headerText) will never interrupt you for ratings."
+			}
+
+			support = JSMStaticSection(key: "support-2")
+			sections.append(support)
+		}
+
+		if NSBundle.mainBundle().URLForResource("userguide", withExtension: "json") != nil {
+			let guide = JSMStaticRow(key: "support.guide")
+			guide.text = "User Guide"
+			guide.configurationForCell { row, cell in
+				cell.accessoryType = .DisclosureIndicator
+				cell.selectionStyle = .Default
+				cell.textLabel?.textColor = PreferencesManager.tintColor
+			}
+			support.addRow(guide)
+		}
+
+		let about = JSMStaticRow(key: "support.about")
+		about.text = "About"
+		about.configurationForCell({ row, cell in
+			cell.accessoryType = .DisclosureIndicator
+			cell.selectionStyle = .Default
+			cell.textLabel?.textColor = PreferencesManager.tintColor
+		})
+		support.addRow(about)
+
+		self.dataSource.sections = sections
 	}
 
 	/// Refresh the contact section.
-	private func _updateContactSection() {
-		guard let section = self.dataSource.sectionWithKey("contact") else {
-			return
+	private func _contactSection() -> JSMStaticSection {
+		let section = JSMStaticSection(key: "contact")
+		section.headerText = "Contact"
+
+		if let preferences = self.preferences, let contact = preferences.contact {
+			section.footerText = "This is your selected contact. You can tap at any time to select a different person from your address book."
+
+			let contactRow = JSMStaticRow(key: "contact")
+			contactRow.text = CNContactFormatter().stringFromContact(contact)
+			contactRow.image = preferences.contactThumbnail(46, stroke: 1, edgeInsets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
+			contactRow.configurationForCell { row, cell in
+				cell.textLabel?.textColor = PreferencesManager.tintColor
+			}
+			section.addRow(contactRow)
 		}
 
-		section.removeAllRows()
-
-		// Remove sections
-
-		guard let preferences = self.preferences, let contact = preferences.contact else {
+		else {
 			section.footerText = "You'll need to choose a contact to use Other for: someone you often send things to via Messages."
 
 			let row = JSMStaticRow(key: "select-contact")
@@ -263,61 +279,25 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 				cell.textLabel?.textColor = PreferencesManager.tintColor
 			}
 			section.addRow(row)
-
-			if let recipients = self.dataSource.sectionWithKey("recipients") {
-				self.dataSource.removeSection(recipients)
-			}
-
-			return
 		}
 
-		// Contact Row
-
-		let contactRow = JSMStaticRow(key: "contact")
-		section.addRow(contactRow)
-
-		let formatter = CNContactFormatter()
-		contactRow.text = formatter.stringFromContact(contact)
-		contactRow.image = preferences.contactThumbnail(46, stroke: 1, edgeInsets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
-		contactRow.configurationForCell { row, cell in
-			cell.textLabel?.textColor = PreferencesManager.tintColor
-		}
-
-		section.footerText = "This is your selected contact. You can tap at any time to select a different person from your address book."
+		return section
 	}
 
 	/// Refresh the recipient section, removing if no contact is selected.
-	private func _updateRecipientSection() {
-		guard let preferences = self.preferences, let _ = preferences.contact else {
-
-			if let recipients = self.dataSource.sectionWithKey("recipients") {
-				self.dataSource.removeSection(recipients)
-			}
-
-			return
+	private func _recipientSection() -> JSMStaticSection? {
+		guard let preferences = self.preferences where preferences.contact != nil else {
+			return nil
 		}
 
-		let section: JSMStaticSection
-		if self.dataSource.sectionWithKey("recipients") != nil {
-			section = self.dataSource.sectionWithKey("recipients")
-		}
-		else {
-			section = JSMStaticSection(key: "recipients")
-			section.footerText = "Select the phone number (or email address) used for the call and message features. These are used when tapping a shortcut in the app, or when using the share extension to send images, links and other kinds of content."
-			self.dataSource.insertSection(section, atIndex: 1)
-		}
+		let section = JSMStaticSection(key: "recipients")
+		section.footerText = "Select the phone number (or email address) used for the call and message features. These are used when tapping a shortcut in the app, or when using the share extension to send images, links and other kinds of content."
 
 		// Call Recipient
 
-		let callPreference: JSMStaticSelectPreference
-		if section.rowWithKey("call-recipient") as? JSMStaticSelectPreference != nil {
-			callPreference = section.rowWithKey("call-recipient") as! JSMStaticSelectPreference
-		}
-		else {
-			callPreference = JSMStaticSelectPreference.transientPreferenceWithKey("call-recipient")
-			callPreference.addObserver(self)
-			section.addRow(callPreference)
-		}
+		let callPreference = JSMStaticSelectPreference.transientPreferenceWithKey("call-recipient")
+		callPreference.addObserver(self)
+		section.addRow(callPreference)
 
         var callOptions = preferences.callOptions.map({ (option) in
             return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option]
@@ -333,17 +313,11 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 		// Message Recipient
 
-		let messagePreference: JSMStaticSelectPreference
-		if section.rowWithKey("message-recipient") as? JSMStaticSelectPreference != nil {
-			messagePreference = section.rowWithKey("message-recipient") as! JSMStaticSelectPreference
-		}
-		else {
-			messagePreference = JSMStaticSelectPreference.transientPreferenceWithKey("message-recipient")
-			messagePreference.addObserver(self)
-			section.addRow(messagePreference)
-		}
+		let messagePreference = JSMStaticSelectPreference.transientPreferenceWithKey("message-recipient")
+		messagePreference.addObserver(self)
+		section.addRow(messagePreference)
 
-        var messageOptions = preferences.messageOptions.map({ (option) in
+		var messageOptions = preferences.messageOptions.map({ (option) in
             return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option]
         })
         messageOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""])
@@ -354,35 +328,24 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		messagePreference.configurationForCell { row, cell in
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
+
+		return section
 	}
 
 	/// Refresh the messages section, removing if no message recipient is selected.
-	private func _updateMessagesSection() {
-        guard let preferences = self.preferences, let recipient = preferences.messageRecipient where recipient.characters.count > 0 else {
+	private func _messagesSection() -> JSMStaticSection? {
+		guard let preferences = self.preferences, let recipient = preferences.messageRecipient where recipient.characters.count > 0 else {
+			return nil
+		}
 
-            if let messages = self.dataSource.sectionWithKey("messages") {
-                self.dataSource.removeSection(messages)
-            }
-            
-            return
-        }
-        
-        let section: JSMStaticSection
-        if self.dataSource.sectionWithKey("messages") != nil {
-            section = self.dataSource.sectionWithKey("messages")
-            section.removeAllRows()
-        }
-        else {
-            section = JSMStaticSection(key: "messages")
-            section.headerText = "Messages"
-			if #available(iOS 9.1, *) {
-				section.footerText = "Messages are shown as shortcut buttons within the app, and as 3D touch shortcuts on the home screen, providing a quick way to send messages you use regularly."
-			}
-			else {
-				section.footerText = "Messages are shown as shortcut buttons within the app, providing a quick way to send messages you use regularly."
-			}
-            self.dataSource.insertSection(section, atIndex: 2)
-        }
+		let section = JSMStaticSection(key: "messages")
+		section.headerText = "Messages"
+		if #available(iOS 9.1, *) {
+			section.footerText = "Messages are shown as shortcut buttons within the app, and as 3D touch shortcuts on the home screen, providing a quick way to send messages you use regularly."
+		}
+		else {
+			section.footerText = "Messages are shown as shortcut buttons within the app, providing a quick way to send messages you use regularly."
+		}
 
 		for message in preferences.messages {
 			let row = self._rowForMessage(message, key: message)
@@ -397,6 +360,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
 		section.addRow(row)
+
+		return section
 	}
 
 	/// Generate a row for editing the content of a message.
