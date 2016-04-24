@@ -54,10 +54,10 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 				self.presentViewController(viewController, animated: true, completion: nil)
 
 			}
-			else if row.key as? String == "add-message" {
+			else if row.key as? String == "add-message", let section = row.section {
 
 				let empty = self._rowForMessage(nil, key: String(indexPath.row))
-                dataSource.insertRow(empty, intoSection: row.section, atIndex: UInt(indexPath.row), withRowAnimation: UITableViewRowAnimation.Bottom)
+                dataSource.insertRow(empty, intoSection: section, atIndex: UInt(indexPath.row), withRowAnimation: UITableViewRowAnimation.Bottom)
 				empty.textField?.becomeFirstResponder()
 
 			}
@@ -110,19 +110,19 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 	// MARK: Static data source delegate
 
-	override func dataSource(dataSource: JSMStaticDataSource!, rowNeedsReload row: JSMStaticRow!, atIndexPath indexPath: NSIndexPath!) {
+	override func dataSource(dataSource: JSMStaticDataSource, rowNeedsReload row: JSMStaticRow, atIndexPath indexPath: NSIndexPath) {
 		// We don't need to reload the row, it gets reloaded when the view appears
 	}
 
-	override func dataSource(dataSource: JSMStaticDataSource!, sectionNeedsReload section: JSMStaticSection!, atIndex index: UInt) {
+	override func dataSource(dataSource: JSMStaticDataSource, sectionNeedsReload section: JSMStaticSection, atIndex index: UInt) {
 		// We don't need to reload the section, it gets reloaded when the view appears
 	}
 
-	override func dataSource(dataSource: JSMStaticDataSource!, didMoveRow row: JSMStaticRow!, fromIndexPath: NSIndexPath!, toIndexPath: NSIndexPath!) {
+	override func dataSource(dataSource: JSMStaticDataSource, didMoveRow row: JSMStaticRow, fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
 		self._saveMessages()
 	}
 
-	override func dataSource(dataSource: JSMStaticDataSource!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRow row: JSMStaticRow!, atIndexPath indexPath: NSIndexPath!) {
+	override func dataSource(dataSource: JSMStaticDataSource, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRow row: JSMStaticRow, atIndexPath indexPath: NSIndexPath) {
 		if let tableView = dataSource.tableView where editingStyle == .Insert {
 			self.tableView(tableView, didSelectRowAtIndexPath: indexPath)
 		}
@@ -135,7 +135,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 	// MARK: Static preference observer
 
-	func preference(preference: JSMStaticPreference!, didChangeValue value: AnyObject!) {
+	func preference(preference: JSMStaticPreference, didChangeValue value: AnyObject) {
 		if let preferences = self.preferences {
 			if let select = preference as? JSMStaticSelectPreference {
 
@@ -201,9 +201,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		if let appStoreManager = AppStoreManager.sharedManager {
 			let review = JSMStaticRow(key: "support.review")
 			review.text = NSLocalizedString("Review on the App Store", comment: "Label for button to open the App Store to post a review")
+			review.accessoryType = .None
+			review.selectionStyle = .Default
 			review.configurationForCell { row, cell in
-				cell.accessoryType = .None
-				cell.selectionStyle = .Default
 				cell.textLabel?.textColor = PreferencesManager.tintColor
 			}
 			support.addRow(review)
@@ -233,9 +233,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		if NSBundle.mainBundle().URLForResource("userguide", withExtension: "json") != nil {
 			let guide = JSMStaticRow(key: "support.guide")
 			guide.text = "User Guide"
+			guide.accessoryType = .DisclosureIndicator
+			guide.selectionStyle = .Default
 			guide.configurationForCell { row, cell in
-				cell.accessoryType = .DisclosureIndicator
-				cell.selectionStyle = .Default
 				cell.textLabel?.textColor = PreferencesManager.tintColor
 			}
 			support.addRow(guide)
@@ -243,9 +243,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 		let about = JSMStaticRow(key: "support.about")
 		about.text = "About"
+		about.accessoryType = .DisclosureIndicator
+		about.selectionStyle = .Default
 		about.configurationForCell({ row, cell in
-			cell.accessoryType = .DisclosureIndicator
-			cell.selectionStyle = .Default
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		})
 		support.addRow(about)
@@ -299,14 +299,14 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		callPreference.addObserver(self)
 		section.addRow(callPreference)
 
-        var callOptions = preferences.callOptions.map({ (option) in
+        var callOptions: [[String: AnyObject]] = preferences.callOptions.map({ (option) in
             return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option]
         })
         callOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""])
 
         callPreference.text = "Calls"
 		callPreference.value = preferences.callRecipient
-        callPreference.options = callOptions
+		callPreference.options = callOptions
 		callPreference.configurationForCell { row, cell in
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
@@ -317,7 +317,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		messagePreference.addObserver(self)
 		section.addRow(messagePreference)
 
-		var messageOptions = preferences.messageOptions.map({ (option) in
+		var messageOptions: [[String: AnyObject]] = preferences.messageOptions.map({ (option) in
             return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option]
         })
         messageOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""])
@@ -355,8 +355,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		let row = JSMStaticRow(key: "add-message")
 		row.text = "Add Message"
 		row.editingStyle = .Insert
-		row.configurationForCell {
-			row, cell in
+		row.configurationForCell { row, cell in
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
 		section.addRow(row)
@@ -386,7 +385,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 	/// Generates a list of messages in the messages section, and saves them, using the PreferencesManager.
 	private func _saveMessages() {
-		if let preferences = self.preferences, let rows = self.dataSource?.sectionWithKey("messages")?.rows {
+		if let preferences = self.preferences, let rows = self.dataSource.sectionWithKey("messages")?.rows {
 
 			print("Saving messages...")
 

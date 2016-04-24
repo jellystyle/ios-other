@@ -125,7 +125,9 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let row = self.dataSource.rowAtIndexPath(indexPath)
+		guard let row = self.dataSource.rowAtIndexPath(indexPath) else {
+			return
+		}
 
 		guard let preferences = self.preferences else {
 			return

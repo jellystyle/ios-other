@@ -78,10 +78,8 @@ class AboutViewController: JSMStaticTableViewController {
 		let version = JSMStaticRow()
 		version.text = "Version"
 		version.detailText = NSBundle.mainBundle().displayVersion
-		version.configurationForCell { row, cell in
-			cell.accessoryType = .None
-			cell.selectionStyle = .None
-		}
+		version.accessoryType = .None
+		version.selectionStyle = .None
 		about.addRow(version)
 
 		// Other
@@ -92,27 +90,27 @@ class AboutViewController: JSMStaticTableViewController {
 
 		let other = JSMStaticRow(key: "open-source.other")
 		other.text = "Other"
+		other.accessoryType = .DisclosureIndicator
+		other.selectionStyle = .Default
 		other.configurationForCell { row, cell in
-			cell.accessoryType = .DisclosureIndicator
-			cell.selectionStyle = .Default
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
 		openSource.addRow(other)
 
 		let sherpa = JSMStaticRow(key: "open-source.sherpa")
 		sherpa.text = "Sherpa"
+		sherpa.accessoryType = .DisclosureIndicator
+		sherpa.selectionStyle = .Default
 		sherpa.configurationForCell { row, cell in
-			cell.accessoryType = .DisclosureIndicator
-			cell.selectionStyle = .Default
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
 		openSource.addRow(sherpa)
 
 		let staticTables = JSMStaticRow(key: "open-source.statictables")
 		staticTables.text = "StaticTables"
+		staticTables.accessoryType = .DisclosureIndicator
+		staticTables.selectionStyle = .Default
 		staticTables.configurationForCell { row, cell in
-			cell.accessoryType = .DisclosureIndicator
-			cell.selectionStyle = .Default
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
 		openSource.addRow(staticTables)
