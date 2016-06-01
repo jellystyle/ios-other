@@ -24,30 +24,18 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 		messageController.messageComposeDelegate = self
 		messageController.recipients = [messageRecipient]
 
+		let typeIdentifiers = [kUTTypeFileURL, kUTTypeURL, kUTTypeJPEG, kUTTypeJPEG2000, kUTTypeTIFF, kUTTypePICT, kUTTypeGIF, kUTTypePNG, kUTTypeQuickTimeImage, kUTTypeAppleICNS, kUTTypeBMP, kUTTypeICO, kUTTypeImage, kUTTypeQuickTimeMovie, kUTTypeMPEG, kUTTypeMPEG4, kUTTypeMP3, kUTTypeMPEG4Audio, kUTTypeAppleProtectedMPEG4Audio, kUTTypeAudiovisualContent, kUTTypeText, kUTTypePDF, kUTTypeRTFD, kUTTypeVCard]
+
 		var items = 0
 		for item in context.inputItems as! [NSExtensionItem] {
 			for itemProvider in item.attachments as! [NSItemProvider] {
 
-				if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypeFileURL) {
-					items += 1
-				}
-				else if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypeURL) {
-					items += 1
-				}
-				else if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypeImage) {
-					items += 1
-				}
-				else if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypeAudiovisualContent) {
-					items += 1
-				}
-				else if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypeText) {
-					items += 1
-				}
-				else if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypePDF) {
-					items += 1
-				}
-				else if self.attemptToHandle(itemProvider, typeIdentifier: kUTTypeVCard) {
-					items += 1
+				for typeIdentifier in typeIdentifiers {
+
+					if self.attemptToHandle(itemProvider, typeIdentifier: typeIdentifier) {
+						items += 1
+					}
+
 				}
 
 			}
@@ -65,20 +53,35 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 			return false
 		}
 
-		itemProvider.loadItemForTypeIdentifier(typeIdentifier as String, options: nil, completionHandler: {
-			(item, error) -> Void in
-			guard let messageController = self.messageController, url = item as? NSURL else {
+		itemProvider.loadItemForTypeIdentifier(typeIdentifier as String, options: nil, completionHandler: { item, error in
+			guard let messageController = self.messageController else {
 				return
 			}
 
-			if url.fileURL {
-				messageController.addAttachmentURL(url, withAlternateFilename: nil)
+			if let url = item as? NSURL {
+				if url.fileURL {
+					messageController.addAttachmentURL(url, withAlternateFilename: nil)
+				}
+
+				else {
+					var body: String = messageController.body != nil ? messageController.body! : ""
+					body = body + " " + url.absoluteString
+					body = body.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+					messageController.body = body
+				}
 			}
-			else {
-				var body: String = messageController.body != nil ? messageController.body! : ""
-				body = body + " " + url.absoluteString
-				body = body.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-				messageController.body = body
+
+			else if let text = item as? String {
+				if let body = messageController.body where body.characters.count > 0 {
+					messageController.body = body + " " + text
+				}
+				else {
+					messageController.body = text
+				}
+			}
+
+			else if let data = item as? NSData, let ext = UTTypeCopyPreferredTagWithClass(typeIdentifier, kUTTagClassFilenameExtension)?.takeRetainedValue() {
+				messageController.addAttachmentData(data, typeIdentifier: typeIdentifier as String, filename: "attachment.\(ext)")
 			}
 		})
 
