@@ -27,12 +27,12 @@ extension UIImage {
 
 		let startPoint = CGPointMake(size.width / 2, 0)
 		let endPoint = CGPointMake(size.width / 2, size.height)
-		CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, [.DrawsBeforeStartLocation, .DrawsAfterEndLocation])
+		CGContextDrawLinearGradient(context!, gradient!, startPoint, endPoint, [.DrawsBeforeStartLocation, .DrawsAfterEndLocation])
 
 		let finalImage = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 
-		return finalImage.stretchableImageWithLeftCapWidth(0, topCapHeight: 0)
+		return finalImage!.stretchableImageWithLeftCapWidth(0, topCapHeight: 0)
 	}
 
 	/// Create a new image which is resized and masked as a circle, with an optional white stroke.
@@ -48,7 +48,7 @@ extension UIImage {
 		let source = self.CGImage
 
 		let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue)
-		let context = CGBitmapContextCreate(nil, Int(scaledSize), Int(scaledSize), CGImageGetBitsPerComponent(source), 0, CGImageGetColorSpace(source), bitmapInfo.rawValue)
+		let context = CGBitmapContextCreate(nil, Int(scaledSize), Int(scaledSize), CGImageGetBitsPerComponent(source!), 0, CGImageGetColorSpace(source!)!, bitmapInfo.rawValue)
 
 		let percent = scaledSize / min(self.size.width * self.scale, self.size.height * self.scale)
 		let rectSize = CGSize(width: self.size.width * self.scale * percent, height: self.size.height * self.scale * percent)
@@ -56,19 +56,19 @@ extension UIImage {
 		var rect = CGRect(origin: rectOrigin, size: rectSize)
 
 		if( stroke >= 1 ) {
-			CGContextAddEllipseInRect(context, rect)
-			CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
-			CGContextDrawPath(context, .Fill)
+			CGContextAddEllipseInRect(context!, rect)
+			CGContextSetFillColorWithColor(context!, UIColor.whiteColor().CGColor)
+			CGContextDrawPath(context!, .Fill)
 
 			rect = rect.insetBy(dx: stroke * scale, dy: stroke * scale)
 		}
 
-		CGContextAddEllipseInRect(context, rect)
-		CGContextClip(context)
+		CGContextAddEllipseInRect(context!, rect)
+		CGContextClip(context!)
 
-		CGContextDrawImage(context, rect, source)
+		CGContextDrawImage(context!, rect, source!)
 
-		guard let imageRef = CGBitmapContextCreateImage(context) else {
+		guard let imageRef = CGBitmapContextCreateImage(context!) else {
 			return nil
 		}
 
@@ -88,12 +88,12 @@ extension UIImage {
 
 		let contextSize = CGSize(width: (self.size.width + edgeInsets.left + edgeInsets.right) * scale, height: (self.size.height + edgeInsets.top + edgeInsets.bottom) * scale)
 		let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue)
-		let context = CGBitmapContextCreate(nil, Int(contextSize.width), Int(contextSize.height), CGImageGetBitsPerComponent(source), 0, CGImageGetColorSpace(source), bitmapInfo.rawValue)
+		let context = CGBitmapContextCreate(nil, Int(contextSize.width), Int(contextSize.height), CGImageGetBitsPerComponent(source!), 0, CGImageGetColorSpace(source!)!, bitmapInfo.rawValue)
 
 		let rect = CGRect(x: edgeInsets.left * scale, y: edgeInsets.bottom * scale, width: self.size.width * scale, height: self.size.height * scale)
-		CGContextDrawImage(context, rect, source)
+		CGContextDrawImage(context!, rect, source!)
 
-		guard let imageRef = CGBitmapContextCreateImage(context) else {
+		guard let imageRef = CGBitmapContextCreateImage(context!) else {
 			return nil
 		}
 

@@ -65,7 +65,7 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 
 				else {
 					var body: String = messageController.body != nil ? messageController.body! : ""
-					body = body + " " + url.absoluteString
+					body = body + " " + url.absoluteString!
 					body = body.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 					messageController.body = body
 				}

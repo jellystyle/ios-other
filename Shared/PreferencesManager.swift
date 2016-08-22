@@ -312,7 +312,7 @@ class PreferencesManager: NSObject {
 
 	/// Log a count of the number of messages sent
 	func didFinishMessaging(result: MessageComposeResult) {
-		if result != MessageComposeResultSent { return }
+		if result != .Sent { return }
 		let key = "analytics-sent-messages"
 		let count = self.userDefaults.integerForKey(key)
 		self.userDefaults.setInteger(count+1, forKey: key)
