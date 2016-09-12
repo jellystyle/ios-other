@@ -20,7 +20,6 @@
 		A17FBA2E1B44DF8200564F82 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A17FBA2C1B44DF8200564F82 /* LaunchScreen.xib */; };
 		A17FBA3A1B44DF8200564F82 /* OtherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBA391B44DF8200564F82 /* OtherTests.swift */; };
 		A17FBA4C1B44DFF300564F82 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17FBA4B1B44DFF300564F82 /* ShareViewController.swift */; };
-		A17FBA4E1B44DFF300564F82 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A17FBA4D1B44DFF300564F82 /* MainInterface.storyboard */; };
 		A17FBA511B44DFF300564F82 /* Send to Other.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A17FBA471B44DFF300564F82 /* Send to Other.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A18D9C301B44EF1800F43BF5 /* StaticTables.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C291B44E92D00F43BF5 /* StaticTables.framework */; };
 		A18D9C311B44EF3500F43BF5 /* StaticTables.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A18D9C291B44E92D00F43BF5 /* StaticTables.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -154,7 +153,6 @@
 		A17FBA471B44DFF300564F82 /* Send to Other.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Send to Other.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A17FBA4A1B44DFF300564F82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A17FBA4B1B44DFF300564F82 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		A17FBA4D1B44DFF300564F82 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		A17FBA561B44E10D00564F82 /* StaticTables.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = StaticTables.xcodeproj; path = StaticTables/StaticTables.xcodeproj; sourceTree = "<group>"; };
 		A190E2621C87BA6A003A72BB /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A190E26A1C87C6E2003A72BB /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -281,7 +279,6 @@
 			isa = PBXGroup;
 			children = (
 				A17FBA4B1B44DFF300564F82 /* ShareViewController.swift */,
-				A17FBA4D1B44DFF300564F82 /* MainInterface.storyboard */,
 				A17FBA491B44DFF300564F82 /* Supporting Files */,
 			);
 			path = "Send to Other";
@@ -520,7 +517,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A17FBA4E1B44DFF300564F82 /* MainInterface.storyboard in Resources */,
 				A1767B101B452F33008C9F83 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
