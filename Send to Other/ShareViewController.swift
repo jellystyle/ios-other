@@ -26,18 +26,14 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 
 		let typeIdentifiers = [kUTTypeFileURL, kUTTypeURL, kUTTypeJPEG, kUTTypeJPEG2000, kUTTypeTIFF, kUTTypePICT, kUTTypeGIF, kUTTypePNG, kUTTypeQuickTimeImage, kUTTypeAppleICNS, kUTTypeBMP, kUTTypeICO, kUTTypeImage, kUTTypeQuickTimeMovie, kUTTypeMPEG, kUTTypeMPEG4, kUTTypeMP3, kUTTypeMPEG4Audio, kUTTypeAppleProtectedMPEG4Audio, kUTTypeAudiovisualContent, kUTTypeText, kUTTypePDF, kUTTypeRTFD, kUTTypeVCard]
 
-		var items = 0
-		for item in context.inputItems as! [NSExtensionItem] {
-			for itemProvider in item.attachments as! [NSItemProvider] {
+        var items = 0
+		for item in context.inputItems as? [NSExtensionItem] ?? [] {
+			for itemProvider in item.attachments as? [NSItemProvider] ?? [] {
+				for typeIdentifier in typeIdentifiers where self.attemptToHandle(itemProvider, typeIdentifier: typeIdentifier) {
+                    items += 1
 
-				for typeIdentifier in typeIdentifiers {
-
-					if self.attemptToHandle(itemProvider, typeIdentifier: typeIdentifier) {
-						items += 1
-					}
-
+                    break
 				}
-
 			}
 		}
 

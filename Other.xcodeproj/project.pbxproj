@@ -280,7 +280,6 @@
 		A17FBA481B44DFF300564F82 /* Send to Other */ = {
 			isa = PBXGroup;
 			children = (
-				A1B7F2AA1B4D38E700485CC0 /* Send to Other.entitlements */,
 				A17FBA4B1B44DFF300564F82 /* ShareViewController.swift */,
 				A17FBA4D1B44DFF300564F82 /* MainInterface.storyboard */,
 				A17FBA491B44DFF300564F82 /* Supporting Files */,
@@ -291,6 +290,7 @@
 		A17FBA491B44DFF300564F82 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A1B7F2AA1B4D38E700485CC0 /* Send to Other.entitlements */,
 				A17FBA4A1B44DFF300564F82 /* Info.plist */,
 			);
 			name = "Supporting Files";
