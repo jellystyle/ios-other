@@ -15,6 +15,7 @@ xcuserdata
 *.swp
 
 ## Other
+.DS_Store
 *.xccheckout
 *.moved-aside
 *.xcuserstate

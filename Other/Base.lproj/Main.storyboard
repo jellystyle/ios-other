@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1Ka-8R-9fe">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A319" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1Ka-8R-9fe">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Shortcuts-->
@@ -10,9 +11,9 @@
             <objects>
                 <tableViewController id="GIU-fH-7lw" customClass="MainViewController" customModule="Other" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9QM-JC-dsV">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <connections>
                             <outlet property="dataSource" destination="GIU-fH-7lw" id="9u6-73-rtB"/>
                             <outlet property="delegate" destination="GIU-fH-7lw" id="E87-8N-116"/>
@@ -25,14 +26,6 @@
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <segue destination="QyY-ku-6Kk" kind="presentation" modalPresentationStyle="formSheet" id="8l3-Oc-3ns"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" image="contact" id="J5E-BM-05k">
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Display Contact" localized="YES"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="displayContact" destination="GIU-fH-7lw" id="aTG-Km-FyW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -53,62 +46,44 @@
                         <viewControllerLayoutGuide type="bottom" id="vhz-QV-ruH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5FO-7r-uMU">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pf9-7j-py7">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="WYT-Ff-HzE">
-                                        <rect key="frame" x="125" y="53" width="350" height="430"/>
                                         <subviews>
-                                            <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="ePe-UG-dFV">
-                                                <rect key="frame" x="85" y="0.0" width="180" height="180"/>
-                                            </imageView>
+                                            <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="ePe-UG-dFV"/>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="exJ-rd-pai">
-                                                <rect key="frame" x="0.0" y="200" width="350" height="146"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Welcome!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeD-Ne-MFJ">
-                                                        <rect key="frame" x="117" y="0.0" width="118" height="33"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                                        <color key="textColor" red="0.29012390971183777" green="0.29023817181587219" blue="0.29011636972427368" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" red="0.22540861368179321" green="0.22550424933433533" blue="0.2253965437412262" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JZr-dh-3oK">
-                                                        <rect key="frame" x="0.0" y="43" width="350" height="104"/>
                                                         <string key="text">You'll need to choose a contact to use Other for: someone you often send things to via Messages. A significant OTHER, perhaps?
 
 Yeah, you see what I did there.</string>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                        <color key="textColor" red="0.29012390971183777" green="0.29023817181587219" blue="0.29011636972427368" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" red="0.22540861368179321" green="0.22550424933433533" blue="0.2253965437412262" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <variation key="heightClass=compact" misplaced="YES">
-                                                    <rect key="frame" x="0.0" y="0.0" width="400" height="146"/>
-                                                </variation>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3gV-0Q-aq3">
-                                                <rect key="frame" x="0.0" y="366" width="350" height="0.0"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" id="YPG-BQ-00d"/>
                                                 </constraints>
-                                                <variation key="heightClass=compact" misplaced="YES">
-                                                    <rect key="frame" x="0.0" y="166" width="400" height="0.0"/>
-                                                </variation>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3XJ-T8-AXI">
-                                                <rect key="frame" x="103" y="386" width="144" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="Ggh-0d-iO4"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                 <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                                 <state key="normal" title="Select Contact…" backgroundImage="button"/>
-                                                <variation key="heightClass=compact" misplaced="YES">
-                                                    <rect key="frame" x="128" y="186" width="144" height="44"/>
-                                                </variation>
                                                 <connections>
                                                     <action selector="selectContact" destination="4Np-he-faj" eventType="touchUpInside" id="qke-Ae-7hb"/>
                                                 </connections>
@@ -119,9 +94,6 @@ Yeah, you see what I did there.</string>
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="350" id="YTq-RT-sKe"/>
                                             <constraint firstItem="3gV-0Q-aq3" firstAttribute="width" secondItem="WYT-Ff-HzE" secondAttribute="width" id="ZjE-C5-hz7"/>
                                         </constraints>
-                                        <variation key="heightClass=compact" misplaced="YES">
-                                            <rect key="frame" x="100" y="-47" width="400" height="230"/>
-                                        </variation>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -132,7 +104,7 @@ Yeah, you see what I did there.</string>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.92549019607843142" green="0.92156862745098034" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.92549019607843142" green="0.92156862745098034" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="pf9-7j-py7" secondAttribute="trailing" id="5eW-qT-7kp"/>
                             <constraint firstItem="pf9-7j-py7" firstAttribute="top" secondItem="fMJ-la-0eX" secondAttribute="bottom" id="Ubu-kY-ooE"/>
@@ -174,7 +146,7 @@ Yeah, you see what I did there.</string>
             <objects>
                 <tableViewController id="rdN-KO-PFr" customClass="SettingsViewController" customModule="Other" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="jEh-q0-wZo">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <connections>
@@ -197,8 +169,8 @@ Yeah, you see what I did there.</string>
         <!--Navigation Controller-->
         <scene sceneID="kOy-7P-Wm7">
             <objects>
-                <navigationController id="QyY-ku-6Kk" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MrV-gI-uqn">
+                <navigationController id="QyY-ku-6Kk" customClass="NavigationController" customModule="Other" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="MrV-gI-uqn" customClass="NavigationBar" customModule="Other" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -213,8 +185,8 @@ Yeah, you see what I did there.</string>
         <!--Navigation Controller-->
         <scene sceneID="98S-hL-iue">
             <objects>
-                <navigationController id="1Ka-8R-9fe" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fMq-FI-jFb">
+                <navigationController id="1Ka-8R-9fe" customClass="NavigationController" customModule="Other" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fMq-FI-jFb" customClass="NavigationBar" customModule="Other" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -228,13 +200,13 @@ Yeah, you see what I did there.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="button" width="7" height="7"/>
-        <image name="contact" width="25" height="25"/>
+        <image name="button" width="6" height="6"/>
         <image name="empty" width="180" height="180"/>
         <image name="help" width="25" height="25"/>
         <image name="settings" width="23" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Pgb-c6-23d"/>
+        <segue reference="8l3-Oc-3ns"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.30571550130844116" green="0.31423041224479675" blue="0.84033089876174927" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
