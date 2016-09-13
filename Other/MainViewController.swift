@@ -3,7 +3,7 @@ import StaticTables
 import ContactsUI
 import MessageUI
 
-class MainViewController: JSMStaticTableViewController, MFMessageComposeViewControllerDelegate {
+class MainViewController: JSMStaticTableViewController, MFMessageComposeViewControllerDelegate, IconViewControllerDelegate {
 
 	//! The shared preferences manager.
 	let preferences = PreferencesManager.sharedManager
@@ -24,42 +24,31 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 	}
 
 	override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
 		guard let preferences = self.preferences else {
 			return
 		}
 
-		if preferences.contactHasThumbnail {
-            let icon: UIImage
-            if let thumbnail = preferences.contactThumbnail(25, stroke: 1) {
-                icon = thumbnail
-            }
-            else {
-                icon = UIImage(named: "contact")!
-            }
-			if let item = self.navigationItem.rightBarButtonItem, let target = item.target {
-				self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: icon, style: .Plain, target: target, action: item.action)
-			}
-        }
-
-		if preferences.contact != nil {
-			self.navigationItem.rightBarButtonItem?.enabled = true
-		}
-
 		self._updateShortcutsSection()
 
-		self.preferences?.addObserver(self, forKeyPath: "contact", options: [], context: nil)
-		self.preferences?.addObserver(self, forKeyPath: "messages", options: [], context: nil)
-		self.preferences?.addObserver(self, forKeyPath: "callRecipient", options: [], context: nil)
-		self.preferences?.addObserver(self, forKeyPath: "messageRecipient", options: [], context: nil)
+		preferences.addObserver(self, forKeyPath: "contact", options: [], context: nil)
+		preferences.addObserver(self, forKeyPath: "messages", options: [], context: nil)
+		preferences.addObserver(self, forKeyPath: "callRecipient", options: [], context: nil)
+		preferences.addObserver(self, forKeyPath: "messageRecipient", options: [], context: nil)
 	}
 
 	override func viewDidDisappear(animated: Bool) {
 		super.viewDidDisappear(animated)
 
-		self.preferences?.removeObserver(self, forKeyPath: "contact")
-		self.preferences?.removeObserver(self, forKeyPath: "messages")
-		self.preferences?.removeObserver(self, forKeyPath: "callRecipient")
-		self.preferences?.removeObserver(self, forKeyPath: "messageRecipient")
+        guard let preferences = self.preferences else {
+            return
+        }
+        
+		preferences.removeObserver(self, forKeyPath: "contact")
+		preferences.removeObserver(self, forKeyPath: "messages")
+		preferences.removeObserver(self, forKeyPath: "callRecipient")
+		preferences.removeObserver(self, forKeyPath: "messageRecipient")
 	}
 
 	override func viewWillLayoutSubviews() {
@@ -107,13 +96,29 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 			return
 		}
 
-		let viewController = CNContactViewController(forContact: fullContact)
+		let viewController = ContactViewController(forContact: fullContact)
 		viewController.allowsEditing = false
-		self.navigationController?.pushViewController(viewController, animated: true)
+        viewController.view.tintColor = PreferencesManager.tintColor
+        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(dismissPresented))
+        
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .FormSheet
+        navigationController.navigationBar.tintColor = PreferencesManager.tintColor
+        self.presentViewController(navigationController, animated: true, completion: nil)
 	}
+    
+    @IBAction func dismissPresented() {
+        self.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
 
 	// MARK: Table view delegate
 
+    private lazy var iconViewController: IconViewController = {
+        let iconViewController = IconViewController()
+        iconViewController.delegate = self
+        return iconViewController
+    }()
+    
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return self.rowHeight
 	}
@@ -122,28 +127,28 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 		cell.preservesSuperviewLayoutMargins = false
 		cell.layoutMargins = UIEdgeInsetsZero
 		cell.separatorInset = UIEdgeInsetsZero
+        
+        if let row = (tableView.dataSource as? JSMStaticDataSource)?.rowAtIndexPath(indexPath) where (row.key as? String) == "__icons" {
+            self.addChildViewController(self.iconViewController)
+            cell.contentView.addSubview(self.iconViewController.view)
+            
+            self.iconViewController.view.anchor(toAllSidesOf: cell.contentView, maximumWidth: 400)
+        }
 	}
+    
+    override func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if let row = (tableView.dataSource as? JSMStaticDataSource)?.rowAtIndexPath(indexPath) where (row.key as? String) == "__icons" {
+            self.iconViewController.view.removeFromSuperview()
+            self.iconViewController.removeFromParentViewController()
+        }
+    }
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		guard let row = self.dataSource.rowAtIndexPath(indexPath) else {
 			return
 		}
 
-		guard let preferences = self.preferences else {
-			return
-		}
-
-		if let callURL = preferences.callURL where row.key as? String == "__call" {
-			UIApplication.sharedApplication().openURL(callURL)
-			PreferencesManager.sharedManager?.didStartCall()
-		}
-
-		else if let messageURL = preferences.messageURL where row.key as? String == "__message" {
-			UIApplication.sharedApplication().openURL(messageURL)
-			PreferencesManager.sharedManager?.didOpenMessages()
-		}
-
-		else if let messageRecipient = preferences.messageRecipient {
+        if let messageRecipient = self.preferences?.messageRecipient {
 			let messageController = MFMessageComposeViewController()
 			messageController.messageComposeDelegate = self
 			messageController.recipients = [messageRecipient]
@@ -151,18 +156,28 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 			self.navigationController?.presentViewController(messageController, animated: true, completion: nil)
 		}
 
-		// Clear the selection
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
 	}
-
-	// MARK: Message compose view delegate
-
+    
+    // MARK: Message compose view delegate
+    
 	func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
 		PreferencesManager.sharedManager?.didFinishMessaging(result)
 		controller.dismissViewControllerAnimated(true, completion: nil)
 	}
+    
+    // MARK: Message compose view delegate
+    
+    func iconViewController(iconViewController: UIViewController, didRequestOpenURL url: NSURL) {
+        if url.scheme == "my-other" && url.path?.hasPrefix("/contact") ?? false {
+            self.displayContact()
+            return
+        }
 
-	// MARK: Key-value observing
+        UIApplication.sharedApplication().openURL(url)
+    }
+
+    // MARK: Key-value observing
 
 	override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
 		guard let keyPath = keyPath else {
@@ -179,28 +194,30 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 	}
 
     // MARK: Utilities
-
-	private func _updateShortcutsSection() {
+    
+    private func _updateShortcutsSection() {
 		self.section.removeAllRows()
 
 		guard let preferences = self.preferences else {
 			return
 		}
+        
+        if preferences.contact != nil {
+            let row = JSMStaticRow(key: "__icons")
+            row.selectionStyle = .None
+            row.style = .Default
+            row.configurationForCell { row, cell in
+                cell.backgroundColor = self.tableView.backgroundColor
+            }
+            self.section.addRow(row)
+        }
 
-		if let recipient = preferences.callRecipient where recipient.characters.count > 0 {
-			let row = self._row("Call", key: "__call")
-			self.section.addRow(row)
-		}
-
-		if let recipient = preferences.messageRecipient where recipient.characters.count > 0 {
-			let row = self._row("Message", key: "__message")
-			self.section.addRow(row)
-
-			for message in preferences.messages {
+        if let recipient = preferences.messageRecipient where recipient.characters.count > 0 {
+            for message in preferences.messages {
 				let row = self._row(message, key: message)
 				self.section.addRow(row)
 			}
-		}
+        }
 
 		self._calculateRowHeight()
 		self.tableView.reloadData()
@@ -221,6 +238,14 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 			cell.textLabel?.textColor = PreferencesManager.tintColor
         }
         return row
+    }
+
+    class ContactViewController: CNContactViewController {
+        
+        override func preferredStatusBarStyle() -> UIStatusBarStyle {
+            return .Default
+        }
+        
     }
 
 }

@@ -2,38 +2,47 @@ import UIKit
 
 extension UIImage {
 
-	/// Generate a vertical gradient based on a single colour.
-	/// @param color The (roughly) mid-point to use for the gradient.
-	/// @return A 900px square image with a vertical, linear gradient based on the given colour.
-	class func imageWithGradient(color: UIColor) -> UIImage {
-		var hue: CGFloat = 0
-		var saturation: CGFloat = 0
-		var brightness: CGFloat = 0
-		var alpha: CGFloat = 1
+    /// Generate a vertical gradient based on a single colour.
+    /// @param color The (roughly) mid-point to use for the gradient.
+    /// @return A 900px square image with a vertical, linear gradient based on the given colour.
+    class func imageWithGradient(color: UIColor) -> UIImage {
+        let size = CGSize(width: 20, height: 100)
+        return self.imageWithGradient(color, size: size)
+    }
 
-		color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
-		let topColor = UIColor(hue: hue + 0.01, saturation: saturation + 0.04, brightness: brightness - 0.095, alpha: alpha)
-		let bottomColor = UIColor(hue: hue, saturation: saturation - 0.05, brightness: brightness + 0.05, alpha: alpha)
+    /// Generate a vertical gradient based on a single colour.
+    /// @param color The (roughly) mid-point to use for the gradient.
+    /// @return A 900px square image with a vertical, linear gradient based on the given colour.
+    class func imageWithGradient(color: UIColor, size: CGSize) -> UIImage {
+        var hue: CGFloat = 0
+        var saturation: CGFloat = 0
+        var brightness: CGFloat = 0
+        var alpha: CGFloat = 1
+        
+        color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+        let topColor = UIColor(hue: hue + 0.01, saturation: saturation + 0.04, brightness: brightness - 0.095, alpha: alpha)
+        let bottomColor = UIColor(hue: hue, saturation: saturation - 0.05, brightness: brightness + 0.05, alpha: alpha)
+        
+        let scale = UIScreen.mainScreen().scale
+        let pixelSize = CGSize(width: size.width * scale, height: size.height * scale)
+        
+        UIGraphicsBeginImageContext(pixelSize)
+        let context = UIGraphicsGetCurrentContext()
+        
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let locations: [CGFloat] = [0.0, 0.5, 1.0]
+        
+        let gradient = CGGradientCreateWithColors(colorSpace, [topColor.CGColor, color.CGColor, bottomColor.CGColor], locations)
+        
+        let startPoint = CGPointMake(pixelSize.width / 2, 0)
+        let endPoint = CGPointMake(pixelSize.width / 2, pixelSize.height)
+        CGContextDrawLinearGradient(context!, gradient!, startPoint, endPoint, [.DrawsBeforeStartLocation, .DrawsAfterEndLocation])
+        
+        let image = CGBitmapContextCreateImage(context!)
+        UIGraphicsEndImageContext()
 
-		let size = CGSize(width: 20, height: 100 * UIScreen.mainScreen().scale)
-
-		UIGraphicsBeginImageContext(size)
-		let context = UIGraphicsGetCurrentContext()
-
-		let colorSpace = CGColorSpaceCreateDeviceRGB()
-		let locations: [CGFloat] = [0.0, 0.5, 1.0]
-
-		let gradient = CGGradientCreateWithColors(colorSpace, [topColor.CGColor, color.CGColor, bottomColor.CGColor], locations)
-
-		let startPoint = CGPointMake(size.width / 2, 0)
-		let endPoint = CGPointMake(size.width / 2, size.height)
-		CGContextDrawLinearGradient(context!, gradient!, startPoint, endPoint, [.DrawsBeforeStartLocation, .DrawsAfterEndLocation])
-
-		let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-		UIGraphicsEndImageContext()
-
-		return finalImage!.stretchableImageWithLeftCapWidth(0, topCapHeight: 0)
-	}
+        return UIImage(CGImage: image!, scale: scale, orientation: .Up).stretchableImageWithLeftCapWidth(0, topCapHeight: 0)
+    }
 
 	/// Create a new image which is resized and masked as a circle, with an optional white stroke.
 	/// @param diameter The diameter to use for the circle. The given image will be resized to fill this space.
@@ -79,25 +88,53 @@ extension UIImage {
 	/// This allows manual adjustments to an image's apparent position without needing to adjust the image view.
 	/// @param edgeInsets The padding to use for each of the four sides.
 	/// @return A new image which has (transparent) padding added based on the given `edgeInsets`.
-	public func paddedImage(edgeInsets: UIEdgeInsets) -> UIImage? {
-		if edgeInsets == UIEdgeInsetsZero { return self }
+    public func paddedImage(edgeInsets: UIEdgeInsets) -> UIImage? {
+        if edgeInsets == UIEdgeInsetsZero { return self }
+        
+        let scale = UIScreen.mainScreen().scale
+        
+        let source = self.CGImage
+        
+        let contextSize = CGSize(width: (self.size.width + edgeInsets.left + edgeInsets.right) * scale, height: (self.size.height + edgeInsets.top + edgeInsets.bottom) * scale)
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue)
+        let context = CGBitmapContextCreate(nil, Int(contextSize.width), Int(contextSize.height), CGImageGetBitsPerComponent(source!), 0, CGImageGetColorSpace(source!)!, bitmapInfo.rawValue)
+        
+        let rect = CGRect(x: edgeInsets.left * scale, y: edgeInsets.bottom * scale, width: self.size.width * scale, height: self.size.height * scale)
+        CGContextDrawImage(context!, rect, source!)
+        
+        guard let imageRef = CGBitmapContextCreateImage(context!) else {
+            return nil
+        }
+        
+        return UIImage(CGImage: imageRef, scale: scale, orientation: self.imageOrientation)
+    }
 
-		let scale = UIScreen.mainScreen().scale
+    public func overlay(icon: UIImage?, color: UIColor) -> UIImage? {
+        guard let icon = icon else { return self }
+        
+        let size = CGSize(width: self.size.width * self.scale, height: self.size.height * self.scale)
+        let rect = CGRect(origin: CGPointZero, size: size)
+        
+        let source = self.CGImage
+        
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue)
+        let context = CGBitmapContextCreate(nil, Int(size.width), Int(size.height), CGImageGetBitsPerComponent(source!), 0, CGImageGetColorSpace(source!)!, bitmapInfo.rawValue)
 
-		let source = self.CGImage
+        CGContextDrawImage(context!, rect, source!)
+        
+        let iconSize = CGSize(width: icon.size.width * icon.scale, height: icon.size.height * icon.scale)
+        let iconOrigin = CGPoint(x: (size.width - iconSize.width) / 2, y: (size.height - iconSize.height) / 2)
+        let iconRect = CGRect(origin: iconOrigin, size: iconSize)
+        
+        CGContextClipToMask(context!, iconRect, icon.CGImage!)
+        CGContextSetFillColorWithColor(context!, color.CGColor)
+        CGContextFillRect(context!, iconRect)
 
-		let contextSize = CGSize(width: (self.size.width + edgeInsets.left + edgeInsets.right) * scale, height: (self.size.height + edgeInsets.top + edgeInsets.bottom) * scale)
-		let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue)
-		let context = CGBitmapContextCreate(nil, Int(contextSize.width), Int(contextSize.height), CGImageGetBitsPerComponent(source!), 0, CGImageGetColorSpace(source!)!, bitmapInfo.rawValue)
+        guard let imageRef = CGBitmapContextCreateImage(context!) else {
+            return nil
+        }
+        
+        return UIImage(CGImage: imageRef, scale: self.scale, orientation: self.imageOrientation)
+    }
 
-		let rect = CGRect(x: edgeInsets.left * scale, y: edgeInsets.bottom * scale, width: self.size.width * scale, height: self.size.height * scale)
-		CGContextDrawImage(context!, rect, source!)
-
-		guard let imageRef = CGBitmapContextCreateImage(context!) else {
-			return nil
-		}
-
-		return UIImage(CGImage: imageRef, scale: scale, orientation: self.imageOrientation)
-	}
-	
 }

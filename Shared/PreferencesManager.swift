@@ -234,17 +234,28 @@ class PreferencesManager: NSObject {
             self.userDefaults.synchronize()
 		}
 	}
-
-	var messageURL: NSURL? {
-		get {
-			let characterSet = NSCharacterSet.URLFragmentAllowedCharacterSet()
-			guard let number = self.messageRecipient?.stringByAddingPercentEncodingWithAllowedCharacters(characterSet) else {
-				return nil
-			}
-
-			return NSURL(string: "sms:\(number)");
-		}
-	}
+    
+    var messageURL: NSURL? {
+        get {
+            let characterSet = NSCharacterSet.URLFragmentAllowedCharacterSet()
+            guard let number = self.messageRecipient?.stringByAddingPercentEncodingWithAllowedCharacters(characterSet) else {
+                return nil
+            }
+            
+            return NSURL(string: "sms:\(number)");
+        }
+    }
+    
+    var facetimeURL: NSURL? {
+        get {
+            let characterSet = NSCharacterSet.URLFragmentAllowedCharacterSet()
+            guard let number = self.messageRecipient?.stringByAddingPercentEncodingWithAllowedCharacters(characterSet) else {
+                return nil
+            }
+            
+            return NSURL(string: "facetime:\(number)");
+        }
+    }
 
 	// MARK: - Contact options
 
@@ -296,13 +307,20 @@ class PreferencesManager: NSObject {
 
 	// MARK: Analytics
 
-	/// Log a count of the number of calls made
-	func didStartCall() {
-		let key = "analytics-open-call"
-		let count = self.userDefaults.integerForKey(key)
-		self.userDefaults.setInteger(count+1, forKey: key)
-	}
-	
+    /// Log a count of the number of calls made
+    func didStartCall() {
+        let key = "analytics-open-call"
+        let count = self.userDefaults.integerForKey(key)
+        self.userDefaults.setInteger(count+1, forKey: key)
+    }
+    
+    /// Log a count of the number of calls made
+    func didStartFaceTime() {
+        let key = "analytics-open-facetime"
+        let count = self.userDefaults.integerForKey(key)
+        self.userDefaults.setInteger(count+1, forKey: key)
+    }
+    
 	/// Log a count of the number of times Messages.app was opened
 	func didOpenMessages() {
 		let key = "analytics-open-messages"
