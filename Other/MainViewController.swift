@@ -132,7 +132,7 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
             self.addChildViewController(self.iconViewController)
             cell.contentView.addSubview(self.iconViewController.view)
             
-            self.iconViewController.view.anchor(toAllSidesOf: cell.contentView, maximumWidth: 400)
+            self.iconViewController.view.anchor(toAllSidesOf: cell.contentView)
         }
 	}
     

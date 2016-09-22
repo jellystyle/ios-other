@@ -386,7 +386,6 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 	/// Generates a list of messages in the messages section, and saves them, using the PreferencesManager.
 	private func _saveMessages() {
 		if let preferences = self.preferences, let rows = self.dataSource.sectionWithKey("messages")?.rows {
-
 			print("Saving messages...")
 
 			let values: [String?] = rows.map({

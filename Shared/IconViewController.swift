@@ -13,25 +13,39 @@ class IconViewController: UIViewController {
     
     var delegate: IconViewControllerDelegate? = nil
     
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.alignment = .Center
-        stackView.axis = .Horizontal
-        stackView.distribution = .EqualCentering
-        return stackView
-    }()
+    private var stackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.preservesSuperviewLayoutMargins = true
+
+        stackView = UIStackView()
+        stackView.alignment = .Center
+        stackView.axis = .Horizontal
+        stackView.distribution = .EqualCentering
+
+        self.view.addSubview(stackView)
+        stackView.anchor(toLayoutGuide: self.view.layoutMarginsGuide, maximumWidth: 500)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.loadIcons()
+    }
+    
+    @objc private func loadIcons() {
         guard let preferences = self.preferences else {
             return
         }
-
-        self.view.preservesSuperviewLayoutMargins = true
-        self.view.addSubview(stackView)
         
-        stackView.anchor(toMarginsOnAllSidesOf: self.view)
+        if self.stackView.arrangedSubviews.count > 0 {
+            for subview in self.stackView.arrangedSubviews {
+                self.stackView.removeArrangedSubview(subview)
+                subview.removeFromSuperview()
+            }
+        }
 
         let contactIcon = preferences.contactThumbnail(56, stroke: 0)
         let contactLabel = preferences.contact?.givenName
@@ -40,10 +54,10 @@ class IconViewController: UIViewController {
             
             self.delegate?.iconViewController(self, didRequestOpenURL: contactURL)
         }
-
+        
         let color = PreferencesManager.tintColor
         let gradient = UIImage.imageWithGradient(color, size: CGSize(width: 56, height: 56)).circularImage(56)
-
+        
         if let recipient = preferences.messageRecipient where recipient.characters.count > 0 {
             let icon = gradient?.overlay(UIImage(named: "message")!, color: UIColor.whiteColor())
             let text = "Message"
@@ -51,9 +65,9 @@ class IconViewController: UIViewController {
                 guard let messageURL = preferences.messageURL else {
                     return
                 }
-
+                
                 self.delegate?.iconViewController(self, didRequestOpenURL: messageURL)
-
+                
                 PreferencesManager.sharedManager?.didOpenMessages()
             }
         }
@@ -86,7 +100,7 @@ class IconViewController: UIViewController {
             }
         }
     }
-    
+
     private func add(icon: UIImage?, label: String?, handler: () -> Void) {
         let stackView = UIStackView()
         stackView.alignment = .Center
