@@ -17,13 +17,13 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		self.imageView.tintColor = PreferencesManager.tintColor
-		self.button.tintColor = PreferencesManager.tintColor
 	}
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+        
+        self.imageView.tintColor = PreferencesManager.tintColor
+        self.button.tintColor = PreferencesManager.tintColor
 
 		self.preferences?.addObserver(self, forKeyPath: "contact", options: [], context: nil)
 
