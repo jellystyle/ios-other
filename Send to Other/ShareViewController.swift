@@ -53,29 +53,19 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 			guard let messageController = self.messageController else {
 				return
 			}
-
-			if let url = item as? NSURL {
-				if url.fileURL {
-					messageController.addAttachmentURL(url, withAlternateFilename: nil)
-				}
-
-				else {
-					var body: String = messageController.body != nil ? messageController.body! : ""
-					body = body + " " + url.absoluteString!
-					body = body.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-					messageController.body = body
-				}
-			}
-
+            
+			if let url = item as? NSURL where url.fileURL, let data = NSData(contentsOfURL: url), let filename = url.lastPathComponent {
+                messageController.addAttachmentData(data, typeIdentifier: typeIdentifier as String, filename: filename)
+            }
+            else if let url = item as? NSURL where url.fileURL {
+                messageController.addAttachmentURL(url, withAlternateFilename: nil)
+            }
+            else if let url = item as? NSURL, let text = url.absoluteString {
+                messageController.body = "\(messageController.body ?? "") \(text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()))"
+            }
 			else if let text = item as? String {
-				if let body = messageController.body where body.characters.count > 0 {
-					messageController.body = body + " " + text
-				}
-				else {
-					messageController.body = text
-				}
+                messageController.body = "\(messageController.body ?? "") \(text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()))"
 			}
-
 			else if let data = item as? NSData, let ext = UTTypeCopyPreferredTagWithClass(typeIdentifier, kUTTagClassFilenameExtension)?.takeRetainedValue() {
 				messageController.addAttachmentData(data, typeIdentifier: typeIdentifier as String, filename: "attachment.\(ext)")
 			}
