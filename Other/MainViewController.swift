@@ -113,11 +113,7 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 
 	// MARK: Table view delegate
 
-    private lazy var iconViewController: IconViewController = {
-        let iconViewController = IconViewController()
-        iconViewController.delegate = self
-        return iconViewController
-    }()
+    private var iconViewController: IconViewController?
     
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return self.rowHeight
@@ -129,17 +125,29 @@ class MainViewController: JSMStaticTableViewController, MFMessageComposeViewCont
 		cell.separatorInset = UIEdgeInsetsZero
         
         if let row = (tableView.dataSource as? JSMStaticDataSource)?.rowAtIndexPath(indexPath) where (row.key as? String) == "__icons" {
-            self.addChildViewController(self.iconViewController)
-            cell.contentView.addSubview(self.iconViewController.view)
-            
-            self.iconViewController.view.anchor(toAllSidesOf: cell.contentView)
+            let iconViewController = IconViewController()
+            iconViewController.delegate = self
+
+            let iconView = iconViewController.view
+            iconViewController.viewWillAppear(false)
+            cell.contentView.addSubview(iconView)
+            iconView.anchor(toAllSidesOf: cell.contentView)
+            iconViewController.viewDidAppear(false)
         }
 	}
     
     override func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if let row = (tableView.dataSource as? JSMStaticDataSource)?.rowAtIndexPath(indexPath) where (row.key as? String) == "__icons" {
-            self.iconViewController.view.removeFromSuperview()
-            self.iconViewController.removeFromParentViewController()
+            guard let iconViewController = self.iconViewController else {
+                return
+            }
+            
+            let iconView = iconViewController.view
+            iconViewController.viewWillDisappear(false)
+            iconView.removeFromSuperview()
+            iconViewController.viewDidDisappear(false)
+            
+            self.iconViewController = nil
         }
     }
 
