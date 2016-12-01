@@ -58,43 +58,31 @@ class IconViewController: UIViewController {
         let color = PreferencesManager.tintColor
         let gradient = UIImage.imageWithGradient(color, size: CGSize(width: 56, height: 56)).circularImage(56)
         
-        if let recipient = preferences.messageRecipient where recipient.characters.count > 0 {
+        if let url = preferences.messageURL {
             let icon = gradient?.overlay(UIImage(named: "message")!, color: UIColor.whiteColor())
             let text = "Message"
             self.add(icon, label: text) {
-                guard let messageURL = preferences.messageURL else {
-                    return
-                }
-                
-                self.delegate?.iconViewController(self, didRequestOpenURL: messageURL)
+                self.delegate?.iconViewController(self, didRequestOpenURL: url)
                 
                 PreferencesManager.sharedManager?.didOpenMessages()
             }
         }
         
-        if let recipient = preferences.callRecipient where recipient.characters.count > 0 {
+        if let url = preferences.callURL {
             let icon = gradient?.overlay(UIImage(named: "call")!, color: UIColor.whiteColor())
             let text = "Call"
             self.add(icon, label: text) {
-                guard let callURL = preferences.callURL else {
-                    return
-                }
-                
-                self.delegate?.iconViewController(self, didRequestOpenURL: callURL)
+                self.delegate?.iconViewController(self, didRequestOpenURL: url)
                 
                 PreferencesManager.sharedManager?.didStartCall()
             }
         }
         
-        if let recipient = preferences.messageRecipient where recipient.characters.count > 0 {
+        if let url = preferences.facetimeURL {
             let icon = gradient?.overlay(UIImage(named: "facetime")!, color: UIColor.whiteColor())
             let text = "FaceTime"
             self.add(icon, label: text) {
-                guard let facetimeURL = preferences.facetimeURL else {
-                    return
-                }
-                
-                self.delegate?.iconViewController(self, didRequestOpenURL: facetimeURL)
+                self.delegate?.iconViewController(self, didRequestOpenURL: url)
                 
                 PreferencesManager.sharedManager?.didStartFaceTime()
             }

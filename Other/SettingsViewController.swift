@@ -142,10 +142,14 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 				if select.key as? String == "call-recipient" {
 					preferences.callRecipient = select.value
 				}
-
-				else if select.key as? String == "message-recipient" {
-					preferences.messageRecipient = select.value
-				}
+                    
+                else if select.key as? String == "message-recipient" {
+                    preferences.messageRecipient = select.value
+                }
+                    
+                else if select.key as? String == "facetime-recipient" {
+                    preferences.facetimeRecipient = select.value
+                }
 
             }
 
@@ -187,7 +191,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		sections.append(contact)
 
 		if let recipients = self._recipientSection() {
-			sections.append(recipients)
+			sections.appendContentsOf(recipients)
 		}
 
 		if let messages = self._messagesSection() {
@@ -285,19 +289,40 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 	}
 
 	/// Refresh the recipient section, removing if no contact is selected.
-	private func _recipientSection() -> JSMStaticSection? {
+	private func _recipientSection() -> [JSMStaticSection]? {
 		guard let preferences = self.preferences where preferences.contact != nil else {
 			return nil
 		}
 
-		let section = JSMStaticSection(key: "recipients")
-		section.footerText = "Select the phone number (or email address) used for the call and message features. These are used when tapping a shortcut in the app, or when using the share extension to send images, links and other kinds of content."
+        let sectionOne = JSMStaticSection(key: "recipients-one")
+        sectionOne.footerText = "The phone number (or email address) used for composing texts, or for linking to the Messages app."
+
+        let sectionTwo = JSMStaticSection(key: "recipients-two")
+        sectionTwo.footerText = "Additional buttons can be enabled by selecting the number used for phone or FaceTime calls."
+
+        // Message Recipient
+        
+        let messagePreference = JSMStaticSelectPreference.transientPreferenceWithKey("message-recipient")
+        messagePreference.addObserver(self)
+        sectionOne.addRow(messagePreference)
+        
+        var messageOptions: [[String: AnyObject]] = preferences.messageOptions.map({ (option) in
+            return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option]
+        })
+        messageOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""])
+        
+        messagePreference.text = "Messages"
+        messagePreference.value = preferences.messageRecipient ?? ""
+        messagePreference.options = messageOptions
+        messagePreference.configurationForCell { row, cell in
+            cell.textLabel?.textColor = PreferencesManager.tintColor
+        }
 
 		// Call Recipient
 
 		let callPreference = JSMStaticSelectPreference.transientPreferenceWithKey("call-recipient")
 		callPreference.addObserver(self)
-		section.addRow(callPreference)
+		sectionTwo.addRow(callPreference)
 
         var callOptions: [[String: AnyObject]] = preferences.callOptions.map({ (option) in
             return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option]
@@ -305,31 +330,31 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
         callOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""])
 
         callPreference.text = "Calls"
-		callPreference.value = preferences.callRecipient
+		callPreference.value = preferences.callRecipient ?? ""
 		callPreference.options = callOptions
 		callPreference.configurationForCell { row, cell in
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
 
-		// Message Recipient
-
-		let messagePreference = JSMStaticSelectPreference.transientPreferenceWithKey("message-recipient")
-		messagePreference.addObserver(self)
-		section.addRow(messagePreference)
-
-		var messageOptions: [[String: AnyObject]] = preferences.messageOptions.map({ (option) in
+        // FaceTime Recipient
+        
+        let facetimePreference = JSMStaticSelectPreference.transientPreferenceWithKey("facetime-recipient")
+        facetimePreference.addObserver(self)
+        sectionTwo.addRow(facetimePreference)
+        
+        var facetimeOptions: [[String: AnyObject]] = preferences.facetimeOptions.map({ (option) in
             return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option]
         })
-        messageOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""])
+        facetimeOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""])
+        
+        facetimePreference.text = "FaceTime"
+        facetimePreference.value = preferences.facetimeRecipient ?? ""
+        facetimePreference.options = facetimeOptions
+        facetimePreference.configurationForCell { row, cell in
+            cell.textLabel?.textColor = PreferencesManager.tintColor
+        }
 
-		messagePreference.text = "Messages"
-		messagePreference.value = preferences.messageRecipient
-        messagePreference.options = messageOptions
-		messagePreference.configurationForCell { row, cell in
-			cell.textLabel?.textColor = PreferencesManager.tintColor
-		}
-
-		return section
+		return [sectionOne, sectionTwo]
 	}
 
 	/// Refresh the messages section, removing if no message recipient is selected.
