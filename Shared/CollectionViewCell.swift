@@ -24,7 +24,7 @@ class CollectionViewCell: UICollectionViewCell {
         let collectionViewOffset = collectionView.contentOffset.y - collectionView.contentInset.top
         let collectionViewHeight = collectionView.bounds.height
         
-        let factor: CGFloat = 1 // Adjusts the "strength" of the generated gradient
+        let factor: CGFloat = 2 // Adjusts the "strength" of the generated gradient
         
         let cellFrame = self.convertRect(self.contentView.frame, toView: collectionView)
         let cellTop = (factor * ((cellFrame.origin.y - collectionViewOffset) / collectionViewHeight)) - ((factor - 1) * 0.5)
