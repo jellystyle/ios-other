@@ -26,7 +26,8 @@ class IconViewController: UIViewController {
         stackView.distribution = .EqualCentering
 
         self.view.addSubview(stackView)
-        stackView.anchor(toLayoutGuide: self.view.layoutMarginsGuide, maximumWidth: 500)
+        stackView.anchorHeight(to: self.view.layoutMarginsGuide)
+        stackView.anchorWidth(to: self.view.layoutMarginsGuide, withMaximum: 500, alignedTo: .center)
     }
     
     override func viewWillAppear(animated: Bool) {

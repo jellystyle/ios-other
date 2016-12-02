@@ -12,7 +12,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, IconViewControll
         self.view.addSubview(iconViewController.view)
 
         iconViewController.delegate = self
-        iconViewController.view.anchor(toAllSidesOf: self.view)
+        iconViewController.view.anchor(to: self.view)
     }
     
     override func didReceiveMemoryWarning() {
