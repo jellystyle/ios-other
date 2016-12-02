@@ -141,7 +141,11 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
         let scrollViewOffset = 0 - scrollView.contentOffset.y - scrollView.contentInset.top
 
         self.iconViewTopConstraint.constant = scrollViewOffset > 0 ? scrollViewOffset * (1/2) : scrollViewOffset
-        
+
+        self.updateGradientForVisibleCells()
+    }
+    
+    private func updateGradientForVisibleCells() {
         for cell in self.collectionView?.visibleCells().flatMap({ $0 as? CollectionViewCell }) ?? [] {
             cell.updateGradient()
         }
