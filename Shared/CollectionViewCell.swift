@@ -27,8 +27,8 @@ class CollectionViewCell: UICollectionViewCell {
         let factor: CGFloat = 2 // Adjusts the "strength" of the generated gradient
         
         let cellFrame = self.convertRect(self.contentView.frame, toView: collectionView)
-        let cellTop = (factor * ((cellFrame.origin.y - collectionViewOffset) / collectionViewHeight)) - ((factor - 1) * 0.5)
-        let cellBottom = cellTop + (factor * (cellFrame.size.height / collectionViewHeight))
+        let cellTop = factor - (factor * ((cellFrame.origin.y - collectionViewOffset) / collectionViewHeight))
+        let cellBottom = cellTop - (factor * (cellFrame.size.height / collectionViewHeight))
 
         let gradientColor = PreferencesManager.tintColor.colorWithAlphaComponent(0.8)
         let gradientSize = CGSize(width: 20, height: cellFrame.size.height)
