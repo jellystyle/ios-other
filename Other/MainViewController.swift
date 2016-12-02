@@ -21,6 +21,7 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
         
         self.collectionView!.dataSource = self
         self.collectionView!.delegate = self
+        self.view.addGestureRecognizer(self.collectionView!.panGestureRecognizer)
         
 		if self.preferences?.contact == nil {
 			self.performSegueWithIdentifier("onboarding", sender: nil)
