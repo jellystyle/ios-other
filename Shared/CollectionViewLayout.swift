@@ -27,7 +27,6 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
     override func prepareLayout() {
         self.prepareLayoutDimensions()
         super.prepareLayout()
-        //self.prepareDynamicBehaviours()
     }
     
     private func prepareLayoutDimensions() {
@@ -67,103 +66,5 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
         self.itemSize = CGSize(width: cellWidth, height: cellHeight)
         self.minimumLineSpacing = spacing
     }
-
-    /*
-    private func prepareDynamicBehaviours() {
-        guard let collectionView = self.collectionView else {
-            return
-        }
-        
-        let visibleRect = CGRect(origin: collectionView.bounds.origin, size: collectionView.frame.size).insetBy(dx: -100, dy: -100)
-        
-        let itemsInVisibleRectArray = super.layoutAttributesForElementsInRect(visibleRect) ?? []
-        
-        let itemsIndexPathsInVisibleRectSet = Set(itemsInVisibleRectArray.map({$0.indexPath}))
-        
-        let noLongerVisibleBehaviours = (self.dynamicAnimator.behaviors as! [UIAttachmentBehavior]).filter({ behaviour in
-            return !itemsIndexPathsInVisibleRectSet.contains((behaviour.items.first as! UICollectionViewLayoutAttributes).indexPath)
-        })
-        
-        for behaviour in noLongerVisibleBehaviours {
-            self.dynamicAnimator.removeBehavior(behaviour)
-            self.visibleIndexPathsSet.remove((behaviour.items.first as! UICollectionViewLayoutAttributes).indexPath)
-        }
-        
-        let newlyVisibleAttributes = itemsInVisibleRectArray.filter({ attributes in
-            return !self.visibleIndexPathsSet.contains(attributes.indexPath)
-        })
-        
-        let touchLocation = collectionView.panGestureRecognizer.locationInView(collectionView)
-        
-        for attributes in newlyVisibleAttributes {
-            var center = attributes.center
-            let springBehaviour = UIAttachmentBehavior(item: attributes, attachedToAnchor: center)
-            
-            springBehaviour.length = 0.0
-            springBehaviour.damping = 0.8
-            springBehaviour.frequency = 1.0
-            
-            if CGPoint.zero != touchLocation {
-                let yDistanceFromTouch = fabs(touchLocation.y - springBehaviour.anchorPoint.y)
-                let xDistanceFromTouch = fabs(touchLocation.x - springBehaviour.anchorPoint.x)
-                let scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / 1500.0
-                
-                if self.latestDelta < 0 {
-                    center.y += max(self.latestDelta, self.latestDelta * scrollResistance)
-                }
-                else {
-                    center.y += min(self.latestDelta, self.latestDelta * scrollResistance)
-                }
-                
-                attributes.center = center
-            }
-            
-            self.dynamicAnimator.addBehavior(springBehaviour)
-            self.visibleIndexPathsSet.insert(attributes.indexPath)
-        }
-    }
-    
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        return self.dynamicAnimator.itemsInRect(rect) as? [UICollectionViewLayoutAttributes]
-    }
-    
-    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
-        return self.dynamicAnimator.layoutAttributesForCellAtIndexPath(indexPath)
-    }
-    
-    override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
-        guard let collectionView = self.collectionView else {
-            return false
-        }
-        
-        let delta = newBounds.origin.y - collectionView.bounds.origin.y
-        
-        self.latestDelta = delta
-
-        let touchLocation = collectionView.panGestureRecognizer.locationInView(collectionView)
-        
-        for springBehaviour in self.dynamicAnimator.behaviors as! [UIAttachmentBehavior] {
-            let yDistanceFromTouch = fabs(touchLocation.y - springBehaviour.anchorPoint.y)
-            let xDistanceFromTouch = fabs(touchLocation.x - springBehaviour.anchorPoint.x)
-            let scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / 1500.0
-            
-            let attributes = springBehaviour.items.first as! UICollectionViewLayoutAttributes
-            var center = attributes.center
-            
-            if self.latestDelta < 0 {
-                center.y += max(self.latestDelta, self.latestDelta * scrollResistance)
-            }
-            else {
-                center.y += min(self.latestDelta, self.latestDelta * scrollResistance)
-            }
-            
-            attributes.center = center
-            
-            self.dynamicAnimator.updateItemUsingCurrentState(attributes)
-        }
-        
-        return false
-    }
-    */
 
 }
