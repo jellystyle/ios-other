@@ -137,18 +137,18 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 	func preference(preference: JSMStaticPreference, didChangeValue value: AnyObject) {
 		if let preferences = self.preferences {
-			if let select = preference as? JSMStaticSelectPreference {
-
-				if select.key as? String == "call-recipient" {
-					preferences.callRecipient = select.value
-				}
+            if let select = preference as? JSMStaticSelectPreference, let value = value as? String {
+                
+                if select.key as? String == "call-recipient" {
+                    preferences.callRecipient = value
+                }
                     
                 else if select.key as? String == "message-recipient" {
-                    preferences.messageRecipient = select.value
+                    preferences.messageRecipient = value
                 }
                     
                 else if select.key as? String == "facetime-recipient" {
-                    preferences.facetimeRecipient = select.value
+                    preferences.facetimeRecipient = value
                 }
 
             }
