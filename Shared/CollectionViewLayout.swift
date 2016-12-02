@@ -44,7 +44,7 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
         let cellsPerColumn = ceil(CGFloat(collectionView.numberOfItemsInSection(0)) / max(1, cellsPerRow))
 
         if let headerHeightConstraint = self.headerHeightConstraint {
-            let defaultHeaderHeight: CGFloat = 100.0
+            let defaultHeaderHeight: CGFloat = collectionViewWidth > collectionViewHeight ? 80 : 100.0
             let defaultCellHeight = max(80, ((collectionViewHeight - spacing - defaultHeaderHeight - spacing) / cellsPerColumn) - spacing)
             let evenHeight = max(80, ((collectionViewHeight - spacing) / (cellsPerColumn + 1)) - spacing)
 
