@@ -654,7 +654,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "sh \"${PROJECT_DIR}/update-version.sh\"";
+			shellScript = "sh fastlane/scripts/update-version.sh --branch=\"master,open-source\" --xcodeproj=$PROJECT_FILE --plist=$INFOPLIST_FILE";
 		};
 /* End PBXShellScriptBuildPhase section */
 
