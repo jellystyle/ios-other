@@ -1,6 +1,7 @@
 ## Build generated
 build/
 DerivedData
+Pods/
 
 ## Various settings
 *.pbxuser
@@ -29,3 +30,4 @@ xcuserdata
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/*.iws
+/Podfile.lock

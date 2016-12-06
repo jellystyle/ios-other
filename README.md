@@ -16,11 +16,11 @@ was changed to _Other_.
 
 ## Requirements
 
-This app uses [StaticTables](https://github.com/jellybeansoup/ios-statictables), an
-open source library I wrote to easily manipulate table views. It's linked as a
-submodule, which needs to be pulled before the app will build.
+This app uses [CocoaPods](https://cocoapods.org) for managing external dependencies.
+To build the app you'll first need to run `pod install` from Terminal to download the
+required dependencies and prepare them for building the project.
 
-The app itself is written in Swift 2.0, and at this point, requires Xcode 7.
+The app itself is written in Swift 2.3, and at this point, requires Xcode 8.
 
 ## Released under the BSD License
 
