@@ -91,7 +91,7 @@ class PreferencesManager: NSObject {
 			guard let identifier = self.userDefaults.stringForKey("contact-identifier") else {
 				return nil
 			}
-
+            
 			do {
 				let store = CNContactStore()
 
@@ -181,7 +181,7 @@ class PreferencesManager: NSObject {
                 recipient = option
             }
 
-            return recipient
+            return (recipient?.characters.count ?? 0 > 0) ? recipient : nil
         }
 		set(call) {
 			if call == nil {
@@ -220,7 +220,7 @@ class PreferencesManager: NSObject {
                 recipient = option
 			}
 
-            return recipient
+            return (recipient?.characters.count ?? 0 > 0) ? recipient : nil
 		}
 		set(message) {
 			if message == nil {
@@ -246,13 +246,38 @@ class PreferencesManager: NSObject {
         }
     }
     
+    /// The number or email address used to make Facetime calls.
+    /// This will default to `nil`
+    dynamic var facetimeRecipient: String? {
+        get {
+            var recipient: String?
+            
+            if let facetime = self.userDefaults.stringForKey("facetime-recipient") {
+                recipient = facetime
+            }
+            
+            return (recipient?.characters.count ?? 0 > 0) ? recipient : nil
+        }
+        set(facetime) {
+            if facetime == nil {
+                self.userDefaults.removeObjectForKey("facetime-recipient")
+            }
+                
+            else {
+                self.userDefaults.setObject(facetime, forKey: "facetime-recipient")
+            }
+            
+            self.userDefaults.synchronize()
+        }
+    }
+    
     var facetimeURL: NSURL? {
         get {
             let characterSet = NSCharacterSet.URLFragmentAllowedCharacterSet()
-            guard let number = self.messageRecipient?.stringByAddingPercentEncodingWithAllowedCharacters(characterSet) else {
+            guard let number = self.facetimeRecipient?.stringByAddingPercentEncodingWithAllowedCharacters(characterSet) else {
                 return nil
             }
-            
+
             return NSURL(string: "facetime:\(number)");
         }
     }
@@ -277,17 +302,17 @@ class PreferencesManager: NSObject {
             return options.flatMap({ $0 })
 		}
 	}
-
-	/// Potential values from the linked contact for the `messageRecipient` property.
-	/// If no contact is linked, returns an empty array.
-	var messageOptions: [String] {
+    
+    /// Potential values from the linked contact for the `messageRecipient` property.
+    /// If no contact is linked, returns an empty array.
+    var messageOptions: [String] {
         get {
             guard let contact = self.contact else {
                 return []
             }
-
+            
             var options: [String?] = []
-
+            
             options += contact.phoneNumbers.filter({
                 (labelledValue) in
                 return labelledValue.label == CNLabelPhoneNumberiPhone || labelledValue.label == CNLabelPhoneNumberMobile
@@ -295,12 +320,39 @@ class PreferencesManager: NSObject {
                 (labelledValue) in
                 return (labelledValue.value as? CNPhoneNumber)?.stringValue
             })
-
+            
             options += contact.emailAddresses.map({
                 (labelledValue) in
                 return labelledValue.value as? String
             })
-
+            
+            return options.flatMap({ $0 })
+        }
+    }
+    
+    /// Potential values from the linked contact for the `facetimeRecipient` property.
+    /// If no contact is linked, returns an empty array.
+    var facetimeOptions: [String] {
+        get {
+            guard let contact = self.contact else {
+                return []
+            }
+            
+            var options: [String?] = []
+            
+            options += contact.phoneNumbers.filter({
+                (labelledValue) in
+                return labelledValue.label == CNLabelPhoneNumberiPhone || labelledValue.label == CNLabelPhoneNumberMobile
+            }).map({
+                (labelledValue) in
+                return (labelledValue.value as? CNPhoneNumber)?.stringValue
+            })
+            
+            options += contact.emailAddresses.map({
+                (labelledValue) in
+                return labelledValue.value as? String
+            })
+            
             return options.flatMap({ $0 })
         }
     }

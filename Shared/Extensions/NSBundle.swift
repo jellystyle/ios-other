@@ -12,13 +12,27 @@ extension NSBundle {
 			#endif
 		}
 	}
-
-	//! Flag to indicate if the receiver is a prerelease build (usually Testflight).
-	var prerelease: Bool {
-		get {
-			return self.pathForResource("embedded", ofType: "mobileprovision") != nil
-		}
-	}
+    
+    //! Flag to indicate if the bundle represents an application.
+    var app: Bool {
+        get {
+            return self.bundleURL.pathExtension == "app"
+        }
+    }
+    
+    //! Flag to indicate if the bundle represents an app extension.
+    var appex: Bool {
+        get {
+            return self.bundleURL.pathExtension == "appex"
+        }
+    }
+    
+    //! Flag to indicate if the receiver is a prerelease build (usually Testflight).
+    var prerelease: Bool {
+        get {
+            return self.pathForResource("embedded", ofType: "mobileprovision") != nil
+        }
+    }
 
 	//! Display name as found in the info.plist against `CFBundleDisplayName`.
 	var displayName: String? {

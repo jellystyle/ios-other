@@ -20,6 +20,8 @@
 	<string>1.1</string>
 	<key>CFBundleVersion</key>
 	<string>46</string>
+	<key>NSContactsUsageDescription</key>
+	<string>The contact you selected will be used as your other. This person's details will never leave your device.</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionPointIdentifier</key>

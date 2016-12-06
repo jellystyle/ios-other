@@ -9,20 +9,43 @@ extension UIImage {
         let size = CGSize(width: 20, height: 100)
         return self.imageWithGradient(color, size: size)
     }
-
+    
+    /// Generate a vertical gradient based on a single colour.
+    /// @param color The (roughly) mid-point to use for the gradient.
+    /// @return A 900px square image with a vertical, linear gradient based on the given colour.
+    class func imageWithGradient(color: UIColor, height: CGFloat) -> UIImage {
+        let size = CGSize(width: 20, height: height)
+        return self.imageWithGradient(color, size: size)
+    }
+    
     /// Generate a vertical gradient based on a single colour.
     /// @param color The (roughly) mid-point to use for the gradient.
     /// @return A 900px square image with a vertical, linear gradient based on the given colour.
     class func imageWithGradient(color: UIColor, size: CGSize) -> UIImage {
+        return self.imageWithGradient(color, size: size, top: 0, bottom: 1)
+    }
+    
+    /// Generate a vertical gradient based on a single colour.
+    /// @param color The (roughly) mid-point to use for the gradient.
+    /// @return A 900px square image with a vertical, linear gradient based on the given colour.
+    class func imageWithGradient(color: UIColor, size: CGSize, top: CGFloat, bottom: CGFloat) -> UIImage {
         var hue: CGFloat = 0
         var saturation: CGFloat = 0
         var brightness: CGFloat = 0
         var alpha: CGFloat = 1
-        
+
         color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
-        let topColor = UIColor(hue: hue + 0.01, saturation: saturation + 0.04, brightness: brightness - 0.095, alpha: alpha)
-        let bottomColor = UIColor(hue: hue, saturation: saturation - 0.05, brightness: brightness + 0.05, alpha: alpha)
+
+        let topHue = hue + 0.01 + ( -0.01 * top )
+        let topSaturation = saturation + 0.04 + ( -0.09 * top )
+        let topBrightness = brightness - 0.095 + ( 0.145 * top )
+        let topColor = UIColor(hue: topHue, saturation: topSaturation, brightness: topBrightness, alpha: alpha)
         
+        let bottomHue = hue + 0.01 + ( -0.01 * bottom )
+        let bottomSaturation = saturation + 0.04 + ( -0.09 * bottom )
+        let bottomBrightness = brightness - 0.095 + ( 0.145 * bottom )
+        let bottomColor = UIColor(hue: bottomHue, saturation: bottomSaturation, brightness: bottomBrightness, alpha: alpha)
+
         let scale = UIScreen.mainScreen().scale
         let pixelSize = CGSize(width: size.width * scale, height: size.height * scale)
         
@@ -30,9 +53,9 @@ extension UIImage {
         let context = UIGraphicsGetCurrentContext()
         
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let locations: [CGFloat] = [0.0, 0.5, 1.0]
+        let locations: [CGFloat] = [0.0, 1.0]
         
-        let gradient = CGGradientCreateWithColors(colorSpace, [topColor.CGColor, color.CGColor, bottomColor.CGColor], locations)
+        let gradient = CGGradientCreateWithColors(colorSpace, [topColor.CGColor, bottomColor.CGColor], locations)
         
         let startPoint = CGPointMake(pixelSize.width / 2, 0)
         let endPoint = CGPointMake(pixelSize.width / 2, pixelSize.height)
@@ -40,7 +63,7 @@ extension UIImage {
         
         let image = CGBitmapContextCreateImage(context!)
         UIGraphicsEndImageContext()
-
+        
         return UIImage(CGImage: image!, scale: scale, orientation: .Up).stretchableImageWithLeftCapWidth(0, topCapHeight: 0)
     }
 

@@ -13,25 +13,40 @@ class IconViewController: UIViewController {
     
     var delegate: IconViewControllerDelegate? = nil
     
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.alignment = .Center
-        stackView.axis = .Horizontal
-        stackView.distribution = .EqualCentering
-        return stackView
-    }()
+    private var stackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.preservesSuperviewLayoutMargins = true
+
+        stackView = UIStackView()
+        stackView.alignment = .Center
+        stackView.axis = .Horizontal
+        stackView.distribution = .EqualCentering
+
+        self.view.addSubview(stackView)
+        stackView.anchorHeight(to: self.view.layoutMarginsGuide)
+        stackView.anchorWidth(to: self.view.layoutMarginsGuide, withMaximum: 500, alignedTo: .center)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.loadIcons()
+    }
+    
+    @objc private func loadIcons() {
         guard let preferences = self.preferences else {
             return
         }
-
-        self.view.preservesSuperviewLayoutMargins = true
-        self.view.addSubview(stackView)
         
-        stackView.anchor(toMarginsOnAllSidesOf: self.view)
+        if self.stackView.arrangedSubviews.count > 0 {
+            for subview in self.stackView.arrangedSubviews {
+                self.stackView.removeArrangedSubview(subview)
+                subview.removeFromSuperview()
+            }
+        }
 
         let contactIcon = preferences.contactThumbnail(56, stroke: 0)
         let contactLabel = preferences.contact?.givenName
@@ -40,53 +55,41 @@ class IconViewController: UIViewController {
             
             self.delegate?.iconViewController(self, didRequestOpenURL: contactURL)
         }
-
+        
         let color = PreferencesManager.tintColor
         let gradient = UIImage.imageWithGradient(color, size: CGSize(width: 56, height: 56)).circularImage(56)
-
-        if let recipient = preferences.messageRecipient where recipient.characters.count > 0 {
+        
+        if let url = preferences.messageURL {
             let icon = gradient?.overlay(UIImage(named: "message")!, color: UIColor.whiteColor())
             let text = "Message"
             self.add(icon, label: text) {
-                guard let messageURL = preferences.messageURL else {
-                    return
-                }
-
-                self.delegate?.iconViewController(self, didRequestOpenURL: messageURL)
-
+                self.delegate?.iconViewController(self, didRequestOpenURL: url)
+                
                 PreferencesManager.sharedManager?.didOpenMessages()
             }
         }
         
-        if let recipient = preferences.callRecipient where recipient.characters.count > 0 {
+        if let url = preferences.callURL {
             let icon = gradient?.overlay(UIImage(named: "call")!, color: UIColor.whiteColor())
             let text = "Call"
             self.add(icon, label: text) {
-                guard let callURL = preferences.callURL else {
-                    return
-                }
-                
-                self.delegate?.iconViewController(self, didRequestOpenURL: callURL)
+                self.delegate?.iconViewController(self, didRequestOpenURL: url)
                 
                 PreferencesManager.sharedManager?.didStartCall()
             }
         }
         
-        if let recipient = preferences.messageRecipient where recipient.characters.count > 0 {
+        if let url = preferences.facetimeURL {
             let icon = gradient?.overlay(UIImage(named: "facetime")!, color: UIColor.whiteColor())
             let text = "FaceTime"
             self.add(icon, label: text) {
-                guard let facetimeURL = preferences.facetimeURL else {
-                    return
-                }
-                
-                self.delegate?.iconViewController(self, didRequestOpenURL: facetimeURL)
+                self.delegate?.iconViewController(self, didRequestOpenURL: url)
                 
                 PreferencesManager.sharedManager?.didStartFaceTime()
             }
         }
     }
-    
+
     private func add(icon: UIImage?, label: String?, handler: () -> Void) {
         let stackView = UIStackView()
         stackView.alignment = .Center

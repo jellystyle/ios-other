@@ -15,6 +15,10 @@ class NavigationBar: UINavigationBar {
     }
     
     private func initialize() {
+        self.applyCustomisations()
+    }
+    
+    @objc private func applyCustomisations() {
         self.translucent = true
         self.barTintColor = PreferencesManager.tintColor
     }
@@ -40,5 +44,5 @@ class NavigationBar: UINavigationBar {
             self.titleTextAttributes = [ NSForegroundColorAttributeName: titleColor ]
         }
     }
-
+    
 }
