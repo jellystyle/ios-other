@@ -3,7 +3,7 @@ import MessageUI
 import ContactsUI
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, MFMessageComposeViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	//! The main window.
 	var window: UIWindow?
@@ -15,54 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MFMessageComposeViewContr
 		AppStoreManager.sharedManager?.fetchNumberOfUserRatings()
 		return true
 	}
-
-	// MARK: - Shortcut Items
-
-	func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
-		guard let rootViewController = self.window?.rootViewController else {
-			return
-		}
-
-        guard rootViewController.presentedViewController != nil else {
-            self._handleShortcutItem(shortcutItem)
-            
-            return
-        }
-        
-        rootViewController.dismissViewControllerAnimated(false, completion: {
-            self._handleShortcutItem(shortcutItem)
-        })
-	}
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        guard url.scheme == "my-other" else {
-            return false
-        }
-        
-        if url.path == "/contact" {
-            guard let rootViewController = self.window?.rootViewController else {
-                return false
-            }
-            
-            guard rootViewController.presentedViewController != nil else {
-                self._displayContact()
-                
-                return true
-            }
-            
-            rootViewController.dismissViewControllerAnimated(false, completion: {
-                self._displayContact()
-            })
-            
-            return true
-        }
-
-        return false
-    }
-
-    /// Present the contact view controller
+    /// Present a view controller to display contact details
     private func _displayContact() {
-        guard let rootViewController = self.window?.rootViewController, let contact = self.preferences?.contact else {
+        guard let contact = self.preferences?.contact else {
             return
         }
         
@@ -77,41 +33,110 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MFMessageComposeViewContr
         let viewController = CNContactViewController(forContact: fullContact)
         viewController.allowsEditing = false
         viewController.view.tintColor = PreferencesManager.tintColor
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(_dismissPresented))
         
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .FormSheet
-        navigationController.navigationBar.tintColor = PreferencesManager.tintColor
-        rootViewController.presentViewController(navigationController, animated: false, completion: nil)
+        self._present(viewController)
     }
     
-    /// Perform the appropriate action for the given shortcut item
-    private func _handleShortcutItem(shortcutItem: UIApplicationShortcutItem) {
+    /// Present a view controller to edit and send a message
+    private func _composeMessage(with body: String?) {
+        guard let messageRecipient = self.preferences?.messageRecipient else {
+            return
+        }
+        
+        let messageController = MFMessageComposeViewController()
+        messageController.messageComposeDelegate = self
+        messageController.recipients = [messageRecipient]
+        messageController.body = body
+        
+        self._present(messageController)
+    }
+    
+    /// Animation of view controller presentations should be determine by the application's state.
+    private var _animateTransitions: Bool {
+        return UIApplication.sharedApplication().applicationState == .Active
+    }
+    
+    // Present a given view controller
+    private func _present(viewController: UIViewController) {
         guard let rootViewController = self.window?.rootViewController else {
             return
         }
         
-        if shortcutItem.type == "message-shortcut" {
-            guard let messageRecipient = self.preferences?.messageRecipient else {
-                return
+        self._dismissPresented { [unowned self] in
+            if viewController is UINavigationController {
+                rootViewController.presentViewController(viewController, animated: self._animateTransitions, completion: nil)
             }
             
-            let messageController = MFMessageComposeViewController()
-            messageController.messageComposeDelegate = self
-            messageController.recipients = [messageRecipient]
-            messageController.body = shortcutItem.localizedTitle
-            rootViewController.presentViewController(messageController, animated: false, completion: nil)
+            else {
+                viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(self._dismissPresented))
+                
+                let navigationController = UINavigationController(rootViewController: viewController)
+                navigationController.modalPresentationStyle = .FormSheet
+                navigationController.navigationBar.tintColor = PreferencesManager.tintColor
+                rootViewController.presentViewController(navigationController, animated: self._animateTransitions, completion: nil)
+            }
+        }
+    }
+
+    // Dismiss any presented view controllers
+    @objc private func _dismissPresented(completion: (() -> Void)?) {
+        guard let rootViewController = self.window?.rootViewController where rootViewController.presentedViewController != nil else {
+            completion?()
+            
+            return
+        }
+
+        rootViewController.dismissViewControllerAnimated(self._animateTransitions, completion: completion)
+    }
+    
+}
+
+// MARK: URL Schemes
+
+extension AppDelegate {
+
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        guard url.scheme == "my-other" else {
+            return false
+        }
+        
+        if url.path == "/contact" {
+            self._displayContact()
+            
+            return true
+        }
+        
+        else if url.path == "/message" {
+            let body = NSURLComponents(URL: url, resolvingAgainstBaseURL: false)?.queryItems?.filter { $0.name == "body" }.flatMap { $0.value }.first
+
+            self._composeMessage(with: body)
+            
+            return true
+        }
+        
+        return false
+    }
+
+}
+
+// MARK: Shortcut Items
+
+extension AppDelegate {
+    
+    func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+        if shortcutItem.type == "message-shortcut" {
+            self._composeMessage(with: shortcutItem.localizedTitle)
         }
     }
     
-    @objc private func _dismissPresented() {
-        self.window?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-	// MARK: Message compose view delegate
+}
 
-	func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
-		controller.dismissViewControllerAnimated(true, completion: nil)
+// MARK: Message compose view controller delegate
+
+extension AppDelegate: MFMessageComposeViewControllerDelegate {
+
+    func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+		controller.dismissViewControllerAnimated(self._animateTransitions, completion: nil)
 	}
 
 }

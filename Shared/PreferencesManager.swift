@@ -61,8 +61,8 @@ class PreferencesManager: NSObject {
 			self.userDefaults.synchronize()
 		}
 	}
-
-	func updateShortcutItems(application: UIApplication) {
+    
+    func updateShortcutItems(application: UIApplication) {
 		guard #available(iOS 9.1, *) else {
 			return
 		}

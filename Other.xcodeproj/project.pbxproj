@@ -14,6 +14,8 @@
 		A13A2B3B1C1E6F11007EEEA4 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */; };
 		A146FB4A1DF0EC3D00F8E66E /* CollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A146FB491DF0EC3D00F8E66E /* CollectionViewLayout.swift */; };
 		A146FB501DF10D0F00F8E66E /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A146FB4F1DF10D0F00F8E66E /* CollectionViewCell.swift */; };
+		A15C0C611DF7B0CC0083E0B8 /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C0C601DF7B0CC0083E0B8 /* NSURL.swift */; };
+		A15C0C621DF7B1F20083E0B8 /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C0C601DF7B0CC0083E0B8 /* NSURL.swift */; };
 		A1767B0F1B452F33008C9F83 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1767B0E1B452F33008C9F83 /* Images.xcassets */; };
 		A1767B101B452F33008C9F83 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1767B0E1B452F33008C9F83 /* Images.xcassets */; };
 		A177ACF01D8698FE009ED8CC /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A2B391C1E6F11007EEEA4 /* PreferencesManager.swift */; };
@@ -129,6 +131,7 @@
 		A146FB4F1DF10D0F00F8E66E /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		A14CB5961C8D2B3A00028601 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A14CB5971C8D2B3A00028601 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A15C0C601DF7B0CC0083E0B8 /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
 		A1767B0E1B452F33008C9F83 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A177ACF61D86C24B009ED8CC /* Today.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Today.entitlements; sourceTree = "<group>"; };
 		A177ACF81D878FB7009ED8CC /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -335,6 +338,7 @@
 				A190E26E1C87C703003A72BB /* UIAlertController.swift */,
 				A190E26A1C87C6E2003A72BB /* UIImage.swift */,
 				A177ACF81D878FB7009ED8CC /* UIView.swift */,
+				A15C0C601DF7B0CC0083E0B8 /* NSURL.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -755,6 +759,7 @@
 				A17FBA241B44DF8200564F82 /* AppDelegate.swift in Sources */,
 				A177ACFC1D87F08C009ED8CC /* NavigationBar.swift in Sources */,
 				A1B7F2951B4D2A5D00485CC0 /* SettingsViewController.swift in Sources */,
+				A15C0C611DF7B0CC0083E0B8 /* NSURL.swift in Sources */,
 				A1D96A721D867F2700AA5E27 /* IconViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -791,6 +796,7 @@
 				A177ACFD1D87F08C009ED8CC /* NavigationBar.swift in Sources */,
 				A177ACFA1D878FB7009ED8CC /* UIView.swift in Sources */,
 				A177ACF41D8699E0009ED8CC /* NSBundle.swift in Sources */,
+				A15C0C621DF7B1F20083E0B8 /* NSURL.swift in Sources */,
 				A1D96A7E1D8683AB00AA5E27 /* TodayViewController.swift in Sources */,
 				A177ACF51D86B9A5009ED8CC /* IconViewController.swift in Sources */,
 			);
@@ -935,7 +941,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 025560F68C2236CC3F351D8A /* Pods-Other.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Other/Other.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -957,7 +962,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4BE4675C86FD3D8DCED0BEDC /* Pods-Other.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Other/Other.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

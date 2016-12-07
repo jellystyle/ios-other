@@ -51,7 +51,7 @@ class IconViewController: UIViewController {
         let contactIcon = preferences.contactThumbnail(56, stroke: 0)
         let contactLabel = preferences.contact?.givenName
         self.add(contactIcon, label: contactLabel) {
-            let contactURL = NSURL(string: "my-other:/contact")!
+            let contactURL = NSURL.contactOther
             
             self.delegate?.iconViewController(self, didRequestOpenURL: contactURL)
         }

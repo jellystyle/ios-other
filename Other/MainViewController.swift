@@ -127,13 +127,7 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
             return
         }
 
-        if let messageRecipient = self.preferences?.messageRecipient {
-			let messageController = MFMessageComposeViewController()
-			messageController.messageComposeDelegate = self
-			messageController.recipients = [messageRecipient]
-			messageController.body = message
-			self.navigationController?.presentViewController(messageController, animated: true, completion: nil)
-		}
+        UIApplication.sharedApplication().openURL(NSURL.messageOther(with: message))
 
         collectionView.deselectItemAtIndexPath(indexPath, animated: true)
 	}
@@ -162,11 +156,6 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
     // MARK: Message compose view delegate
     
     func iconViewController(iconViewController: UIViewController, didRequestOpenURL url: NSURL) {
-        if url.scheme == "my-other" && url.path?.hasPrefix("/contact") ?? false {
-            self.displayContact()
-            return
-        }
-
         UIApplication.sharedApplication().openURL(url)
     }
 
