@@ -4,26 +4,6 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
 
     @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint?
 
-    private var dynamicAnimator: UIDynamicAnimator!
-    
-    private var visibleIndexPathsSet = Set<NSIndexPath>()
-    
-    private var latestDelta: CGFloat = 0
-
-    override init() {
-        super.init()
-        self.initialize()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.initialize()
-    }
-    
-    func initialize() {
-        dynamicAnimator = UIDynamicAnimator(collectionViewLayout: self)
-    }
-
     override func prepareLayout() {
         self.prepareLayoutDimensions()
         super.prepareLayout()
