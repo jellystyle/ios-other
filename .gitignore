@@ -30,4 +30,3 @@ xcuserdata
 .idea/workspace.xml
 .idea/tasks.xml
 .idea/*.iws
-/Podfile.lock
