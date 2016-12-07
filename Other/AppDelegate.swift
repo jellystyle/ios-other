@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             else {
-                viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(self._dismissPresented))
+                viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(self._dismiss))
                 
                 let navigationController = UINavigationController(rootViewController: viewController)
                 navigationController.modalPresentationStyle = .FormSheet
@@ -79,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // Dismiss any presented view controllers
-    @objc private func _dismissPresented(completion: (() -> Void)?) {
+    private func _dismissPresented(completion: (() -> Void)?) {
         guard let rootViewController = self.window?.rootViewController where rootViewController.presentedViewController != nil else {
             completion?()
             
@@ -88,7 +88,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         rootViewController.dismissViewControllerAnimated(self._animateTransitions, completion: completion)
     }
-    
+
+    @objc private func _dismiss() {
+        self._dismissPresented(nil)
+    }
+
 }
 
 // MARK: URL Schemes
@@ -136,7 +140,8 @@ extension AppDelegate {
 extension AppDelegate: MFMessageComposeViewControllerDelegate {
 
     func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
-		controller.dismissViewControllerAnimated(self._animateTransitions, completion: nil)
+        self.preferences?.didFinishMessaging(result)
+        controller.dismissViewControllerAnimated(self._animateTransitions, completion: nil)
 	}
 
 }
