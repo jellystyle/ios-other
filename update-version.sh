@@ -1,10 +1,12 @@
 #!/bin/bash
+# Link: <https://gist.github.com/jellybeansoup/db7b24fb4c7ed44030f4>
+#
 # A command-line script for incrementing build numbers for all known targets in an Xcode project.
 #
 # This script has two main goals: firstly, to ensure that all the targets in a project have the
 # same CFBundleVersion and CFBundleShortVersionString values. This is because mismatched values
 # can cause a warning when submitting to the App Store. Secondly, to ensure that the build number
-# is incremented appropriately .
+# is incremented appropriately when git has changes.
 #
 # If not using git, you are a braver soul than I.
 
@@ -48,6 +50,31 @@
 #
 #enable_for_branch="master"
 
+##
+# Released under the BSD License
+#
+# Copyright © 2017 Daniel Farrelly
+# 
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+# 
+# *	Redistributions of source code must retain the above copyright notice, this list
+# 	of conditions and the following disclaimer.
+# *	Redistributions in binary form must reproduce the above copyright notice, this
+# 	list of conditions and the following disclaimer in the documentation and/or
+# 	other materials provided with the distribution.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+# INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+# LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 # We use PlistBuddy to handle the Info.plist values. Here we define where it lives.
 plistBuddy="/usr/libexec/PlistBuddy"
 
@@ -57,9 +84,12 @@ case $i in
 	-h|--help)
 	echo "usage: sh version-update.sh [options...]\n"
 	echo "Options: (when provided via the CLI, these will override options set within the script itself)"
-	echo "    --reflect-commits         Reflect the number of commits in the current branch when preparing build numbers."
 	echo "-b, --branch=<name[,name...]> Only allow the script to run on the branch with the given name(s)."
+	echo "    --build=<number>          Apply the given value to the build number (CFBundleVersion) for the project."
+	echo "-i, --ignore-changes          Ignore git status when iterating build number (doesn't apply to manual values or --reflect-commits)."
 	echo "-p, --plist=<path>            Use the specified plist file as the source of truth for version details."
+	echo "    --reflect-commits         Reflect the number of commits in the current branch when preparing build numbers."
+	echo "    --version=<number>        Apply the given value to the marketing version (CFBundleShortVersionString) for the project."
 	echo "-x, --xcodeproj=<path>        Use the specified Xcode project file to gather plist names."
 	echo "\nFor more detailed information on the use of these variables, see the script source."
 	exit 1 
@@ -78,6 +108,18 @@ case $i in
 	;;
 	-b=*|--branch=*)
 	enable_for_branch="${i#*=}"
+	shift
+	;;
+	--build=*)
+	specified_build="${i#*=}"
+	shift
+	;;
+	--version=*)
+	specified_version="${i#*=}"
+	shift
+	;;
+	-i|--ignore-changes)
+	ignore_git_status=true
 	shift
 	;;
 	*)
@@ -127,14 +169,23 @@ mainBundleVersion=$("${plistBuddy}" -c "Print CFBundleVersion" "${plist}")
 mainBundleShortVersionString=$("${plistBuddy}" -c "Print CFBundleShortVersionString" "${plist}")
 echo "Current project version is ${mainBundleShortVersionString} (${mainBundleVersion})."
 
+# If the user specified a marketing version (via "--version"), we overwrite the version from the source of truth.
+if [[ ! -z ${specified_version} ]]; then
+	mainBundleShortVersionString=${specified_version}
+	echo "Applying specified marketing version (${specified_version})..."
+fi
+
 # Increment the build number if git says things have changed. Note that we also check the main
 # Info.plist file, and if it has already been modified, we don't increment the build number.
 # Alternatively, if the script has been called using "--reflect-commits", we just update to the
-# current number of commits
+# current number of commits. We can also specify a build number to use with "--build".
 git=$(sh /etc/profile; which git)
 branchName=$("${git}" rev-parse --abbrev-ref HEAD)
 if [[ -z ${enable_for_branch} ]] || [[ ",${enable_for_branch}," == *",${branchName},"* ]]; then
-	if [[ -z ${reflect_commits} ]] && [[ ${reflect_commits} ]]; then
+	if [[ ! -z ${specified_build} ]]; then
+		mainBundleVersion=${specified_build}
+		echo "Applying specified build number (${specified_build})..."
+	elif [[ ! -z ${reflect_commits} ]] && [[ ${reflect_commits} ]]; then
 		currentBundleVersion=${mainBundleVersion}
 		mainBundleVersion=$("${git}" rev-list --count HEAD)
 		if [[ ${branchName} != "master" ]]; then
@@ -142,16 +193,25 @@ if [[ -z ${enable_for_branch} ]] || [[ ",${enable_for_branch}," == *",${branchNa
 		fi
 		if [[ ${currentBundleVersion} != ${mainBundleVersion} ]]; then
 			echo "Branch \"${branchName}\" has ${mainBundleVersion} commit(s). Updating build number..."
+		else
+			echo "Branch \"${branchName}\" has ${mainBundleVersion} commit(s). Version is stable."
 		fi
+	elif [[ ! -z ${ignore_git_status} ]] && [[ ${ignore_git_status} ]]; then
+		echo "Iterating build number (forced)..."
+		mainBundleVersion=$((${mainBundleVersion} + 1))
 	else
 		status=$("${git}" status --porcelain)
-		if [[ ${#status} != 0 ]] && [[ ${status} != *"M ${plist}"* ]] && [[ ${status} != *"M \"${plist}\""* ]]; then
+		if [[ ${#status} == 0 ]]; then
+			echo "Repository does not have any changes. Version is stable."
+		elif [[ ${status} == *"M ${plist}"* ]] || [[ ${status} == *"M \"${plist}\""* ]]; then
+			echo "The source Info.plist has been modified. Version is assumed to be stable. Use --ignore-changes to override."
+		else		
 			echo "Repository is dirty. Iterating build number..."
 			mainBundleVersion=$((${mainBundleVersion} + 1))
 		fi
 	fi
 else
-	echo "${BASH_SOURCE}:${LINENO}: warning: Version number updates are disabled for the current git branch (${branchName})."
+	echo "${xcodeproj}:0: warning: Version number updates are disabled for the current git branch (${branchName})."
 fi
 
 # Update all of the Info.plist files we discovered
