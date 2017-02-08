@@ -1,5 +1,5 @@
 PODS:
-  - Sherpa (0.2)
+  - Sherpa (0.2.1)
   - StaticTables (0.3.1)
 
 DEPENDENCIES:
@@ -7,9 +7,9 @@ DEPENDENCIES:
   - StaticTables (~> 0.3)
 
 SPEC CHECKSUMS:
-  Sherpa: 12e20d81a1b8204da3b3ad12476d6d9fee1768ff
+  Sherpa: d9c183ff507cfad815ad45c04139f97131baefcd
   StaticTables: c69a30aad409dde40698746fc53866e1b7962443
 
 PODFILE CHECKSUM: 95d1611c34ed00c8cbc302a456add038b9843baa
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0
