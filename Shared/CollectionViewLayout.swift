@@ -8,6 +8,33 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
         self.prepareLayoutDimensions()
         super.prepareLayout()
     }
+
+	var isPad: Bool {
+		guard let collectionView = self.collectionView else {
+			return false
+		}
+
+		return collectionView.traitCollection.horizontalSizeClass == .Regular && collectionView.traitCollection.verticalSizeClass == .Regular
+	}
+
+	var collectionViewSize: CGSize {
+		guard let collectionView = self.collectionView else {
+			return .zero
+		}
+
+		let width = collectionView.frame.size.width - collectionView.contentInset.left - collectionView.contentInset.right
+		let height = collectionView.frame.size.height - collectionView.contentInset.top - collectionView.contentInset.bottom
+
+		return CGSize(width: width, height: height)
+	}
+
+	var isLandscape: Bool {
+		return self.collectionViewSize.width > self.collectionViewSize.height
+	}
+
+	var minimumCellHeight: CGFloat {
+		return self.isPad ? 140 : 80
+	}
     
     private func prepareLayoutDimensions() {
         guard let collectionView = self.collectionView else {
@@ -16,32 +43,34 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
 
         let spacing: CGFloat = 15
 
-        let collectionViewHeight = collectionView.frame.size.height - collectionView.contentInset.top - collectionView.contentInset.bottom
-        let collectionViewWidth = collectionView.frame.size.width - collectionView.contentInset.left - collectionView.contentInset.right
+        let cellsPerRow: CGFloat = self.isLandscape ? 2 : 1
+		let cellsPerColumn = ceil(CGFloat(collectionView.numberOfItemsInSection(0)) / cellsPerRow)
 
-        let cellsPerRow: CGFloat = collectionViewWidth > collectionViewHeight ? 2 : 1
-        let cellsPerColumn = ceil(CGFloat(collectionView.numberOfItemsInSection(0)) / max(1, cellsPerRow))
-
-        if let headerHeightConstraint = self.headerHeightConstraint {
-            let defaultHeaderHeight: CGFloat = collectionViewWidth > collectionViewHeight ? 80 : 100.0
-            let defaultCellHeight = max(80, ((collectionViewHeight - spacing - defaultHeaderHeight - spacing) / cellsPerColumn) - spacing)
-            let evenHeight = max(80, ((collectionViewHeight - spacing) / (cellsPerColumn + 1)) - spacing)
-
-            if evenHeight >= defaultCellHeight {
-                self.sectionInset = UIEdgeInsets(top: spacing + evenHeight + spacing, left: spacing, bottom: spacing, right: spacing)
-            }
-            else {
-                self.sectionInset = UIEdgeInsets(top: spacing + defaultHeaderHeight + spacing, left: spacing, bottom: spacing, right: spacing)
-            }
-            
+        if let headerHeightConstraint = self.headerHeightConstraint where self.isPad {
+            let evenHeight = min(200, max(self.minimumCellHeight, ((self.collectionViewSize.height - spacing) / (cellsPerColumn + 1)) - (spacing * 2)))
+			self.sectionInset = UIEdgeInsets(top: evenHeight - spacing, left: spacing, bottom: spacing, right: spacing)
             headerHeightConstraint.constant = self.sectionInset.top
-        }
-        else {
+		}
+		else if let headerHeightConstraint = self.headerHeightConstraint where !self.isPad {
+			let defaultHeaderHeight: CGFloat = self.isLandscape ? 80 : 100.0
+			let defaultCellHeight = max(self.minimumCellHeight, ((self.collectionViewSize.height - spacing - defaultHeaderHeight - spacing) / cellsPerColumn) - spacing)
+			let evenHeight = max(self.minimumCellHeight, ((self.collectionViewSize.height - spacing) / (cellsPerColumn + 1)) - spacing)
+
+			if evenHeight >= defaultCellHeight {
+				self.sectionInset = UIEdgeInsets(top: spacing + evenHeight + spacing, left: spacing, bottom: spacing, right: spacing)
+			}
+			else {
+				self.sectionInset = UIEdgeInsets(top: spacing + defaultHeaderHeight + spacing, left: spacing, bottom: spacing, right: spacing)
+			}
+
+			headerHeightConstraint.constant = self.sectionInset.top
+		}
+		else {
             self.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
         }
 
-        let cellHeight = max(80, ((collectionViewHeight - self.sectionInset.top) / cellsPerColumn) - spacing)
-        let cellWidth = ((collectionViewWidth - spacing) / max(1, cellsPerRow)) - spacing
+        let cellHeight = max(self.minimumCellHeight, ((self.collectionViewSize.height - self.sectionInset.top) / cellsPerColumn) - spacing)
+        let cellWidth = ((self.collectionViewSize.width - spacing) / cellsPerRow) - spacing
         
         self.itemSize = CGSize(width: cellWidth, height: cellHeight)
         self.minimumLineSpacing = spacing
