@@ -91,25 +91,35 @@ class IconViewController: UIViewController {
     }
 
     private func add(icon: UIImage?, label: String?, handler: () -> Void) {
-        let stackView = UIStackView()
-        stackView.alignment = .Center
-        stackView.axis = .Vertical
-        stackView.distribution = .EqualSpacing
-        stackView.spacing = 5
-        
-        let iconView = UIImageView(frame: CGRect(x: 0, y: 0, width: 56, height: 56))
-        iconView.image = icon
-        stackView.addArrangedSubview(iconView)
-        
-        let textView = UILabel()
-        textView.text = label
-        textView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
-        stackView.addArrangedSubview(textView)
-        
-        let gesture = TapGestureRecognizer(handler: handler)
-        stackView.addGestureRecognizer(gesture)
+		let container = UIView()
+		container.translatesAutoresizingMaskIntoConstraints = false
+		container.widthAnchor.constraintEqualToConstant(56).active = true
 
-        self.stackView.addArrangedSubview(stackView)
+		let iconView = UIImageView(image: icon)
+		iconView.translatesAutoresizingMaskIntoConstraints = false
+		iconView.widthAnchor.constraintEqualToAnchor(iconView.heightAnchor).active = true
+		container.addSubview(iconView)
+
+        let textView = UILabel()
+		textView.allowsDefaultTighteningForTruncation = true
+		textView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+        textView.text = label
+		textView.textAlignment = .Center
+		textView.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(textView)
+
+		iconView.topAnchor.constraintEqualToAnchor(container.topAnchor).active = true
+		textView.topAnchor.constraintEqualToAnchor(iconView.bottomAnchor, constant: 5).active = true
+		textView.bottomAnchor.constraintEqualToAnchor(container.bottomAnchor).active = true
+		iconView.leftAnchor.constraintEqualToAnchor(container.leftAnchor).active = true
+		iconView.rightAnchor.constraintEqualToAnchor(container.rightAnchor).active = true
+		textView.leftAnchor.constraintEqualToAnchor(container.leftAnchor, constant: -5).active = true
+		textView.rightAnchor.constraintEqualToAnchor(container.rightAnchor, constant: 5).active = true
+
+		let gesture = TapGestureRecognizer(handler: handler)
+		container.addGestureRecognizer(gesture)
+
+		self.stackView.addArrangedSubview(container)
     }
 
     override func didReceiveMemoryWarning() {
