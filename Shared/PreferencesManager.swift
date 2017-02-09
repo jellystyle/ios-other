@@ -120,6 +120,7 @@ class PreferencesManager: NSObject {
 			self._contact = unifiedContact
 			self.callRecipient = nil
 			self.messageRecipient = nil
+			self.facetimeRecipient = nil
 
 			if contact == nil {
 				self.userDefaults.removeObjectForKey("contact-identifier")
