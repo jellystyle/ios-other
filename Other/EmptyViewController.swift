@@ -19,7 +19,7 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 		super.viewDidLoad()
 	}
 
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
         
         self.imageView.tintColor = PreferencesManager.tintColor
@@ -28,11 +28,11 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 		self.preferences?.addObserver(self, forKeyPath: "contact", options: [], context: nil)
 
 		if self.preferences?.contact != nil {
-			self.navigationController?.popToRootViewControllerAnimated(false)
+			self.navigationController?.popToRootViewController(animated: false)
 		}
 	}
 
-	override func viewDidDisappear(animated: Bool) {
+	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 
 		self.preferences?.removeObserver(self, forKeyPath: "contact")
@@ -41,8 +41,8 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
-		let imageViewHeight = self.imageView.hidden ? self.imageView.image!.size.height : 0
-		self.imageView.hidden = self.stackView.frame.size.height + imageViewHeight >= self.stackView.superview!.frame.size.height
+		let imageViewHeight = self.imageView.isHidden ? self.imageView.image!.size.height : 0
+		self.imageView.isHidden = self.stackView.frame.size.height + imageViewHeight >= self.stackView.superview!.frame.size.height
 	}
 
 	// MARK: IBActions
@@ -51,43 +51,43 @@ class EmptyViewController: UIViewController, CNContactPickerDelegate {
 		let viewController = CNContactPickerViewController()
 		viewController.delegate = self
 		viewController.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0 || phoneNumbers.@count > 0")
-		viewController.modalPresentationStyle = .FormSheet
-		self.presentViewController(viewController, animated: true, completion: nil)
+		viewController.modalPresentationStyle = .formSheet
+		self.present(viewController, animated: true, completion: nil)
 	}
 
 	@IBAction func showUserGuide()  {
-		if let url = NSBundle.mainBundle().URLForResource("userguide", withExtension: "json") {
+		if let url = Bundle.main.url(forResource: "userguide", withExtension: "json") {
 			let viewController = SherpaViewController(fileAtURL: url)
 			viewController.tintColor = PreferencesManager.tintColor
 			viewController.articleTextColor = PreferencesManager.textColor
 			viewController.articleBackgroundColor = PreferencesManager.backgroundColor
 			viewController.articleKey = "setting-up"
-			self.presentViewController(viewController, animated: true, completion: nil)
+			self.present(viewController, animated: true, completion: nil)
 		}
 	}
 
 	// MARK: Contact picker delegate
 
-	func contactPicker(picker: CNContactPickerViewController, didSelectContact contact: CNContact) {
+	func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
 		if let preferences = self.preferences {
 			preferences.contact = contact
-			preferences.updateShortcutItems( UIApplication.sharedApplication() )
+			preferences.updateShortcutItems( UIApplication.shared )
 
-			self.navigationController?.popToRootViewControllerAnimated(false)
+			self.navigationController?.popToRootViewController(animated: false)
 		}
 
 		else {
 			let message = "An error occurred while updating your selected contact. Can you give it another try in a moment?"
 			let alert = UIAlertController.alert(message)
-			self.presentViewController(alert, animated: true, completion: nil)
+			self.present(alert, animated: true, completion: nil)
 		}
 	}
 
 	// MARK: Key-value observing
 
-	override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 		if self.preferences?.contact != nil {
-			self.navigationController?.popToRootViewControllerAnimated(false)
+			self.navigationController?.popToRootViewController(animated: false)
 		}
 	}
 

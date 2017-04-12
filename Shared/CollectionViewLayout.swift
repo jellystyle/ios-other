@@ -4,9 +4,9 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
 
     @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint?
 
-    override func prepareLayout() {
+    override func prepare() {
         self.prepareLayoutDimensions()
-        super.prepareLayout()
+        super.prepare()
     }
 
 	var isPad: Bool {
@@ -14,7 +14,7 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
 			return false
 		}
 
-		return collectionView.traitCollection.horizontalSizeClass == .Regular && collectionView.traitCollection.verticalSizeClass == .Regular
+		return collectionView.traitCollection.horizontalSizeClass == .regular && collectionView.traitCollection.verticalSizeClass == .regular
 	}
 
 	var collectionViewSize: CGSize {
@@ -36,7 +36,7 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
 		return self.isPad ? 140 : 80
 	}
     
-    private func prepareLayoutDimensions() {
+    fileprivate func prepareLayoutDimensions() {
         guard let collectionView = self.collectionView else {
             return
         }
@@ -44,14 +44,14 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
         let spacing: CGFloat = 15
 
         let cellsPerRow: CGFloat = self.isLandscape ? 2 : 1
-		let cellsPerColumn = ceil(CGFloat(collectionView.numberOfItemsInSection(0)) / cellsPerRow)
+		let cellsPerColumn = ceil(CGFloat(collectionView.numberOfItems(inSection: 0)) / cellsPerRow)
 
-        if let headerHeightConstraint = self.headerHeightConstraint where self.isPad {
+        if let headerHeightConstraint = self.headerHeightConstraint, self.isPad {
             let evenHeight = min(200, max(self.minimumCellHeight, ((self.collectionViewSize.height - spacing) / (cellsPerColumn + 1)) - (spacing * 2)))
 			self.sectionInset = UIEdgeInsets(top: evenHeight - spacing, left: spacing, bottom: spacing, right: spacing)
             headerHeightConstraint.constant = self.sectionInset.top
 		}
-		else if let headerHeightConstraint = self.headerHeightConstraint where !self.isPad {
+		else if let headerHeightConstraint = self.headerHeightConstraint, !self.isPad {
 			let defaultHeaderHeight: CGFloat = self.isLandscape ? 80 : 100.0
 			let defaultCellHeight = max(self.minimumCellHeight, ((self.collectionViewSize.height - spacing - defaultHeaderHeight - spacing) / cellsPerColumn) - spacing)
 			let evenHeight = max(self.minimumCellHeight, ((self.collectionViewSize.height - spacing) / (cellsPerColumn + 1)) - spacing)

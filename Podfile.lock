@@ -1,15 +1,24 @@
 PODS:
-  - Sherpa (0.2.1)
+  - Sherpa (0.3)
   - StaticTables (0.3.1)
 
 DEPENDENCIES:
-  - Sherpa (~> 0.2)
+  - Sherpa (from `https://github.com/jellybeansoup/ios-sherpa.git`)
   - StaticTables (~> 0.3)
 
+EXTERNAL SOURCES:
+  Sherpa:
+    :git: https://github.com/jellybeansoup/ios-sherpa.git
+
+CHECKOUT OPTIONS:
+  Sherpa:
+    :commit: 00bd5fac1ad5085e02bdb706f9a078b42df05b8f
+    :git: https://github.com/jellybeansoup/ios-sherpa.git
+
 SPEC CHECKSUMS:
-  Sherpa: d9c183ff507cfad815ad45c04139f97131baefcd
+  Sherpa: abbb14042a6c712128644b8d6c1d817eb9c21682
   StaticTables: c69a30aad409dde40698746fc53866e1b7962443
 
-PODFILE CHECKSUM: 95d1611c34ed00c8cbc302a456add038b9843baa
+PODFILE CHECKSUM: 560d1ebc458ac538d039f4c8c433e680b8d8b2e7
 
 COCOAPODS: 1.2.0

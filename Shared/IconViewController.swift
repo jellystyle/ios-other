@@ -2,7 +2,7 @@ import UIKit
 
 protocol IconViewControllerDelegate {
     
-    func iconViewController(iconViewController: UIViewController, didRequestOpenURL url: NSURL)
+    func iconViewController(_ iconViewController: UIViewController, didRequestOpenURL url: URL)
     
 }
 
@@ -13,7 +13,7 @@ class IconViewController: UIViewController {
     
     var delegate: IconViewControllerDelegate? = nil
     
-    private var stackView: UIStackView!
+    fileprivate var stackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,22 +21,22 @@ class IconViewController: UIViewController {
         self.view.preservesSuperviewLayoutMargins = true
 
         stackView = UIStackView()
-        stackView.alignment = .Center
-        stackView.axis = .Horizontal
-        stackView.distribution = .EqualCentering
+        stackView.alignment = .center
+        stackView.axis = .horizontal
+        stackView.distribution = .equalCentering
 
         self.view.addSubview(stackView)
         stackView.anchorHeight(to: self.view.layoutMarginsGuide)
         stackView.anchorWidth(to: self.view.layoutMarginsGuide, withMaximum: 500, alignedTo: .center)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.loadIcons()
     }
     
-    @objc private func loadIcons() {
+    @objc fileprivate func loadIcons() {
         guard let preferences = self.preferences else {
             return
         }
@@ -51,7 +51,7 @@ class IconViewController: UIViewController {
         let contactIcon = preferences.contactThumbnail(56, stroke: 0)
         let contactLabel = preferences.contact?.givenName
         self.add(contactIcon, label: contactLabel) {
-            let contactURL = NSURL.contactOther
+            let contactURL = URL.contactOther
             
             self.delegate?.iconViewController(self, didRequestOpenURL: contactURL)
         }
@@ -60,7 +60,7 @@ class IconViewController: UIViewController {
         let gradient = UIImage.imageWithGradient(color, size: CGSize(width: 56, height: 56)).circularImage(56)
         
         if let url = preferences.messageURL {
-            let icon = gradient?.overlay(UIImage(named: "message")!, color: UIColor.whiteColor())
+            let icon = gradient?.overlay(UIImage(named: "message")!, color: UIColor.white)
             let text = "Message"
             self.add(icon, label: text) {
                 self.delegate?.iconViewController(self, didRequestOpenURL: url)
@@ -70,7 +70,7 @@ class IconViewController: UIViewController {
         }
         
         if let url = preferences.callURL {
-            let icon = gradient?.overlay(UIImage(named: "call")!, color: UIColor.whiteColor())
+            let icon = gradient?.overlay(UIImage(named: "call")!, color: UIColor.white)
             let text = "Call"
             self.add(icon, label: text) {
                 self.delegate?.iconViewController(self, didRequestOpenURL: url)
@@ -80,7 +80,7 @@ class IconViewController: UIViewController {
         }
         
         if let url = preferences.facetimeURL {
-            let icon = gradient?.overlay(UIImage(named: "facetime")!, color: UIColor.whiteColor())
+            let icon = gradient?.overlay(UIImage(named: "facetime")!, color: UIColor.white)
             let text = "FaceTime"
             self.add(icon, label: text) {
                 self.delegate?.iconViewController(self, didRequestOpenURL: url)
@@ -90,31 +90,31 @@ class IconViewController: UIViewController {
         }
     }
 
-    private func add(icon: UIImage?, label: String?, handler: () -> Void) {
+    fileprivate func add(_ icon: UIImage?, label: String?, handler: @escaping () -> Void) {
 		let container = UIView()
 		container.translatesAutoresizingMaskIntoConstraints = false
-		container.widthAnchor.constraintEqualToConstant(56).active = true
+		container.widthAnchor.constraint(equalToConstant: 56).isActive = true
 
 		let iconView = UIImageView(image: icon)
 		iconView.translatesAutoresizingMaskIntoConstraints = false
-		iconView.widthAnchor.constraintEqualToAnchor(iconView.heightAnchor).active = true
+		iconView.widthAnchor.constraint(equalTo: iconView.heightAnchor).isActive = true
 		container.addSubview(iconView)
 
         let textView = UILabel()
 		textView.allowsDefaultTighteningForTruncation = true
-		textView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+		textView.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
         textView.text = label
-		textView.textAlignment = .Center
+		textView.textAlignment = .center
 		textView.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(textView)
 
-		iconView.topAnchor.constraintEqualToAnchor(container.topAnchor).active = true
-		textView.topAnchor.constraintEqualToAnchor(iconView.bottomAnchor, constant: 5).active = true
-		textView.bottomAnchor.constraintEqualToAnchor(container.bottomAnchor).active = true
-		iconView.leftAnchor.constraintEqualToAnchor(container.leftAnchor).active = true
-		iconView.rightAnchor.constraintEqualToAnchor(container.rightAnchor).active = true
-		textView.leftAnchor.constraintEqualToAnchor(container.leftAnchor, constant: -5).active = true
-		textView.rightAnchor.constraintEqualToAnchor(container.rightAnchor, constant: 5).active = true
+		iconView.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
+		textView.topAnchor.constraint(equalTo: iconView.bottomAnchor, constant: 5).isActive = true
+		textView.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+		iconView.leftAnchor.constraint(equalTo: container.leftAnchor).isActive = true
+		iconView.rightAnchor.constraint(equalTo: container.rightAnchor).isActive = true
+		textView.leftAnchor.constraint(equalTo: container.leftAnchor, constant: -5).isActive = true
+		textView.rightAnchor.constraint(equalTo: container.rightAnchor, constant: 5).isActive = true
 
 		let gesture = TapGestureRecognizer(handler: handler)
 		container.addGestureRecognizer(gesture)
@@ -130,7 +130,7 @@ class IconViewController: UIViewController {
 
         let handler: () -> Void
         
-        init(handler: () -> Void) {
+        init(handler: @escaping () -> Void) {
             self.handler = handler
 
             super.init(target: nil, action: nil)
@@ -140,7 +140,7 @@ class IconViewController: UIViewController {
             self.addTarget(self, action: #selector(tapped))
         }
 
-        @objc private func tapped() {
+        @objc fileprivate func tapped() {
             self.handler()
         }
         

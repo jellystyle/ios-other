@@ -5,7 +5,7 @@ use_frameworks!
 target 'Other' do
 	
 	pod 'StaticTables', '~> 0.3'
-	pod 'Sherpa', '~> 0.2'
+	pod 'Sherpa', :git => 'https://github.com/jellybeansoup/ios-sherpa.git'
 	
 	target 'OtherTests' do
 		inherit! :search_paths

@@ -24,11 +24,11 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
         self.view.addGestureRecognizer(self.collectionView!.panGestureRecognizer)
         
 		if self.preferences?.contact == nil {
-			self.performSegueWithIdentifier("onboarding", sender: nil)
+			self.performSegue(withIdentifier: "onboarding", sender: nil)
 		}
 	}
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         guard let preferences = self.preferences else {
@@ -43,7 +43,7 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
         preferences.addObserver(self, forKeyPath: "messageRecipient", options: [], context: nil)
     }
 
-	override func viewDidDisappear(animated: Bool) {
+	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 
         guard let preferences = self.preferences else {
@@ -56,19 +56,19 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
 		preferences.removeObserver(self, forKeyPath: "messageRecipient")
 	}
 
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        coordinator.animateAlongsideTransition({ context in
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { context in
             // Reload the data here so the cells update their height correctly, otherwise the
             // contentInsets we use (in `tableView:heightForRowAtIndexPath:`) are incorrect.
             self.collectionView?.reloadData()
         }, completion: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
         
-        if let iconViewController = segue.destinationViewController as? IconViewController {
+        if let iconViewController = segue.destination as? IconViewController {
             iconViewController.delegate = self
         }
     }
@@ -84,55 +84,55 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
 		let fullContact: CNContact
 		do {
 			let store = CNContactStore()
-			fullContact = try store.unifiedContactWithIdentifier(contact.identifier, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
+			fullContact = try store.unifiedContact(withIdentifier: contact.identifier, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
 		} catch {
 			return
 		}
 
-		let viewController = ContactViewController(forContact: fullContact)
+		let viewController = ContactViewController(for: fullContact)
 		viewController.allowsEditing = false
         viewController.view.tintColor = PreferencesManager.tintColor
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(dismissPresented))
+        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissPresented))
         
         let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .FormSheet
+        navigationController.modalPresentationStyle = .formSheet
         navigationController.navigationBar.tintColor = PreferencesManager.tintColor
-        self.presentViewController(navigationController, animated: true, completion: nil)
+        self.present(navigationController, animated: true, completion: nil)
 	}
     
     @IBAction func dismissPresented() {
-        self.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+        self.presentedViewController?.dismiss(animated: true, completion: nil)
     }
 
 	// MARK: Collection view
 
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.preferences?.messages.count ?? 0
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MessageCell", forIndexPath: indexPath) as! CollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MessageCell", for: indexPath) as! CollectionViewCell
         
         cell.text = self.preferences?.messages[indexPath.row]
 
         return cell
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let message = self.preferences?.messages[indexPath.row] else {
             return
         }
 
-        UIApplication.sharedApplication().openURL(NSURL.messageOther(with: message))
+        UIApplication.shared.openURL(URL.messageOther(with: message))
 
-        collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+        collectionView.deselectItem(at: indexPath, animated: true)
 	}
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let scrollViewOffset = 0 - scrollView.contentOffset.y - scrollView.contentInset.top
 
         self.iconViewTopConstraint.constant = scrollViewOffset > 0 ? scrollViewOffset * (1/2) : scrollViewOffset
@@ -140,34 +140,34 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
         self.updateGradientForVisibleCells()
     }
     
-    private func updateGradientForVisibleCells() {
-        for cell in self.collectionView?.visibleCells().flatMap({ $0 as? CollectionViewCell }) ?? [] {
+    fileprivate func updateGradientForVisibleCells() {
+        for cell in self.collectionView?.visibleCells.flatMap({ $0 as? CollectionViewCell }) ?? [] {
             cell.updateGradient()
         }
     }
     
     // MARK: Message compose view delegate
     
-	func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
+	func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
 		PreferencesManager.sharedManager?.didFinishMessaging(result)
-		controller.dismissViewControllerAnimated(true, completion: nil)
+		controller.dismiss(animated: true, completion: nil)
 	}
     
     // MARK: Message compose view delegate
     
-    func iconViewController(iconViewController: UIViewController, didRequestOpenURL url: NSURL) {
-        UIApplication.sharedApplication().openURL(url)
+    func iconViewController(_ iconViewController: UIViewController, didRequestOpenURL url: URL) {
+        UIApplication.shared.openURL(url)
     }
 
     // MARK: Key-value observing
 
-	override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 		guard let keyPath = keyPath else {
 			return
 		}
 
 		if keyPath == "contact" && self.preferences?.contact == nil {
-			self.performSegueWithIdentifier("onboarding", sender: nil)
+			self.performSegue(withIdentifier: "onboarding", sender: nil)
 		}
 
 		else if keyPath == "callRecipient" || keyPath == "messageRecipient" || keyPath == "messages" {
@@ -177,8 +177,8 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
 
     class ContactViewController: CNContactViewController {
         
-        override func preferredStatusBarStyle() -> UIStatusBarStyle {
-            return .Default
+        override var preferredStatusBarStyle : UIStatusBarStyle {
+            return .default
         }
         
     }

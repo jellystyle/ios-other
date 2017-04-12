@@ -23,12 +23,12 @@ class TodayViewController: UIViewController, NCWidgetProviding, IconViewControll
         super.viewDidLayoutSubviews()
     }
     
-    func widgetPerformUpdateWithCompletionHandler(completionHandler: (NCUpdateResult) -> Void) {
-        completionHandler(NCUpdateResult.NewData)
+    func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
+        completionHandler(NCUpdateResult.newData)
     }
     
-    func iconViewController(iconViewController: UIViewController, didRequestOpenURL url: NSURL) {
-        self.extensionContext?.openURL(url, completionHandler: nil)
+    func iconViewController(_ iconViewController: UIViewController, didRequestOpenURL url: URL) {
+        self.extensionContext?.open(url, completionHandler: nil)
     }
     
 }

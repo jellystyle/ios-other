@@ -478,7 +478,7 @@
 					A17FBA1D1B44DF8200564F82 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = SGWXH8G2WP;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0830;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -487,13 +487,13 @@
 					};
 					A17FBA321B44DF8200564F82 = {
 						CreatedOnToolsVersion = 6.4;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0830;
 						TestTargetID = A17FBA1D1B44DF8200564F82;
 					};
 					A17FBA461B44DFF300564F82 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = SGWXH8G2WP;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0830;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -503,6 +503,7 @@
 					A1D96A771D8683AB00AA5E27 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = SGWXH8G2WP;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -952,7 +953,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Other;
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -973,7 +974,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Other;
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -993,7 +994,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Other;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Other.app/Other";
 			};
 			name = Debug;
@@ -1008,7 +1009,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jellystyle.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Other;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Other.app/Other";
 			};
 			name = Release;
@@ -1032,7 +1033,7 @@
 				PRODUCT_NAME = "Send to Other";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Vendor/StaticTables/\"";
 			};
@@ -1053,7 +1054,7 @@
 				PRODUCT_NAME = "Send to Other";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Vendor/StaticTables/\"";
 			};
@@ -1078,7 +1079,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1100,7 +1101,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jellystyle.Other.Today;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

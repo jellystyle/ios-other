@@ -1,6 +1,6 @@
 import Foundation
 
-extension NSBundle {
+extension Bundle {
 
 	//! Flag to indicate if the receiver is a debug build.
 	var debug: Bool {
@@ -30,28 +30,28 @@ extension NSBundle {
     //! Flag to indicate if the receiver is a prerelease build (usually Testflight).
     var prerelease: Bool {
         get {
-            return self.pathForResource("embedded", ofType: "mobileprovision") != nil
+            return self.path(forResource: "embedded", ofType: "mobileprovision") != nil
         }
     }
 
 	//! Display name as found in the info.plist against `CFBundleDisplayName`.
 	var displayName: String? {
 		get {
-			return self.objectForInfoDictionaryKey("CFBundleDisplayName") as? String
+			return self.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
 		}
 	}
 
 	//! Marketing version number as found in the info.plist against `CFBundleShortVersionString`.
 	var versionString: String? {
 		get {
-			return self.objectForInfoDictionaryKey("CFBundleShortVersionString") as? String
+			return self.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
 		}
 	}
 
 	//! Build number as found in the info.plist against `CFBundleVersion`.
 	var buildString: String? {
 		get {
-			return self.objectForInfoDictionaryKey("CFBundleVersion") as? String
+			return self.object(forInfoDictionaryKey: "CFBundleVersion") as? String
 		}
 	}
 
@@ -82,7 +82,7 @@ extension NSBundle {
 			}
 
 			else if configuration.characters.count > 0 {
-				return configuration.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+				return configuration.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 			}
 			
 			return nil;

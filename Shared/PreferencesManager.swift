@@ -10,7 +10,7 @@ class PreferencesManager: NSObject {
 	/// Initialises a `PreferencesManager` connected to the given `NSUserDefaults`.
 	/// @param userDefaults The `NSUserDefaults` instance to use for persistant storage.
 	/// @return An initialised `PreferencesManager` connected to the given `NSUserDefaults` instance.
-	init(_ userDefaults: NSUserDefaults) {
+	init(_ userDefaults: UserDefaults) {
 		self.userDefaults = userDefaults
 	}
 
@@ -22,7 +22,7 @@ class PreferencesManager: NSObject {
 			return nil
 		}
 
-		guard let sharedDefaults = NSUserDefaults(suiteName: suiteName) else {
+		guard let sharedDefaults = UserDefaults(suiteName: suiteName) else {
 			return nil
 		}
 
@@ -33,7 +33,7 @@ class PreferencesManager: NSObject {
 	static let sharedManager = PreferencesManager(suiteName: "group.com.jellystyle.Other")
 
 	//! Instance of `NSUserDefaults` used for persistance of preferences.
-	var userDefaults: NSUserDefaults
+	var userDefaults: UserDefaults
 
 	// MARK: - Appearance
 
@@ -41,7 +41,7 @@ class PreferencesManager: NSObject {
 	static var textColor: UIColor = UIColor(red:0.290,  green:0.290,  blue:0.290, alpha:1)
 
 	//! Color used for view background
-	static var backgroundColor: UIColor = UIColor.groupTableViewBackgroundColor()
+	static var backgroundColor: UIColor = UIColor.groupTableViewBackground
 	
 	/// Color used for highlights throughout the app
 	static var tintColor: UIColor = UIColor(hue:0.664, saturation:0.636, brightness:0.839, alpha:1)
@@ -51,18 +51,18 @@ class PreferencesManager: NSObject {
 	//! Array of preset messages to display for quick messaging.
 	dynamic var messages: [String] {
 		get {
-			if let messages = self.userDefaults.arrayForKey("messages") as? [String] {
+			if let messages = self.userDefaults.array(forKey: "messages") as? [String] {
 				return messages
 			}
 			return [ "🚗💨", "🚙🚛🚗🚓🚚", "👋" ]
 		}
 		set(messages) {
-			self.userDefaults.setObject(messages, forKey: "messages")
+			self.userDefaults.set(messages, forKey: "messages")
 			self.userDefaults.synchronize()
 		}
 	}
     
-    func updateShortcutItems(application: UIApplication) {
+    func updateShortcutItems(_ application: UIApplication) {
 		guard #available(iOS 9.1, *) else {
 			return
 		}
@@ -70,7 +70,7 @@ class PreferencesManager: NSObject {
 		var shortcutItems: [UIMutableApplicationShortcutItem] = []
 		for message in self.messages {
 			let item = UIMutableApplicationShortcutItem(type: "message-shortcut", localizedTitle: message)
-			item.icon = UIApplicationShortcutIcon(type: .Compose)
+			item.icon = UIApplicationShortcutIcon(type: .compose)
 			shortcutItems.append(item)
 		}
 		application.shortcutItems = shortcutItems
@@ -79,7 +79,7 @@ class PreferencesManager: NSObject {
 	// MARK: - Contact values
 
 	//! Private storage for the linked contact.
-	private var _contact: CNContact? = nil
+	fileprivate var _contact: CNContact? = nil
 
 	//! The linked address book contact.
 	dynamic var contact: CNContact? {
@@ -88,14 +88,20 @@ class PreferencesManager: NSObject {
 				return self._contact
 			}
 
-			guard let identifier = self.userDefaults.stringForKey("contact-identifier") else {
+			guard let identifier = self.userDefaults.string(forKey: "contact-identifier") else {
 				return nil
 			}
             
 			do {
 				let store = CNContactStore()
 
-				self._contact = try store.unifiedContactWithIdentifier(identifier, keysToFetch: [CNContactFormatter.descriptorForRequiredKeysForStyle(.FullName), CNContactThumbnailImageDataKey, CNContactImageDataAvailableKey, CNContactPhoneNumbersKey, CNContactEmailAddressesKey])
+				self._contact = try store.unifiedContact(withIdentifier: identifier, keysToFetch: [
+					CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
+					CNContactThumbnailImageDataKey as CNKeyDescriptor,
+					CNContactImageDataAvailableKey as CNKeyDescriptor,
+					CNContactPhoneNumbersKey as CNKeyDescriptor,
+					CNContactEmailAddressesKey as CNKeyDescriptor
+				])
 
 				return self._contact
 			} catch {
@@ -108,7 +114,7 @@ class PreferencesManager: NSObject {
 			do {
 				let store = CNContactStore()
 				if contact != nil {
-					unifiedContact = try store.unifiedContactWithIdentifier(contact!.identifier, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
+					unifiedContact = try store.unifiedContact(withIdentifier: contact!.identifier, keysToFetch: [CNContactViewController.descriptorForRequiredKeys()])
 				}
 				else {
 					unifiedContact = nil
@@ -123,11 +129,11 @@ class PreferencesManager: NSObject {
 			self.facetimeRecipient = nil
 
 			if contact == nil {
-				self.userDefaults.removeObjectForKey("contact-identifier")
+				self.userDefaults.removeObject(forKey: "contact-identifier")
 			}
 
 			else {
-				self.userDefaults.setObject(contact!.identifier, forKey: "contact-identifier")
+				self.userDefaults.set(contact!.identifier, forKey: "contact-identifier")
 			}
 
             self.userDefaults.synchronize()
@@ -148,7 +154,7 @@ class PreferencesManager: NSObject {
 	/// @param stroke The width of the stroke in points.
 	/// @param edgeInsets Padding to apply around the thumbnail.
 	/// @return Contact's image, formatted to match the given parameters.
-	func contactThumbnail(size: CGFloat, stroke: CGFloat, edgeInsets: UIEdgeInsets = UIEdgeInsetsZero) -> UIImage? {
+	func contactThumbnail(_ size: CGFloat, stroke: CGFloat, edgeInsets: UIEdgeInsets = UIEdgeInsets.zero) -> UIImage? {
 		guard let contact = self.contact else {
 			return nil
 		}
@@ -166,7 +172,7 @@ class PreferencesManager: NSObject {
 			return nil
 		}
 
-		return offsetImage.imageWithRenderingMode(.AlwaysOriginal)
+		return offsetImage.withRenderingMode(.alwaysOriginal)
 	}
 
 	/// The number used to make phone calls.
@@ -175,7 +181,7 @@ class PreferencesManager: NSObject {
 		get {
             var recipient: String?
 
-            if let message = self.userDefaults.stringForKey("call-recipient") {
+            if let message = self.userDefaults.string(forKey: "call-recipient") {
                 recipient = message
             }
             else if let option = self.callOptions.first {
@@ -186,25 +192,25 @@ class PreferencesManager: NSObject {
         }
 		set(call) {
 			if call == nil {
-				self.userDefaults.removeObjectForKey("call-recipient")
+				self.userDefaults.removeObject(forKey: "call-recipient")
 			}
 
 			else {
-				self.userDefaults.setObject(call, forKey: "call-recipient")
+				self.userDefaults.set(call, forKey: "call-recipient")
 			}
 
             self.userDefaults.synchronize()
 		}
 	}
 
-	var callURL: NSURL? {
+	var callURL: URL? {
 		get {
-			let characterSet = NSCharacterSet.URLFragmentAllowedCharacterSet()
-			guard let number = self.callRecipient?.stringByAddingPercentEncodingWithAllowedCharacters(characterSet) else {
+			let characterSet = CharacterSet.urlFragmentAllowed
+			guard let number = self.callRecipient?.addingPercentEncoding(withAllowedCharacters: characterSet) else {
 				return nil
 			}
 
-			return NSURL(string: "tel:\(number)");
+			return URL(string: "tel:\(number)");
 		}
 	}
 
@@ -214,7 +220,7 @@ class PreferencesManager: NSObject {
 		get {
             var recipient: String?
 
-            if let message = self.userDefaults.stringForKey("message-recipient") {
+            if let message = self.userDefaults.string(forKey: "message-recipient") {
 				recipient = message
 			}
 			else if let option = self.messageOptions.first {
@@ -225,25 +231,25 @@ class PreferencesManager: NSObject {
 		}
 		set(message) {
 			if message == nil {
-				self.userDefaults.removeObjectForKey("message-recipient")
+				self.userDefaults.removeObject(forKey: "message-recipient")
 			}
 
 			else {
-				self.userDefaults.setObject(message, forKey: "message-recipient")
+				self.userDefaults.set(message, forKey: "message-recipient")
 			}
 
             self.userDefaults.synchronize()
 		}
 	}
     
-    var messageURL: NSURL? {
+    var messageURL: URL? {
         get {
-            let characterSet = NSCharacterSet.URLFragmentAllowedCharacterSet()
-            guard let number = self.messageRecipient?.stringByAddingPercentEncodingWithAllowedCharacters(characterSet) else {
+            let characterSet = CharacterSet.urlFragmentAllowed
+            guard let number = self.messageRecipient?.addingPercentEncoding(withAllowedCharacters: characterSet) else {
                 return nil
             }
             
-            return NSURL(string: "sms:\(number)");
+            return URL(string: "sms:\(number)");
         }
     }
     
@@ -253,7 +259,7 @@ class PreferencesManager: NSObject {
         get {
             var recipient: String?
             
-            if let facetime = self.userDefaults.stringForKey("facetime-recipient") {
+            if let facetime = self.userDefaults.string(forKey: "facetime-recipient") {
                 recipient = facetime
             }
             
@@ -261,25 +267,25 @@ class PreferencesManager: NSObject {
         }
         set(facetime) {
             if facetime == nil {
-                self.userDefaults.removeObjectForKey("facetime-recipient")
+                self.userDefaults.removeObject(forKey: "facetime-recipient")
             }
                 
             else {
-                self.userDefaults.setObject(facetime, forKey: "facetime-recipient")
+                self.userDefaults.set(facetime, forKey: "facetime-recipient")
             }
             
             self.userDefaults.synchronize()
         }
     }
     
-    var facetimeURL: NSURL? {
+    var facetimeURL: URL? {
         get {
-            let characterSet = NSCharacterSet.URLFragmentAllowedCharacterSet()
-            guard let number = self.facetimeRecipient?.stringByAddingPercentEncodingWithAllowedCharacters(characterSet) else {
+            let characterSet = CharacterSet.urlFragmentAllowed
+            guard let number = self.facetimeRecipient?.addingPercentEncoding(withAllowedCharacters: characterSet) else {
                 return nil
             }
 
-            return NSURL(string: "facetime:\(number)");
+            return URL(string: "facetime:\(number)");
         }
     }
 
@@ -295,10 +301,9 @@ class PreferencesManager: NSObject {
 
             var options: [String?] = []
 
-            options += contact.phoneNumbers.map({
-                (labelledValue) in
-                return (labelledValue.value as? CNPhoneNumber)?.stringValue
-            })
+			options += contact.phoneNumbers.flatMap { entry -> String? in
+				return entry.value.stringValue
+			}
 
             return options.flatMap({ $0 })
 		}
@@ -313,20 +318,19 @@ class PreferencesManager: NSObject {
             }
             
             var options: [String?] = []
-            
-            options += contact.phoneNumbers.filter({
-                (labelledValue) in
-                return labelledValue.label == CNLabelPhoneNumberiPhone || labelledValue.label == CNLabelPhoneNumberMobile
-            }).map({
-                (labelledValue) in
-                return (labelledValue.value as? CNPhoneNumber)?.stringValue
-            })
-            
-            options += contact.emailAddresses.map({
-                (labelledValue) in
-                return labelledValue.value as? String
-            })
-            
+
+			options += contact.phoneNumbers.flatMap { entry -> String? in
+				guard entry.label == CNLabelPhoneNumberiPhone || entry.label == CNLabelPhoneNumberMobile else {
+					return nil
+				}
+
+				return entry.value.stringValue
+			}
+			
+			options += contact.emailAddresses.flatMap { entry -> String? in
+				return entry.value as String
+			}
+
             return options.flatMap({ $0 })
         }
     }
@@ -341,19 +345,18 @@ class PreferencesManager: NSObject {
             
             var options: [String?] = []
             
-            options += contact.phoneNumbers.filter({
-                (labelledValue) in
-                return labelledValue.label == CNLabelPhoneNumberiPhone || labelledValue.label == CNLabelPhoneNumberMobile
-            }).map({
-                (labelledValue) in
-                return (labelledValue.value as? CNPhoneNumber)?.stringValue
-            })
-            
-            options += contact.emailAddresses.map({
-                (labelledValue) in
-                return labelledValue.value as? String
-            })
-            
+			options += contact.phoneNumbers.flatMap { entry -> String? in
+				guard entry.label == CNLabelPhoneNumberiPhone || entry.label == CNLabelPhoneNumberMobile else {
+					return nil
+				}
+
+				return entry.value.stringValue
+			}
+
+			options += contact.emailAddresses.flatMap { entry -> String? in
+				return entry.value as String
+			}
+
             return options.flatMap({ $0 })
         }
     }
@@ -363,30 +366,30 @@ class PreferencesManager: NSObject {
     /// Log a count of the number of calls made
     func didStartCall() {
         let key = "analytics-open-call"
-        let count = self.userDefaults.integerForKey(key)
-        self.userDefaults.setInteger(count+1, forKey: key)
+        let count = self.userDefaults.integer(forKey: key)
+        self.userDefaults.set(count+1, forKey: key)
     }
     
     /// Log a count of the number of calls made
     func didStartFaceTime() {
         let key = "analytics-open-facetime"
-        let count = self.userDefaults.integerForKey(key)
-        self.userDefaults.setInteger(count+1, forKey: key)
+        let count = self.userDefaults.integer(forKey: key)
+        self.userDefaults.set(count+1, forKey: key)
     }
     
 	/// Log a count of the number of times Messages.app was opened
 	func didOpenMessages() {
 		let key = "analytics-open-messages"
-		let count = self.userDefaults.integerForKey(key)
-		self.userDefaults.setInteger(count+1, forKey: key)
+		let count = self.userDefaults.integer(forKey: key)
+		self.userDefaults.set(count+1, forKey: key)
 	}
 
 	/// Log a count of the number of messages sent
-	func didFinishMessaging(result: MessageComposeResult) {
-		if result != .Sent { return }
+	func didFinishMessaging(_ result: MessageComposeResult) {
+		if result != .sent { return }
 		let key = "analytics-sent-messages"
-		let count = self.userDefaults.integerForKey(key)
-		self.userDefaults.setInteger(count+1, forKey: key)
+		let count = self.userDefaults.integer(forKey: key)
+		self.userDefaults.set(count+1, forKey: key)
 	}
 
 }

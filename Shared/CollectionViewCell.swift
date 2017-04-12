@@ -26,11 +26,11 @@ class CollectionViewCell: UICollectionViewCell {
         
         let factor: CGFloat = 2 // Adjusts the "strength" of the generated gradient
         
-        let cellFrame = self.convertRect(self.contentView.frame, toView: collectionView)
+        let cellFrame = self.convert(self.contentView.frame, to: collectionView)
         let cellTop = factor - (factor * ((cellFrame.origin.y - collectionViewOffset) / collectionViewHeight))
         let cellBottom = cellTop - (factor * (cellFrame.size.height / collectionViewHeight))
 
-        let gradientColor = PreferencesManager.tintColor.colorWithAlphaComponent(0.8)
+        let gradientColor = PreferencesManager.tintColor.withAlphaComponent(0.8)
         let gradientSize = CGSize(width: 20, height: cellFrame.size.height)
         let gradient = UIImage.imageWithGradient(gradientColor, size: gradientSize, top: cellTop, bottom: cellBottom)
 
@@ -38,7 +38,7 @@ class CollectionViewCell: UICollectionViewCell {
         (self.selectedBackgroundView as? UIImageView)?.image = gradient
     }
     
-    private let textLabel = UILabel()
+    fileprivate let textLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,9 +54,9 @@ class CollectionViewCell: UICollectionViewCell {
         self.clipsToBounds = true
         self.layer.cornerRadius = 10.0
         
-        self.textLabel.font = UIFont.systemFontOfSize(30)
+        self.textLabel.font = UIFont.systemFont(ofSize: 30)
         self.textLabel.numberOfLines = 0
-        self.textLabel.textAlignment = .Center
+        self.textLabel.textAlignment = .center
         self.textLabel.textColor = PreferencesManager.backgroundColor
 
         self.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)

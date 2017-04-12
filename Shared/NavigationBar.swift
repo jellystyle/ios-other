@@ -14,12 +14,12 @@ class NavigationBar: UINavigationBar {
         self.initialize()
     }
     
-    private func initialize() {
+    fileprivate func initialize() {
         self.applyCustomisations()
     }
     
-    @objc private func applyCustomisations() {
-        self.translucent = true
+    @objc fileprivate func applyCustomisations() {
+        self.isTranslucent = true
         self.barTintColor = PreferencesManager.tintColor
     }
     
@@ -27,18 +27,18 @@ class NavigationBar: UINavigationBar {
         didSet {
             var gradient: UIImage? = nil
             var tintColor: UIColor = PreferencesManager.tintColor
-            var titleColor: UIColor = UIColor.darkTextColor()
+            var titleColor: UIColor = UIColor.darkText
             
             if let barTintColor = self.barTintColor {
                 gradient = UIImage.imageWithGradient(barTintColor)
-                tintColor = UIColor.whiteColor()
-                titleColor = UIColor.whiteColor()
+                tintColor = UIColor.white
+                titleColor = UIColor.white
             }
 
-            self.setBackgroundImage(gradient, forBarMetrics: .Default)
-            self.setBackgroundImage(gradient, forBarMetrics: .Compact)
-            self.setBackgroundImage(gradient, forBarMetrics: .DefaultPrompt)
-            self.setBackgroundImage(gradient, forBarMetrics: .CompactPrompt)
+            self.setBackgroundImage(gradient, for: .default)
+            self.setBackgroundImage(gradient, for: .compact)
+            self.setBackgroundImage(gradient, for: .defaultPrompt)
+            self.setBackgroundImage(gradient, for: .compactPrompt)
             
             self.tintColor = tintColor
             self.titleTextAttributes = [ NSForegroundColorAttributeName: titleColor ]
