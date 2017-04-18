@@ -29,6 +29,47 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 	// MARK: IBActions
 
+	@IBAction func selectContact() {
+		let contactStore = CNContactStore()
+
+		switch CNContactStore.authorizationStatus(for: .contacts) {
+		case .restricted:
+			let message = "Unable to access contacts, as this functionality has been restricted."
+			let alertController = UIAlertController.alert(message)
+			self.present(alertController, animated: true, completion: nil)
+
+			break
+		case .denied:
+			let message = "To select a contact as your other, you will need to turn on access in Settings."
+			let alertController = UIAlertController.alert(message, action: "Open Settings", handler: { _ in
+				guard let url = URL(string: UIApplicationOpenSettingsURLString) else {
+					return
+				}
+
+				UIApplication.shared.openURL(url)
+			})
+			self.present(alertController, animated: true, completion: nil)
+
+			break
+		case .notDetermined:
+			contactStore.requestAccess(for: .contacts, completionHandler: { granted, error in
+				DispatchQueue.main.async {
+					self.selectContact()
+				}
+			})
+
+			break
+		case .authorized:
+			let viewController = CNContactPickerViewController()
+			viewController.delegate = self
+			viewController.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0 || phoneNumbers.@count > 0")
+			viewController.modalPresentationStyle = .formSheet
+			self.present(viewController, animated: true, completion: nil)
+
+			break
+		}
+	}
+
 	@IBAction func unwindToMain(_ segue: UIStoryboardSegue) {
 		self.view.endEditing(true)
 		self.navigationController?.dismiss(animated: true, completion: nil)
@@ -47,11 +88,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			}
 			else if row.key as? String == "contact" || row.key as? String == "select-contact" {
 
-				let viewController = CNContactPickerViewController()
-				viewController.delegate = self
-				viewController.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0 || phoneNumbers.@count > 0")
-				viewController.modalPresentationStyle = .formSheet
-				self.present(viewController, animated: true, completion: nil)
+				self.selectContact()
 
 			}
 			else if row.key as? String == "add-message", let section = row.section {
