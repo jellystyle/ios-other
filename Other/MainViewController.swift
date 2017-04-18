@@ -45,7 +45,6 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
         
         preferences.addObserver(self, forKeyPath: "contact", options: [], context: nil)
         preferences.addObserver(self, forKeyPath: "messages", options: [], context: nil)
-        preferences.addObserver(self, forKeyPath: "callRecipient", options: [], context: nil)
         preferences.addObserver(self, forKeyPath: "messageRecipient", options: [], context: nil)
     }
 
@@ -58,7 +57,6 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
         
 		preferences.removeObserver(self, forKeyPath: "contact")
 		preferences.removeObserver(self, forKeyPath: "messages")
-		preferences.removeObserver(self, forKeyPath: "callRecipient")
 		preferences.removeObserver(self, forKeyPath: "messageRecipient")
 	}
 
@@ -192,8 +190,7 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
 		if keyPath == "contact" && self.preferences?.contact == nil {
 			self.performSegue(withIdentifier: "onboarding", sender: nil)
 		}
-
-		else if keyPath == "callRecipient" || keyPath == "messageRecipient" || keyPath == "messages" {
+		else if keyPath == "messageRecipient" || keyPath == "messages" {
 			self.collectionView?.reloadData()
 		}
 	}

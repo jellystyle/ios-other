@@ -34,9 +34,33 @@ class IconViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.loadIcons()
-    }
-    
-    @objc fileprivate func loadIcons() {
+
+		super.viewWillAppear(animated)
+
+		guard let preferences = self.preferences else {
+			return
+		}
+
+		preferences.addObserver(self, forKeyPath: "contact", options: [], context: nil)
+		preferences.addObserver(self, forKeyPath: "callRecipient", options: [], context: nil)
+		preferences.addObserver(self, forKeyPath: "messageRecipient", options: [], context: nil)
+		preferences.addObserver(self, forKeyPath: "facetimeRecipient", options: [], context: nil)
+	}
+
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+
+		guard let preferences = self.preferences else {
+			return
+		}
+
+		preferences.removeObserver(self, forKeyPath: "contact")
+		preferences.removeObserver(self, forKeyPath: "callRecipient")
+		preferences.removeObserver(self, forKeyPath: "messageRecipient")
+		preferences.removeObserver(self, forKeyPath: "facetimeRecipient")
+	}
+
+	@objc fileprivate func loadIcons() {
         guard let preferences = self.preferences else {
             return
         }
@@ -122,10 +146,6 @@ class IconViewController: UIViewController {
 		self.stackView.addArrangedSubview(container)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     class TapGestureRecognizer: UITapGestureRecognizer {
 
         let handler: () -> Void
@@ -145,5 +165,16 @@ class IconViewController: UIViewController {
         }
         
     }
+
+	// MARK: Key-value observing
+
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+		if view.window == nil {
+			self.loadIcons()
+		}
+		else {
+			UIView.animate(withDuration: 0.3, delay: 0, options: .transitionCrossDissolve, animations: self.loadIcons, completion: nil)
+		}
+	}
 
 }
