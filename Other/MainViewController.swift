@@ -8,8 +8,14 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
     //! The collection view
     @IBOutlet weak var collectionView: UICollectionView?
 
-    //! The position of the icon view
-    @IBOutlet weak var iconViewTopConstraint: NSLayoutConstraint!
+	//! The position of the icon view
+	@IBOutlet weak var iconViewTopConstraint: NSLayoutConstraint!
+
+	//! The container view for inline messages
+	@IBOutlet weak var messageContainer: UIView?
+
+	//! The container view for inline messages
+	@IBOutlet weak var messageLabel: UILabel?
 
     //! The shared preferences manager.
 	let preferences = PreferencesManager.sharedManager
@@ -107,11 +113,28 @@ class MainViewController: UIViewController, MFMessageComposeViewControllerDelega
 	// MARK: Collection view
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+		return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.preferences?.messages.count ?? 0
+		guard let preferences = self.preferences, preferences.messageRecipient != nil else {
+			self.messageLabel?.text = "You don't have a phone number or email selected for sending messages."
+			self.messageContainer?.isHidden = false
+
+			return 0
+		}
+
+		guard preferences.messages.count > 0 else {
+			self.messageLabel?.text = "You don't have any message shortcuts specified."
+			self.messageContainer?.isHidden = false
+
+			return 0
+		}
+
+		self.messageLabel?.text = nil
+		self.messageContainer?.isHidden = true
+
+		return preferences.messages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
