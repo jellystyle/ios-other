@@ -5,7 +5,7 @@ import AVFoundation
 
 private class PlayerView: UIView {
 
-	override class func layerClass() -> AnyClass {
+	override class var layerClass : AnyClass {
 		return AVPlayerLayer.self
 	}
 
@@ -21,7 +21,7 @@ private class PlayerView: UIView {
 		}
 		set(player) {
 			self.layer.player = player
-			self.layer.backgroundColor = UIColor.clearColor().CGColor
+			self.layer.backgroundColor = UIColor.clear.cgColor
 		}
 	}
 
@@ -40,34 +40,34 @@ class AboutViewController: JSMStaticTableViewController {
 
 		// Illustration
 		// We have to fetch an alternate version for small screens.
-		let screen = UIScreen.mainScreen()
+		let screen = UIScreen.main
 		let allowedWidth = screen.nativeBounds.size.width <= 640 ? "640" : "1242"
-		if let url = NSBundle.mainBundle().URLForResource("illustration-\(allowedWidth)", withExtension: "mp4") {
-			let playerItem = AVPlayerItem(URL: url)
+		if let url = Bundle.main.url(forResource: "illustration-\(allowedWidth)", withExtension: "mp4") {
+			let playerItem = AVPlayerItem(url: url)
 
-			if let track = playerItem.asset.tracksWithMediaCharacteristic(AVMediaCharacteristicVisual).first {
+			if let track = playerItem.asset.tracks(withMediaCharacteristic: AVMediaCharacteristicVisual).first {
 				// Let's figure out an appropriate size for the video
 				let percent = min( track.naturalSize.width / screen.scale, screen.bounds.size.width, screen.bounds.size.height ) / track.naturalSize.width
 				let size = CGSize(width: track.naturalSize.width * percent, height: track.naturalSize.height * percent)
 
 				let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.size.width, height: size.height * 0.28))
-				headerView.backgroundColor = UIColor.clearColor()
+				headerView.backgroundColor = UIColor.clear
 				self.tableView.tableHeaderView = headerView
 
 				let player = AVPlayer(playerItem: playerItem)
 				player.allowsExternalPlayback = false
-				player.muted = true
+				player.isMuted = true
 				self.player = player
 
 				let playerView = PlayerView(frame: CGRect(x: (headerView.frame.size.width - size.width) / 2, y: size.height * -0.72, width: size.width, height: size.height))
-				playerView.autoresizingMask = [ .FlexibleLeftMargin, .FlexibleRightMargin ]
-				playerView.backgroundColor = UIColor.clearColor()
+				playerView.autoresizingMask = [ .flexibleLeftMargin, .flexibleRightMargin ]
+				playerView.backgroundColor = UIColor.clear
 				playerView.player = self.player
 				headerView.addSubview(playerView)
 
-				NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AboutViewController.playerItemDidReachEnd(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: playerItem)
-				NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AboutViewController.pausePlayer), name: UIApplicationDidEnterBackgroundNotification, object: nil)
-				NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AboutViewController.resumePlayer), name: UIApplicationWillEnterForegroundNotification, object: nil)
+				NotificationCenter.default.addObserver(self, selector: #selector(AboutViewController.playerItemDidReachEnd(_:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
+				NotificationCenter.default.addObserver(self, selector: #selector(AboutViewController.pausePlayer), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+				NotificationCenter.default.addObserver(self, selector: #selector(AboutViewController.resumePlayer), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
 			}
 		}
 
@@ -77,9 +77,9 @@ class AboutViewController: JSMStaticTableViewController {
 
 		let version = JSMStaticRow()
 		version.text = "Version"
-		version.detailText = NSBundle.mainBundle().displayVersion
-		version.accessoryType = .None
-		version.selectionStyle = .None
+		version.detailText = Bundle.main.displayVersion
+		version.accessoryType = .none
+		version.selectionStyle = .none
 		about.addRow(version)
 
 		// Other
@@ -90,39 +90,39 @@ class AboutViewController: JSMStaticTableViewController {
 
 		let other = JSMStaticRow(key: "open-source.other")
 		other.text = "Other"
-		other.accessoryType = .DisclosureIndicator
-		other.selectionStyle = .Default
-		other.configurationForCell { row, cell in
+		other.accessoryType = .disclosureIndicator
+		other.selectionStyle = .default
+		other.configuration { row, cell in
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
 		openSource.addRow(other)
 
 		let sherpa = JSMStaticRow(key: "open-source.sherpa")
 		sherpa.text = "Sherpa"
-		sherpa.accessoryType = .DisclosureIndicator
-		sherpa.selectionStyle = .Default
-		sherpa.configurationForCell { row, cell in
+		sherpa.accessoryType = .disclosureIndicator
+		sherpa.selectionStyle = .default
+		sherpa.configuration { row, cell in
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
 		openSource.addRow(sherpa)
 
 		let staticTables = JSMStaticRow(key: "open-source.statictables")
 		staticTables.text = "StaticTables"
-		staticTables.accessoryType = .DisclosureIndicator
-		staticTables.selectionStyle = .Default
-		staticTables.configurationForCell { row, cell in
+		staticTables.accessoryType = .disclosureIndicator
+		staticTables.selectionStyle = .default
+		staticTables.configuration { row, cell in
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
 		openSource.addRow(staticTables)
 
 	}
 
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		self.resumePlayer()
 	}
 
-	override func viewDidDisappear(animated: Bool) {
+	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 		self.pausePlayer()
 	}
@@ -145,22 +145,22 @@ class AboutViewController: JSMStaticTableViewController {
 
 	// MARK: Table view delegate
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		if let row = self.dataSource.rowAtIndexPath(indexPath), let key = row.key as? String {
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		if let row = self.dataSource.row(at: indexPath), let key = row.key as? String {
 
-			if key == "open-source.other", let url = NSURL(string: "https://github.com/jellystyle/ios-other") {
-				let viewController = SFSafariViewController(URL: url)
-				self.presentViewController(viewController, animated: true, completion: nil)
+			if key == "open-source.other", let url = URL(string: "https://github.com/jellystyle/ios-other") {
+				let viewController = SFSafariViewController(url: url)
+				self.present(viewController, animated: true, completion: nil)
 			}
 
-			else if key == "open-source.sherpa", let url = NSURL(string: "https://github.com/jellybeansoup/ios-sherpa") {
-				let viewController = SFSafariViewController(URL: url)
-				self.presentViewController(viewController, animated: true, completion: nil)
+			else if key == "open-source.sherpa", let url = URL(string: "https://github.com/jellybeansoup/ios-sherpa") {
+				let viewController = SFSafariViewController(url: url)
+				self.present(viewController, animated: true, completion: nil)
 			}
 
-			else if key == "open-source.statictables", let url = NSURL(string: "https://github.com/jellybeansoup/ios-statictables") {
-				let viewController = SFSafariViewController(URL: url)
-				self.presentViewController(viewController, animated: true, completion: nil)
+			else if key == "open-source.statictables", let url = URL(string: "https://github.com/jellybeansoup/ios-statictables") {
+				let viewController = SFSafariViewController(url: url)
+				self.present(viewController, animated: true, completion: nil)
 			}
 
 		}
@@ -168,8 +168,8 @@ class AboutViewController: JSMStaticTableViewController {
 
 	// MARK: Player item notifications
 
-	func playerItemDidReachEnd(playerItem: AVPlayerItem) {
-		self.player?.seekToTime(kCMTimeZero)
+	func playerItemDidReachEnd(_ playerItem: AVPlayerItem) {
+		self.player?.seek(to: kCMTimeZero)
 		self.player?.play()
 	}
 

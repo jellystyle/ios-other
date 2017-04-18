@@ -95,6 +95,18 @@
 					"build_max": null
 				}
 			]
+		},
+		{
+			"title": "Advanced",
+			"detail": null,
+			"articles": [
+				{
+					"title": "Does Other have a URL scheme I can use?",
+					"body": "It totally does. You can use the scheme <code>my-other:</code> to open the app, and there's a couple options to make integration more useful!\n\n<strong><code>my-other:/contact</code></strong>\n\nOpens the contact screen for your other.\n\n<strong><code>my-other:/message?body=&lt;text&gt;</code></strong>\n\nOpens the message compose screen with the given <code>body</code> as the predefined message.",
+					"build_min": null,
+					"build_max": null
+				}
+			]
 		}
 	]
 }

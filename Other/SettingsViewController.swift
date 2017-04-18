@@ -15,13 +15,13 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.tableView.editing = true
+		self.tableView.isEditing = true
 		self.tableView.allowsSelectionDuringEditing = true
 
 		self._updateView()
 	}
 
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		self._updateView()
 		self.tableView.reloadData()
@@ -29,17 +29,58 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 	// MARK: IBActions
 
-	@IBAction func unwindToMain(segue: UIStoryboardSegue) {
+	@IBAction func selectContact() {
+		let contactStore = CNContactStore()
+
+		switch CNContactStore.authorizationStatus(for: .contacts) {
+		case .restricted:
+			let message = "Unable to access contacts, as this functionality has been restricted."
+			let alertController = UIAlertController.alert(message)
+			self.present(alertController, animated: true, completion: nil)
+
+			break
+		case .denied:
+			let message = "To select a contact as your other, you will need to turn on access in Settings."
+			let alertController = UIAlertController.alert(message, action: "Open Settings", handler: { _ in
+				guard let url = URL(string: UIApplicationOpenSettingsURLString) else {
+					return
+				}
+
+				UIApplication.shared.openURL(url)
+			})
+			self.present(alertController, animated: true, completion: nil)
+
+			break
+		case .notDetermined:
+			contactStore.requestAccess(for: .contacts, completionHandler: { granted, error in
+				DispatchQueue.main.async {
+					self.selectContact()
+				}
+			})
+
+			break
+		case .authorized:
+			let viewController = CNContactPickerViewController()
+			viewController.delegate = self
+			viewController.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0 || phoneNumbers.@count > 0")
+			viewController.modalPresentationStyle = .formSheet
+			self.present(viewController, animated: true, completion: nil)
+
+			break
+		}
+	}
+
+	@IBAction func unwindToMain(_ segue: UIStoryboardSegue) {
 		self.view.endEditing(true)
-		self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+		self.navigationController?.dismiss(animated: true, completion: nil)
 	}
 
 	// MARK: Table view delegate
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
 
-		if let dataSource = tableView.dataSource as? JSMStaticDataSource, let row = dataSource.rowAtIndexPath(indexPath) {
+		if let dataSource = tableView.dataSource as? JSMStaticDataSource, let row = dataSource.row(at: indexPath) {
 			if let row = row as? JSMStaticSelectPreference {
 
 				self.navigationController?.pushViewController(row.viewController, animated: true)
@@ -47,21 +88,17 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			}
 			else if row.key as? String == "contact" || row.key as? String == "select-contact" {
 
-				let viewController = CNContactPickerViewController()
-				viewController.delegate = self
-				viewController.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0 || phoneNumbers.@count > 0")
-				viewController.modalPresentationStyle = .FormSheet
-				self.presentViewController(viewController, animated: true, completion: nil)
+				self.selectContact()
 
 			}
 			else if row.key as? String == "add-message", let section = row.section {
 
 				let empty = self._rowForMessage(nil, key: String(indexPath.row))
-                dataSource.insertRow(empty, intoSection: section, atIndex: UInt(indexPath.row), withRowAnimation: UITableViewRowAnimation.Bottom)
+                dataSource.insert(empty, into: section, at: UInt(indexPath.row), with: UITableViewRowAnimation.bottom)
 				empty.textField?.becomeFirstResponder()
 
 			}
-			else if row.key as? String == "support.guide", let url = NSBundle.mainBundle().URLForResource("userguide", withExtension: "json") {
+			else if row.key as? String == "support.guide", let url = Bundle.main.url(forResource: "userguide", withExtension: "json") {
 
 				let viewController = SherpaViewController(fileAtURL: url)
 				viewController.tintColor = PreferencesManager.tintColor
@@ -72,20 +109,20 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			}
 			else if row.key as? String == "support.review", let appStoreManager = AppStoreManager.sharedManager {
 
-				UIApplication.sharedApplication().openURL(appStoreManager.storeURL)
+				UIApplication.shared.openURL(appStoreManager.storeURL)
 
 			}
 			else if row.key as? String == "support.about" {
 
-				let viewController = AboutViewController(style: .Grouped)
+				let viewController = AboutViewController(style: .grouped)
 				self.navigationController?.pushViewController(viewController, animated: true)
 
 			}
 		}
 	}
 
-	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		if let dataSource = tableView.dataSource as? JSMStaticDataSource, let row = dataSource.rowAtIndexPath(indexPath) where row.key as? String == "contact" {
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		if let dataSource = tableView.dataSource as? JSMStaticDataSource, let row = dataSource.row(at: indexPath), row.key as? String == "contact" {
 			return 60
 		}
 		return 44
@@ -93,10 +130,10 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 	// MARK: Contact picker delegate
 
-	func contactPicker(picker: CNContactPickerViewController, didSelectContact contact: CNContact) {
+	func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
 		if let preferences = self.preferences {
 			preferences.contact = contact
-			preferences.updateShortcutItems( UIApplication.sharedApplication() )
+			preferences.updateShortcutItems( UIApplication.shared )
 			self._updateView()
 			self.tableView.reloadData()
 		}
@@ -104,38 +141,38 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		else {
 			let message = "An error occurred while updating your selected contact. Can you give it another try in a moment?"
 			let alert = UIAlertController.alert(message)
-			self.presentViewController(alert, animated: true, completion: nil)
+			self.present(alert, animated: true, completion: nil)
 		}
 	}
 
 	// MARK: Static data source delegate
 
-	override func dataSource(dataSource: JSMStaticDataSource, rowNeedsReload row: JSMStaticRow, atIndexPath indexPath: NSIndexPath) {
+	override func dataSource(_ dataSource: JSMStaticDataSource, rowNeedsReload row: JSMStaticRow, at indexPath: IndexPath) {
 		// We don't need to reload the row, it gets reloaded when the view appears
 	}
 
-	override func dataSource(dataSource: JSMStaticDataSource, sectionNeedsReload section: JSMStaticSection, atIndex index: UInt) {
+	override func dataSource(_ dataSource: JSMStaticDataSource, sectionNeedsReload section: JSMStaticSection, at index: UInt) {
 		// We don't need to reload the section, it gets reloaded when the view appears
 	}
 
-	override func dataSource(dataSource: JSMStaticDataSource, didMoveRow row: JSMStaticRow, fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+	override func dataSource(_ dataSource: JSMStaticDataSource, didMove row: JSMStaticRow, from fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
 		self._saveMessages()
 	}
 
-	override func dataSource(dataSource: JSMStaticDataSource, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRow row: JSMStaticRow, atIndexPath indexPath: NSIndexPath) {
-		if let tableView = dataSource.tableView where editingStyle == .Insert {
-			self.tableView(tableView, didSelectRowAtIndexPath: indexPath)
+	override func dataSource(_ dataSource: JSMStaticDataSource, commit editingStyle: UITableViewCellEditingStyle, for row: JSMStaticRow, at indexPath: IndexPath) {
+		if let tableView = dataSource.tableView, editingStyle == .insert {
+			self.tableView(tableView, didSelectRowAt: indexPath)
 		}
 
-		else if editingStyle == .Delete {
-			dataSource.removeRow(row, withRowAnimation: .Fade)
+		else if editingStyle == .delete {
+			dataSource.remove(row, with: .fade)
 			self._saveMessages()
 		}
 	}
 
 	// MARK: Static preference observer
 
-	func preference(preference: JSMStaticPreference, didChangeValue value: AnyObject) {
+	func preference(_ preference: JSMStaticPreference, didChangeValue value: Any) {
 		if let preferences = self.preferences {
             if let select = preference as? JSMStaticSelectPreference, let value = value as? String {
                 
@@ -164,34 +201,34 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		else {
 			let message = "Something went wrong while updating your preferences. Try again in a minute or three."
 			let alert = UIAlertController.alert(message)
-			self.presentViewController(alert, animated: true, completion: nil)
+			self.present(alert, animated: true, completion: nil)
 		}
 	}
 
 	// MARK: Text field delegate
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
     }
 
 	// MARK: Mail compose controller delegate
 
-	func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-		controller.dismissViewControllerAnimated(true, completion: nil)
+	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+		controller.dismiss(animated: true, completion: nil)
 	}
 	
     // MARK: Utilities
 
 	/// Refresh the various sections in the data source.
-	private func _updateView() {
+	fileprivate func _updateView() {
 		var sections: [JSMStaticSection] = []
 
 		let contact = self._contactSection()
 		sections.append(contact)
 
 		if let recipients = self._recipientSection() {
-			sections.appendContentsOf(recipients)
+			sections.append(contentsOf: recipients)
 		}
 
 		if let messages = self._messagesSection() {
@@ -199,15 +236,15 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 		}
 
 		var support = JSMStaticSection(key: "support-1")
-		support.headerText = NSBundle.mainBundle().displayName ?? "Other"
+		support.headerText = Bundle.main.displayName ?? "Other"
 		sections.append(support)
 
 		if let appStoreManager = AppStoreManager.sharedManager {
 			let review = JSMStaticRow(key: "support.review")
 			review.text = NSLocalizedString("Review on the App Store", comment: "Label for button to open the App Store to post a review")
-			review.accessoryType = .None
-			review.selectionStyle = .Default
-			review.configurationForCell { row, cell in
+			review.accessoryType = .none
+			review.selectionStyle = .default
+			review.configuration { row, cell in
 				cell.textLabel?.textColor = PreferencesManager.tintColor
 			}
 			support.addRow(review)
@@ -217,7 +254,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 					support.footerText = "Be the first to rate this version!"
 				}
 				else {
-					let formattedCount = NSNumberFormatter.localizedStringFromNumber(count, numberStyle: .DecimalStyle)
+					let formattedCount = NumberFormatter.localizedString(from: NSNumber(value: count), number: .decimal)
 					if count <= 50 {
 						support.footerText = "Only \(formattedCount) people have rated this version."
 					}
@@ -227,19 +264,19 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 				}
 			}
 			else {
-				support.footerText = "\(support.headerText) will never interrupt you for ratings."
+				support.footerText = "\(support.headerText ?? "Other") will never interrupt you for ratings."
 			}
 
 			support = JSMStaticSection(key: "support-2")
 			sections.append(support)
 		}
 
-		if NSBundle.mainBundle().URLForResource("userguide", withExtension: "json") != nil {
+		if Bundle.main.url(forResource: "userguide", withExtension: "json") != nil {
 			let guide = JSMStaticRow(key: "support.guide")
 			guide.text = "User Guide"
-			guide.accessoryType = .DisclosureIndicator
-			guide.selectionStyle = .Default
-			guide.configurationForCell { row, cell in
+			guide.accessoryType = .disclosureIndicator
+			guide.selectionStyle = .default
+			guide.configuration { row, cell in
 				cell.textLabel?.textColor = PreferencesManager.tintColor
 			}
 			support.addRow(guide)
@@ -247,9 +284,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 		let about = JSMStaticRow(key: "support.about")
 		about.text = "About"
-		about.accessoryType = .DisclosureIndicator
-		about.selectionStyle = .Default
-		about.configurationForCell({ row, cell in
+		about.accessoryType = .disclosureIndicator
+		about.selectionStyle = .default
+		about.configuration(forCell: { row, cell in
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		})
 		support.addRow(about)
@@ -258,7 +295,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 	}
 
 	/// Refresh the contact section.
-	private func _contactSection() -> JSMStaticSection {
+	fileprivate func _contactSection() -> JSMStaticSection {
 		let section = JSMStaticSection(key: "contact")
 		section.headerText = "Contact"
 
@@ -266,9 +303,9 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 			section.footerText = "This is your selected contact. You can tap at any time to select a different person from your address book."
 
 			let contactRow = JSMStaticRow(key: "contact")
-			contactRow.text = CNContactFormatter().stringFromContact(contact)
+			contactRow.text = CNContactFormatter().string(from: contact)
 			contactRow.image = preferences.contactThumbnail(46, stroke: 1, edgeInsets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
-			contactRow.configurationForCell { row, cell in
+			contactRow.configuration { row, cell in
 				cell.textLabel?.textColor = PreferencesManager.tintColor
 			}
 			section.addRow(contactRow)
@@ -279,7 +316,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 			let row = JSMStaticRow(key: "select-contact")
 			row.text = "Select contact…"
-			row.configurationForCell { row, cell in
+			row.configuration { row, cell in
 				cell.textLabel?.textColor = PreferencesManager.tintColor
 			}
 			section.addRow(row)
@@ -289,8 +326,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 	}
 
 	/// Refresh the recipient section, removing if no contact is selected.
-	private func _recipientSection() -> [JSMStaticSection]? {
-		guard let preferences = self.preferences where preferences.contact != nil else {
+	fileprivate func _recipientSection() -> [JSMStaticSection]? {
+		guard let preferences = self.preferences, preferences.contact != nil else {
 			return nil
 		}
 
@@ -302,55 +339,55 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
         // Message Recipient
         
-        let messagePreference = JSMStaticSelectPreference.transientPreferenceWithKey("message-recipient")
-        messagePreference.addObserver(self)
+        let messagePreference = JSMStaticSelectPreference.transientPreference(withKey: "message-recipient")
+        messagePreference.add(self)
         sectionOne.addRow(messagePreference)
         
-        var messageOptions: [[String: AnyObject]] = preferences.messageOptions.map({ (option) in
-            return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option]
+        var messageOptions: [[String: Any]] = preferences.messageOptions.map({ (option) in
+            return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option] as [String: Any]
         })
-        messageOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""])
+        messageOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""] as [String: Any])
         
         messagePreference.text = "Messages"
         messagePreference.value = preferences.messageRecipient ?? ""
         messagePreference.options = messageOptions
-        messagePreference.configurationForCell { row, cell in
+        messagePreference.configuration { row, cell in
             cell.textLabel?.textColor = PreferencesManager.tintColor
         }
 
 		// Call Recipient
 
-		let callPreference = JSMStaticSelectPreference.transientPreferenceWithKey("call-recipient")
-		callPreference.addObserver(self)
+		let callPreference = JSMStaticSelectPreference.transientPreference(withKey: "call-recipient")
+		callPreference.add(self)
 		sectionTwo.addRow(callPreference)
 
-        var callOptions: [[String: AnyObject]] = preferences.callOptions.map({ (option) in
-            return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option]
+        var callOptions: [[String: Any]] = preferences.callOptions.map({ (option) in
+            return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option] as [String: Any]
         })
-        callOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""])
+        callOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""] as [String: Any])
 
         callPreference.text = "Calls"
 		callPreference.value = preferences.callRecipient ?? ""
 		callPreference.options = callOptions
-		callPreference.configurationForCell { row, cell in
+		callPreference.configuration { row, cell in
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
 
         // FaceTime Recipient
         
-        let facetimePreference = JSMStaticSelectPreference.transientPreferenceWithKey("facetime-recipient")
-        facetimePreference.addObserver(self)
+        let facetimePreference = JSMStaticSelectPreference.transientPreference(withKey: "facetime-recipient")
+        facetimePreference.add(self)
         sectionTwo.addRow(facetimePreference)
         
-        var facetimeOptions: [[String: AnyObject]] = preferences.facetimeOptions.map({ (option) in
-            return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option]
+        var facetimeOptions: [[String: Any]] = preferences.facetimeOptions.map({ (option) in
+            return [JSMStaticSelectOptionLabel: option, JSMStaticSelectOptionValue: option] as [String: Any]
         })
-        facetimeOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""])
+        facetimeOptions.append([JSMStaticSelectOptionLabel: "None", JSMStaticSelectOptionValue: ""] as [String: Any])
         
         facetimePreference.text = "FaceTime"
         facetimePreference.value = preferences.facetimeRecipient ?? ""
         facetimePreference.options = facetimeOptions
-        facetimePreference.configurationForCell { row, cell in
+        facetimePreference.configuration { row, cell in
             cell.textLabel?.textColor = PreferencesManager.tintColor
         }
 
@@ -358,8 +395,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 	}
 
 	/// Refresh the messages section, removing if no message recipient is selected.
-	private func _messagesSection() -> JSMStaticSection? {
-		guard let preferences = self.preferences, let recipient = preferences.messageRecipient where recipient.characters.count > 0 else {
+	fileprivate func _messagesSection() -> JSMStaticSection? {
+		guard let preferences = self.preferences, let recipient = preferences.messageRecipient, recipient.characters.count > 0 else {
 			return nil
 		}
 
@@ -379,8 +416,8 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 		let row = JSMStaticRow(key: "add-message")
 		row.text = "Add Message"
-		row.editingStyle = .Insert
-		row.configurationForCell { row, cell in
+		row.editingStyle = .insert
+		row.configuration { row, cell in
 			cell.textLabel?.textColor = PreferencesManager.tintColor
 		}
 		section.addRow(row)
@@ -389,28 +426,28 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 	}
 
 	/// Generate a row for editing the content of a message.
-	private func _rowForMessage(message: String?, key: String) -> JSMStaticTextPreference {
-		let row = JSMStaticTextPreference.transientPreferenceWithKey(key)
+	fileprivate func _rowForMessage(_ message: String?, key: String) -> JSMStaticTextPreference {
+		let row = JSMStaticTextPreference.transientPreference(withKey: key)
 		row.value = message
 		row.textField?.placeholder = "Message Text"
-		row.textField?.returnKeyType = .Done
+		row.textField?.returnKeyType = .done
 		row.textField?.delegate = self
 		row.canBeMoved = true
-		row.editingStyle = .Delete
+		row.editingStyle = .delete
 		row.fitControlToCell = true
-		row.configurationForCell { row, cell in
+		row.configuration { row, cell in
 			if let preference = row as? JSMStaticTextPreference, let font = cell.textLabel?.font {
 				preference.textField?.font = font
 				preference.textField?.textColor = PreferencesManager.tintColor
 			}
 		}
-		row.addObserver(self)
+		row.add(self)
 		return row
 	}
 
 	/// Generates a list of messages in the messages section, and saves them, using the PreferencesManager.
-	private func _saveMessages() {
-		if let preferences = self.preferences, let rows = self.dataSource.sectionWithKey("messages")?.rows {
+	fileprivate func _saveMessages() {
+		if let preferences = self.preferences, let rows = self.dataSource.section(withKey: "messages")?.rows {
 			print("Saving messages...")
 
 			let values: [String?] = rows.map({
@@ -419,7 +456,7 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 					return nil
 				}
 
-				guard let value = preference.value where value.characters.count > 0 else {
+				guard let value = preference.value, value.characters.count > 0 else {
 					return nil
 				}
 
@@ -428,12 +465,12 @@ class SettingsViewController: JSMStaticTableViewController, JSMStaticPreferenceO
 
 			preferences.messages = values.flatMap({ $0 })
 
-			preferences.updateShortcutItems( UIApplication.sharedApplication() )
+			preferences.updateShortcutItems( UIApplication.shared )
 		}
 		else {
 			let message = "There was a problem with saving your messages. Maybe you can give it another shot?"
 			let alert = UIAlertController.alert(message)
-			self.presentViewController(alert, animated: true, completion: nil)
+			self.present(alert, animated: true, completion: nil)
 		}
 	}
 

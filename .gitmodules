@@ -1,6 +1,0 @@
-[submodule "Vendor/StaticTables"]
-	path = Vendor/StaticTables
-	url = https://github.com/jellybeansoup/ios-statictables.git
-[submodule "Vendor/Sherpa"]
-	path = Vendor/Sherpa
-	url = https://github.com/jellybeansoup/ios-sherpa.git

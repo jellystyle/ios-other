@@ -37,13 +37,13 @@ public extension UIView {
     func anchorWidth(to view: UIView, constant: CGFloat) {
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        let leading = self.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor)
+        let leading = self.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         leading.constant = constant
-        leading.active = true
+        leading.isActive = true
         
-        let trailing = self.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor)
+        let trailing = self.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         trailing.constant = -constant
-        trailing.active = true
+        trailing.isActive = true
     }
     
     @objc(anchorHeightToView:)
@@ -55,51 +55,51 @@ public extension UIView {
     func anchorHeight(to view: UIView, constant: CGFloat) {
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        let top = self.topAnchor.constraintEqualToAnchor(view.topAnchor)
+        let top = self.topAnchor.constraint(equalTo: view.topAnchor)
         top.constant = constant
-        top.active = true
+        top.isActive = true
         
-        let bottom = self.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor)
+        let bottom = self.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         bottom.constant = -constant
-        bottom.active = true
+        bottom.isActive = true
     }
     
     func anchorWidth(to view: UIView, withMaximum maximum: CGFloat, alignedTo alignment: AnchorAlignment) {
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        let widthConstraint = self.widthAnchor.constraintEqualToConstant(maximum)
+        let widthConstraint = self.widthAnchor.constraint(equalToConstant: maximum)
         widthConstraint.priority = UILayoutPriorityDefaultHigh
-        widthConstraint.active = true
+        widthConstraint.isActive = true
         
         switch alignment {
         case .leading:
-            self.leadingAnchor.constraintEqualToAnchor(view.leadingAnchor).active = true
+            self.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         case .center:
-            self.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
+            self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         case .trailing:
-            self.trailingAnchor.constraintEqualToAnchor(view.trailingAnchor).active = true
+            self.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         }
         
-        self.widthAnchor.constraintLessThanOrEqualToAnchor(view.widthAnchor).active = true
+        self.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor).isActive = true
     }
     
     func anchorHeight(to view: UIView, withMaximum maximum: CGFloat, alignedTo alignment: AnchorAlignment) {
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        let heightConstraint = self.heightAnchor.constraintEqualToConstant(maximum)
+        let heightConstraint = self.heightAnchor.constraint(equalToConstant: maximum)
         heightConstraint.priority = UILayoutPriorityDefaultHigh
-        heightConstraint.active = true
+        heightConstraint.isActive = true
         
         switch alignment {
         case .leading:
-            self.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
+            self.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         case .center:
-            self.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor).active = true
+            self.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         case .trailing:
-            self.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
+            self.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         }
         
-        self.heightAnchor.constraintLessThanOrEqualToAnchor(view.heightAnchor).active = true
+        self.heightAnchor.constraint(lessThanOrEqualTo: view.heightAnchor).isActive = true
     }
     
     // MARK: Layout guide constraints
@@ -125,13 +125,13 @@ public extension UIView {
     func anchorWidth(to layoutGuide: UILayoutGuide, constant: CGFloat) {
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        let leading = self.leadingAnchor.constraintEqualToAnchor(layoutGuide.leadingAnchor)
+        let leading = self.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor)
         leading.constant = constant
-        leading.active = true
+        leading.isActive = true
         
-        let trailing = self.trailingAnchor.constraintEqualToAnchor(layoutGuide.trailingAnchor)
+        let trailing = self.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor)
         trailing.constant = -constant
-        trailing.active = true
+        trailing.isActive = true
     }
     
     @objc(anchorHeightToLayoutGuide:)
@@ -143,51 +143,51 @@ public extension UIView {
     func anchorHeight(to layoutGuide: UILayoutGuide, constant: CGFloat) {
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        let top = self.topAnchor.constraintEqualToAnchor(layoutGuide.topAnchor)
+        let top = self.topAnchor.constraint(equalTo: layoutGuide.topAnchor)
         top.constant = constant
-        top.active = true
+        top.isActive = true
         
-        let bottom = self.bottomAnchor.constraintEqualToAnchor(layoutGuide.bottomAnchor)
+        let bottom = self.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor)
         bottom.constant = -constant
-        bottom.active = true
+        bottom.isActive = true
     }
     
     func anchorWidth(to layoutGuide: UILayoutGuide, withMaximum maximum: CGFloat, alignedTo alignment: AnchorAlignment) {
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        let widthConstraint = self.widthAnchor.constraintEqualToConstant(maximum)
+        let widthConstraint = self.widthAnchor.constraint(equalToConstant: maximum)
         widthConstraint.priority = UILayoutPriorityDefaultHigh
-        widthConstraint.active = true
+        widthConstraint.isActive = true
         
         switch alignment {
         case .leading:
-            self.leadingAnchor.constraintEqualToAnchor(layoutGuide.leadingAnchor).active = true
+            self.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor).isActive = true
         case .center:
-            self.centerXAnchor.constraintEqualToAnchor(layoutGuide.centerXAnchor).active = true
+            self.centerXAnchor.constraint(equalTo: layoutGuide.centerXAnchor).isActive = true
         case .trailing:
-            self.trailingAnchor.constraintEqualToAnchor(layoutGuide.trailingAnchor).active = true
+            self.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor).isActive = true
         }
         
-        self.widthAnchor.constraintLessThanOrEqualToAnchor(layoutGuide.widthAnchor).active = true
+        self.widthAnchor.constraint(lessThanOrEqualTo: layoutGuide.widthAnchor).isActive = true
     }
     
     func anchorHeight(to layoutGuide: UILayoutGuide, withMaximum maximum: CGFloat, alignedTo alignment: AnchorAlignment) {
         self.translatesAutoresizingMaskIntoConstraints = false
         
-        let heightConstraint = self.heightAnchor.constraintEqualToConstant(maximum)
+        let heightConstraint = self.heightAnchor.constraint(equalToConstant: maximum)
         heightConstraint.priority = UILayoutPriorityDefaultHigh
-        heightConstraint.active = true
+        heightConstraint.isActive = true
         
         switch alignment {
         case .leading:
-            self.topAnchor.constraintEqualToAnchor(layoutGuide.topAnchor).active = true
+            self.topAnchor.constraint(equalTo: layoutGuide.topAnchor).isActive = true
         case .center:
-            self.centerYAnchor.constraintEqualToAnchor(layoutGuide.centerYAnchor).active = true
+            self.centerYAnchor.constraint(equalTo: layoutGuide.centerYAnchor).isActive = true
         case .trailing:
-            self.bottomAnchor.constraintEqualToAnchor(layoutGuide.bottomAnchor).active = true
+            self.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor).isActive = true
         }
         
-        self.heightAnchor.constraintLessThanOrEqualToAnchor(layoutGuide.heightAnchor).active = true
+        self.heightAnchor.constraint(lessThanOrEqualTo: layoutGuide.heightAnchor).isActive = true
     }
     
 }
