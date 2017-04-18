@@ -2,7 +2,7 @@
 
 An app for making single-recipient communication a little faster.
 
-<img src="https://raw.githubusercontent.com/jellybeansoup/ios-melissa/master/Screenshots/screenshot-1.png" width="225" height="400" /> <img src="https://raw.githubusercontent.com/jellybeansoup/ios-melissa/master/Screenshots/screenshot-2.png" width="225" height="400" /> <img src="https://raw.githubusercontent.com/jellybeansoup/ios-melissa/master/Screenshots/screenshot-3.png" width="225" height="400" />
+<img src="https://raw.githubusercontent.com/jellybeansoup/ios-melissa/master/Screenshots/screenshot-1.jpg" width="225" height="400" /> <img src="https://raw.githubusercontent.com/jellybeansoup/ios-melissa/master/Screenshots/screenshot-2.jpg" width="225" height="400" /> <img src="https://raw.githubusercontent.com/jellybeansoup/ios-melissa/master/Screenshots/screenshot-3.jpg" width="225" height="400" />
 
 After the death of [FastText](http://www.caseyliss.com/2014/12/13/fast-text-discontinued), 
 I needed replacement app for sending a message to my wife without too much effort.
