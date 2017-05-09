@@ -67,7 +67,7 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 	}
 
 	fileprivate var handling = false
-	
+
 	fileprivate func handleExtensionRequest() {
 		guard let context = self.extensionContext else {
 			return
@@ -152,13 +152,13 @@ class ShareViewController: UIViewController, MFMessageComposeViewControllerDeleg
 								else if let url = item as? URL {
 									let text = url.absoluteString
 									print("[ShareViewController] Attaching as text…")
-                                    let body = [messageController.body, text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)].flatMap { $0 }.filter { !$0.isEmpty }.joined(separator: " ")
+									let body = [messageController.body, text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)].flatMap { $0 }.filter { !$0.isEmpty }.joined(separator: " ")
 									messageController.body = body
 								}
 								else if let text = item as? String {
 									print("[ShareViewController] Attaching as text…")
-                                    let body = [messageController.body, text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)].flatMap { $0 }.filter { !$0.isEmpty }.joined(separator: " ")
-                                    messageController.body = body
+									let body = [messageController.body, text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)].flatMap { $0 }.filter { !$0.isEmpty }.joined(separator: " ")
+									messageController.body = body
 								}
 								else if let data = item as? Data, let ext = UTTypeCopyPreferredTagWithClass(typeIdentifier, kUTTagClassFilenameExtension)?.takeRetainedValue() {
 									print("[ShareViewController] Attaching as data…")
